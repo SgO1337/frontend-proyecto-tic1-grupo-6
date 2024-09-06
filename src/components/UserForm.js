@@ -1,0 +1,60 @@
+// src/components/UserForm.js
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import { useParams } from 'react-router-dom';
+
+const UserForm = () => {
+  const [user, setUser] = useState({ username: '', email: '' });
+  const { id } = useParams(); // Get user ID from the route if editing
+
+  useEffect(() => {
+    if (id) {
+      // Fetch the user to edit
+      axios.get(`/api/users/view/${id}`)
+        .then(response => setUser(response.data))
+        .catch(error => console.error('Error fetching user!', error));
+    }
+  }, [id]);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    if (id) {
+      // Update existing user
+      axios.put(`/api/users/update/${id}`, user)
+        .then(() => window.location.href = '/')
+        .catch(error => console.error('Error updating user!', error));
+    } else {
+      // Create new user
+      axios.post('/api/users/create', user)
+        .then(() => window.location.href = '/')
+        .catch(error => console.error('Error creating user!', error));
+    }
+  };
+
+  return (
+    <div>
+      <h1>{id ? 'Edit User' : 'Create New User'}</h1>
+      <form onSubmit={handleSubmit}>
+        <input
+          type="text"
+          placeholder="Username"
+          value={user.username}
+          onChange={(e) => setUser({ ...user, username: e.target.value })}
+          required
+        />
+        <input
+          type="email"
+          placeholder="Email"
+          value={user.email}
+          onChange={(e) => setUser({ ...user, email: e.target.value })}
+          required
+        />
+        <button type="submit">{id ? 'Update User' : 'Create User'}</button>
+      </form>
+    </div>
+  );
+};
+
+export default UserForm;
+
