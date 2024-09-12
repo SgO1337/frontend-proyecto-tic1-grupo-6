@@ -3,14 +3,17 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import UserTable from './components/UserTable';
 import UserForm from './components/UserForm';
+import HomePage from './components/HomePage';
 
 const App = () => {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<UserTable />} />
-        <Route path="/create" element={<UserForm />} />
-        <Route path="/edit/:id" element={<UserForm />} />
+          <Route path="/" element={<HomePage />} /> {/* Página de inicio con la cartelera */}
+          <Route path="/app" element={<UserTable />} /> {/* Página principal */}
+          {/*<Route path="/login" element={<LoginPage />} /> {/* Página de inicio de sesión */}
+          <Route path="/create" element={<UserForm />} />
+          <Route path="/edit/:id" element={<UserForm />} />
       </Routes>
     </Router>
   );
