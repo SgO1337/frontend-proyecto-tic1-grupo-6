@@ -8,7 +8,7 @@ const HomePage = () => {
     const navigate = useNavigate();
 
     const handleLogin = () => {
-        navigate('/app'); // Redirige a la página principal
+        navigate('/login'); // Redirige a la página principal
     };
 
     return (

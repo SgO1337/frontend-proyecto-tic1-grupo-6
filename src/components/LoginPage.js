@@ -15,20 +15,29 @@ const LoginPage = () => {
     };
 
     // To handle the form submission
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
 
-        // Supongamos que estos son datos simulados para validación
-        const registeredEmail = "user@example.com"; // Email registrado simulado
-        const registeredPassword = "password123"; // Contraseña registrada simulada
+        try {
+            // checks if the email is registered
+            const response = await axios.post('/api/auth/login', user);
 
-        if (user.email !== registeredEmail) {
-            setError('El email no está registrado.');
-        } else if (user.password !== registeredPassword) {
-            setError('El email y la contraseña no coinciden.');
-        } else {
-            setError('');
-            navigate('/app'); // Redirige al usuario si el login es exitoso
+            if (response.data.success) {
+                // succesful login, redirect to the main page
+                navigate('/');
+            } else {
+                // show the error message
+                setError(response.data.message);
+            }
+        } catch (error) {
+            // Handle the error
+            if (error.response && error.response.status === 404) {
+                setError('El email no está registrado.');
+            } else if (error.response && error.response.status === 401) {
+                setError('El email y la contraseña no coinciden.');
+            } else {
+                setError('Ocurrió un error al iniciar sesión. Por favor, inténtalo de nuevo.');
+            }
         }
     };
 
@@ -59,6 +68,7 @@ const LoginPage = () => {
                 {error && <p style={{ color: 'red' }}>{error}</p>} {/* Muestra la advertencia de error */}
                 <button type="submit">Login</button>
             </form>
+            <p>Don't have an account? <a href="/signup">Sign Up</a></p>
         </div>
     );
 };

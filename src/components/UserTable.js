@@ -27,8 +27,8 @@ const UserTable = () => {
         <thead>
           <tr>
             <th>ID</th>
-            <th>Username</th>
             <th>Email</th>
+            <th>Password</th>
             <th>Actions</th>
           </tr>
         </thead>
@@ -36,8 +36,8 @@ const UserTable = () => {
           {users.map(user => (
             <tr key={user.id}>
               <td>{user.id}</td>
-              <td>{user.username}</td>
               <td>{user.email}</td>
+              <td>{user.password}</td>
               <td>
                 <button onClick={() => window.location.href=`/edit/${user.id}`}>Edit</button>
                 <button onClick={() => handleDelete(user.id)}>Delete</button>
