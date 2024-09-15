@@ -1,14 +1,86 @@
 /* public/styles.css o src/styles.css */
-.login-button {
-    background-color: #4CAF50; /* Verde */
-    border: none;
+body {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    height: 100vh;
+    background: linear-gradient(to bottom, #001f36, #000000);
+    margin: 0;
+}
+
+.login-container {
+    width: 600px; /* Increased width */
+    margin-top: 200px;
+    background: white;
+    padding: 40px; /* Increased padding */
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border: 1px solid #ccc;
+}
+
+.button-group {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.login-button, .signup-button {
+    background-color: #1c5560;
     color: white;
-    padding: 15px 32px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
+    border: none;
+    padding: 23px 100px; /* Increased padding */
+    border-radius: 5px;
     cursor: pointer;
-    border-radius: 4px;
+    /*width: 48%;*/
+}
+
+.login-button:hover, .signup-button:hover, .submit-button:hover {
+    background-color: #001f36;
+}
+
+.login-button.active, .signup-button.active {
+    background-color: #79ae92; /* Example color for active state */
+}
+
+.login-form .form-group {
+    margin-bottom: 20px; /* Increased margin */
+}
+
+.login-form label {
+    display: block;
+    margin-bottom: 10px; /* Increased margin */
+}
+
+.login-form input {
+    width: 100%;
+    padding: 10px; /* Increased padding */
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.submit-button {
+    width: 100%;
+    padding: 15px; /* Increased padding */
+    background-color: #1c5560;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.links {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.links a {
+    color: #3a6073;
+    text-decoration: none;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.links a:hover {
+    color: #001f36;
+    text-decoration: underline;
 }
