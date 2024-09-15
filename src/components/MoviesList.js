@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 const MoviesList = () => {
+    const [currentPage, setCurrentPage] = useState(0); // Actual page number
     const [movies, setMovies] = useState([]);
 
     useEffect(() => {
@@ -10,6 +11,28 @@ const MoviesList = () => {
             .then(response => setMovies(response.data))
             .catch(error => console.error('Error fetching movies!', error));
     }, []);
+
+    const moviesPerPage = 4; // How many per page
+
+    const availableMovies = movies.filter(movie => movie.isAvailable); // available movies
+
+    const totalPages = Math.ceil(availableMovies.length / moviesPerPage);
+
+    const handleNextPage = () => {
+        if (currentPage < totalPages - 1) {
+            setCurrentPage(currentPage + 1);
+        }
+    };
+
+    const handlePrevPage = () => {
+        if (currentPage > 0) {
+            setCurrentPage(currentPage - 1);
+        }
+    };
+
+    // Calculates which picture to show
+    const startIndex = currentPage * moviesPerPage;
+    const selectedMovies = availableMovies.slice(startIndex, startIndex + moviesPerPage);
 
     return (
         <div>

@@ -3,6 +3,7 @@ import {useNavigate, useParams} from 'react-router-dom';
 import './styles.css';
 import axios from "axios"; // Si quieres añadir estilos específicos
 
+
 const LoginPage = () => {
     const [user, setUser] = useState({ email: '', password: '' });
     const [error, setError] = useState(''); // Para almacenar mensajes de error

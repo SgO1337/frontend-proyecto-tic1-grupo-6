@@ -1,14 +1,149 @@
 /* public/styles.css o src/styles.css */
-.login-button {
-    background-color: #4CAF50; /* Verde */
-    border: none;
-    color: white;
-    padding: 15px 32px;
+/* Styles for the main page */
+
+
+body {
+    background: linear-gradient(to bottom, #001f36, #000000);
+    margin: 0;  /* Remove default margins */
+    padding: 0;
+    font-family: Arial, sans-serif;
+    min-height: 100vh;  /* Ensure the gradient covers the entire viewport */
+}
+
+.home-page {
+    padding: 20px;
+    font-family: Arial, sans-serif;
     text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
+}
+
+/* Navigation bar at the top */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #001f36;
+    padding: 10px 20px;
+    color: #FBFFCD;
+}
+
+.cine-name {
+    font-size: 24px;
+    margin: 0;
+}
+
+.Capital {
+    color: #79AE92;
+}
+
+.Lower {
+    color: #1C5560;
+}
+
+/* Styles for the buttons */
+.nav-button, .login-button, .dropdown-button {
+    background-color: #1C5560;
+    color: #FBFFCD;
+    border: none;
+    padding: 10px 20px;
     cursor: pointer;
-    border-radius: 4px;
+    margin-left: 10px;
+    font-size: 16px;
+}
+
+.nav-button:hover, .login-button:hover, .dropdown-button:hover {
+    background-color: #1C5560;
+}
+
+/* Styles for the dropdown menu */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-button {
+    background-color: #1C5560;
+    color: #FBFFCD;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+}
+
+.dropdown-menu {
+    display: block;
+    position: absolute;
+    background-color: #1C5560;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    width: 150px;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+.dropdown-menu li {
+    padding: 10px 15px;
+    cursor: pointer;
+    background-color: #FBFFCD;
+    color: black;
+    border-bottom: 1px solid #ddd;
+}
+
+.dropdown-menu li:hover {
+    background-color: #1C5560;
+}
+
+.dropdown-menu li:last-child {
+    border-bottom: none;
+}
+
+/* Styles for the main content */
+.content {
+    margin-top: 30px;
+    font-family: Arial, sans-serif;
+    color: #79AE92;
+
+}
+
+/* Styles for the movies container */
+.movies-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.movie-item {
+    width: 200px;
+    text-align: center;
+}
+
+.movie-item img {
+    width: 100%;
+    height: auto;
+}
+
+.movie-item h2 {
+    font-size: 18px;
+    color: #FBFFCD;
+    margin-top: 10px;
+}
+
+/* Styles for the pagination buttons */
+.pagination button {
+    padding: 10px 15px;
+    margin: 5px;
+    background-color: #555;
+    color: #001F36;
+    border: none;
+    cursor: pointer;
+}
+
+.pagination button:hover {
+    background-color: #FBFFCD;
+}
+
+.pagination button:disabled {
+    background-color: #FBFFCD;
+    cursor: not-allowed;
 }
