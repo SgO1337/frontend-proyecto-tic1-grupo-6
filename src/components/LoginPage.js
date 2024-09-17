@@ -56,7 +56,7 @@ const LoginPage = () => {
         <>
             <div className="title">
                 <h1>
-                    WTF
+                    WTF             {/*Agregar el logo de "WTF(un) Cinema" en la posicion del texto*/}
                 </h1>
             </div>
             <div className="login-container">
