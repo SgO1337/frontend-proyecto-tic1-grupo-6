@@ -27,7 +27,7 @@ const SignUpPage = () => {
             const response = await axios.post('/api/auth/login', user);
 
             if (response.data.success) {
-                // succesful login, redirect to the main page
+                // succesful sign up, redirect to the main page
                 navigate('/');
             } else {
                 // show the error message
@@ -35,10 +35,8 @@ const SignUpPage = () => {
             }
         } catch (error) {
             // Handle the error
-            if (error.response && error.response.status === 404) {
-                setError('El email no está registrado.');
-            } else if (error.response && error.response.status === 401) {
-                setError('El email y la contraseña no coinciden.');
+            if (error.response && error.response.status === 409) {
+                setError('El email ya está registrado.');
             } else {
                 setError('Ocurrió un error al iniciar sesión. Por favor, inténtalo de nuevo.');
             }
