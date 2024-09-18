@@ -55,9 +55,7 @@ const LoginPage = () => {
     return (
         <>
             <div className="title">
-                <h1>
-                    WTF             {/*Agregar el logo de "WTF(un) Cinema" en la posicion del texto*/}
-                </h1>
+                <img src="/TituloTic1Logo2.png" alt="Title Logo"></img>
             </div>
             <div className="login-container">
                 <div className="button-group">
@@ -68,13 +66,25 @@ const LoginPage = () => {
                 </div>
                 <form className="login-form" onSubmit={handleSubmit}>
                     <div className="form-group">
-                        <label htmlFor="email">Email Address:</label>
-                        <input type="email" id="email" name="email" onChange={handleChange} />
+                        <label htmlFor="email">Email Address</label>
+                        <input
+                            placeholder="johndoe@gmail.com"
+                            type="email"
+                            id="email"
+                            name="email"
+                            onChange={handleChange}
+                        />
                     </div>
                     <div className="form-group">
-                        <label htmlFor="password">Password:</label>
-                        <input type="password" id="password" name="password" onChange={handleChange} />
-                        <br />
+                        <label htmlFor="password">Password</label>
+                        <input
+                            placeholder="password"
+                            type="password"
+                            id="password"
+                            name="password"
+                            onChange={handleChange}
+                        />
+                        <br/><br/>
                         <Link to="/forgot-password">Forgot password?</Link>
                     </div>
                     <button type="submit" className="submit-button">Login</button>

@@ -4,11 +4,12 @@ body {
     justify-content: center;
     align-items: flex-start;
     height: 100vh;
-    background: linear-gradient(to bottom, #001f36, #000000);
+    background: #001f36;
     margin: 0;
 }
 
 .login-container {
+    margin-left: 15%;
     width: 600px; /* Increased width */
     margin-top: 200px;
     background: white;
@@ -28,9 +29,10 @@ body {
     background-color: #1c5560;
     color: white;
     border: none;
-    padding: 23px 100px; /* Increased padding */
+    padding: 13px 80px; /* Increased padding */
     border-radius: 5px;
     cursor: pointer;
+    font-size: 24px;
     /*width: 48%;*/
 }
 
@@ -61,11 +63,13 @@ body {
 .submit-button {
     width: 100%;
     padding: 15px; /* Increased padding */
+    font-size: 24px;
     background-color: #1c5560;
     color: white;
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    margin-top: 8px;
 }
 
 .links {
@@ -82,5 +86,34 @@ body {
 
 .links a:hover {
     color: #001f36;
-    text-decoration: underline;
+}
+
+.form-row {
+    display: flex;
+    gap: 40px; /* Space between the name and surname inputs */
+}
+
+.form-group {
+    flex: 1; /* Makes each input take equal space */
+}
+
+.error-message {
+    color: red;
+    margin-top: 10px;
+}
+
+/* Remove underline from the Forgot Password link */
+a {
+    text-decoration: none;
+}
+
+/* If you want to target just the Forgot Password link */
+a[href="/forgot-password"] {
+    color: #417680;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+a[href="/forgot-password"]:hover {
+    color: #104166;
 }
