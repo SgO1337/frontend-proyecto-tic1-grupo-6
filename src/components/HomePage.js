@@ -2,7 +2,7 @@
 import React, {useEffect} from 'react';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './styles.css'; // Si quieres añadir estilos específicos
+import './stylesHomePage.css'; // Si quieres añadir estilos específicos
 import MoviesList from './MoviesList';
 import axios from "axios";
 
@@ -16,8 +16,8 @@ const HomePage = () => {
     };
 
     const handleViewChange = (newView) => {
-        setView(newView);  // Actualiza la vista seleccionada
-        setDropdownOpen(false);  // Cierra el dropdown después de seleccionar
+        setView(newView);
+        setDropdownOpen(false);  // Close dropdown after choosing
     };
 
     return (
@@ -57,13 +57,13 @@ const HomePage = () => {
             <div className="content">
                 {view === 'billboard' ? (
                     <div>
-                        <h2>FILMS AVAILABLE</h2>
+                        <h2>ON SCREEN</h2>
                         <MoviesList/>
                     </div>
                 ) : (
                     <div>
                         <h2>Snacks</h2>
-                        <p>Snacks page</p>
+                        <p>MENU</p>
                     </div>
                 )}
             </div>

@@ -1,0 +1,249 @@
+/* public/stylesHomePage.css o src/stylesHomePage.css */
+/* Styles for the main page */
+
+
+body {
+    background: linear-gradient(to bottom, #001f36, #000000);
+    margin: 0;  /* Remove default margins */
+    padding: 0;
+    font-family: Arial, sans-serif;
+    min-height: 100vh;  /* Ensure the gradient covers the entire viewport */
+}
+
+.home-page {
+    padding: 0px;
+    font-family: Arial, sans-serif;
+    text-align: center;
+}
+
+/* Navigation bar at the top */
+.navbar {
+    display: flex;
+    background-color: #1C5560;
+    padding: 0px 0px;
+    color: #FBFFCD;
+    text-align: center;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+
+}
+
+.cine-name {
+    font-size: 24px;
+    margin:20px ;
+}
+
+.Capital {
+    color: #FBFFCD;
+}
+
+.Lower {
+    color: #79AE92;
+}
+
+/* Styles for the buttons */
+.nav-button {
+    display: inline-block;
+    background-color: #144450;
+    color: #FBFFCD;
+    border: none;
+    padding: 10px 20px;
+    justify-content: right;
+    cursor: pointer;
+    margin-left: 10px;
+    font-size: 16px;
+}
+
+.login-button {
+    display: inline-block;
+    background-color: #144450;
+    color: #FBFFCD;
+    border: none;
+    padding: 10px 20px;
+    justify-content: right;
+    cursor: pointer;
+    margin-left: 20px;
+    font-size: 16px;
+}
+
+.dropdown-button {
+    background-color: #144450;
+    color: #FBFFCD;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    text-align: center;
+    justify-content: center;
+    font-size: 16px;
+
+}
+
+.nav-button:hover, .login-button:hover, .dropdown-button:hover {
+    background-color:#144450;
+}
+
+/* Styles for the dropdown menu */
+.dropdown {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.dropdown-button {
+    background-color: #144450;
+    color: #FBFFCD;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    text-align: center;
+}
+
+.dropdown-menu {
+    display: block;
+    position: absolute;
+    background-color: #1C5560;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    width: 150px;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+.dropdown-menu li {
+    padding: 10px 15px;
+    cursor: pointer;
+    background-color: #FBFFCD;
+    color: black;
+    border-bottom: 1px solid #ddd;
+}
+
+.dropdown-menu li:hover {
+    background-color: #1C5560;
+}
+
+.dropdown-menu li:last-child {
+    border-bottom: none;
+}
+
+/* Styles for the main content */
+.content {
+    margin-top: 30px;
+    font-family: Arial, sans-serif;
+    color: #79AE92;
+    justify-content: center;
+
+}
+
+/* Styles for the movies container */
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    padding: 20px;
+}
+
+.movies-grid {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.movies-list {
+    display: flex;
+    flex-wrap: wrap;              /* Permite que las películas se ubiquen en múltiples filas */
+    justify-content: center;      /* Centra las películas horizontalmente */
+    gap: 30px;                    /* Espacio entre las tarjetas */
+    margin-top: 20px;
+}
+
+.movie-item {
+    display: flex;
+    flex-direction: column;       /* Coloca los elementos en una columna (imagen, título, botón) */
+    align-items: center;          /* Centra horizontalmente los elementos */
+    width: 200px;                 /* Fija el ancho del contenedor */
+    height: 100%;                /* Fija la altura de las tarjetas */
+    padding: 10px;
+    background-color: #1C5560;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
+    justify-content: space-between;
+}
+
+.movie-item img {
+    max-width: 100%;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 8px;
+
+}
+
+/*title*/
+.movie-item h2 {
+    text-align: center;
+    margin: 10px 0;
+    font-size: 14px;
+    height: 40px;
+}
+
+.buy-button {
+    color: #1C5560;
+    background-color: #FBFFCD;
+    border: none;
+    padding: 12px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    text-align: center;
+    transition: background-color 0.3s ease;
+    position: relative;
+    margin-top: auto;
+    bottom: 10px;
+    height: 40px;
+}
+
+/* Efecto hover (al pasar el mouse por encima) */
+.buy-button:hover {
+    background-color: #144450;   /* Color de fondo al pasar el mouse */
+    color: #FBFFCD;
+}
+
+/* Styles for the arrows */
+
+.arrow-button {
+    background-color: transparent;
+    border: none;
+    font-size: 50px;
+    cursor: pointer;
+    color: #FBFFCD;
+}
+
+.arrow-button:disabled {
+    color: #001f36;
+    cursor: not-allowed;
+}
+
+/* Styles for the pagination buttons */
+.pagination button {
+    padding: 10px 15px;
+    margin: 5px;
+    background-color: #001f36;
+    color: #001F36;
+    border: none;
+    cursor: pointer;
+}
+
+.pagination button:hover {
+    background-color: #FBFFCD;
+}
+
+.pagination button:disabled {
+    background-color: #FBFFCD;
+    cursor: not-allowed;
+}

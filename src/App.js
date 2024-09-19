@@ -16,6 +16,7 @@ const App = () => {
           <Route path="/create" element={<UserForm />} />
           <Route path="/edit/:id" element={<UserForm />} />
           <Route path="/signup" element={<UserForm />} />
+          <Route path={'/select/${movieId}'} />
       </Routes>
     </Router>
   );

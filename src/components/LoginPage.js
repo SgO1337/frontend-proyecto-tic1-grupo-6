@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {useNavigate, useParams} from 'react-router-dom';
-import './styles.css';
+import './stylesHomePage.css';
 import axios from "axios"; // Si quieres añadir estilos específicos
 
 
