@@ -4,29 +4,38 @@
 
 body {
     background: linear-gradient(to bottom, #001f36, #000000);
-    margin: 0;  /* Remove default margins */
+    margin: 0;
     padding: 0;
     font-family: Arial, sans-serif;
-    min-height: 100vh;  /* Ensure the gradient covers the entire viewport */
+    min-height: 100vh;
 }
 
 .home-page {
     padding: 0px;
     font-family: Arial, sans-serif;
     text-align: center;
+    left: 0;
+    right: 0;
+    box-sizing: border-box;
+    width: 100%;
+
 }
 
 /* Navigation bar at the top */
 .navbar {
     display: flex;
     background-color: #1C5560;
-    padding: 0px 0px;
+    padding: 0px;
     color: #FBFFCD;
     text-align: center;
     justify-content: space-between;
     align-items: center;
-    position: relative;
-
+    position: fixed;
+    width: 100%;
+    top:0;
+    left:0;
+    right: 0;
+    box-sizing: border-box;
 }
 
 .cine-name {
@@ -43,7 +52,8 @@ body {
 }
 
 /* Styles for the buttons */
-.nav-button {
+
+.hlogin-button {
     display: inline-block;
     background-color: #144450;
     color: #FBFFCD;
@@ -51,35 +61,12 @@ body {
     padding: 10px 20px;
     justify-content: right;
     cursor: pointer;
-    margin-left: 10px;
-    font-size: 16px;
+    margin-left: 2%;
+    font-size: 100%;
 }
 
-.login-button {
-    display: inline-block;
-    background-color: #144450;
-    color: #FBFFCD;
-    border: none;
-    padding: 10px 20px;
-    justify-content: right;
-    cursor: pointer;
-    margin-left: 20px;
-    font-size: 16px;
-}
 
-.dropdown-button {
-    background-color: #144450;
-    color: #FBFFCD;
-    border: none;
-    padding: 10px 20px;
-    cursor: pointer;
-    text-align: center;
-    justify-content: center;
-    font-size: 16px;
-
-}
-
-.nav-button:hover, .login-button:hover, .dropdown-button:hover {
+.login-button:hover, .dropdown-button:hover {
     background-color:#144450;
 }
 
@@ -96,7 +83,7 @@ body {
     padding: 10px 20px;
     border: none;
     cursor: pointer;
-    font-size: 16px;
+    font-size: 100%;
     text-align: center;
 }
 
@@ -104,8 +91,6 @@ body {
     display: block;
     position: absolute;
     background-color: #1C5560;
-    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
-    z-index: 1;
     width: 150px;
     padding: 0;
     margin: 0;
@@ -113,15 +98,15 @@ body {
 }
 
 .dropdown-menu li {
-    padding: 10px 15px;
+    padding: 4% 6%;
     cursor: pointer;
     background-color: #FBFFCD;
-    color: black;
-    border-bottom: 1px solid #ddd;
+    color: #1c5560;
 }
 
 .dropdown-menu li:hover {
     background-color: #1C5560;
+    color: #FBFFCD;
 }
 
 .dropdown-menu li:last-child {
@@ -130,47 +115,56 @@ body {
 
 /* Styles for the main content */
 .content {
-    margin-top: 30px;
+    margin-top: 7%;
     font-family: Arial, sans-serif;
     color: #79AE92;
     justify-content: center;
-
 }
 
 /* Styles for the movies container */
-.container {
+.title-container {
+    text-align: center;
+    margin-bottom: 2%;
+}
+
+.title-container h2 {
+    color: #FBFFCD;
+    font-size: 200%;
+    margin: 0;
+}
+
+.movies-pagination {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 20px;
-    padding: 20px;
+    gap: 1%;
+    padding: 1%;
 }
 
 .movies-grid {
     display: flex;
     justify-content: center;
-    gap: 16px;
-    flex-wrap: wrap;
+    gap: 1%;
+    flex-wrap: nowrap;
 }
 
 .movies-list {
     display: flex;
-    flex-wrap: wrap;              /* Permite que las películas se ubiquen en múltiples filas */
-    justify-content: center;      /* Centra las películas horizontalmente */
-    gap: 30px;                    /* Espacio entre las tarjetas */
-    margin-top: 20px;
+    flex-wrap: nowrap;
+    justify-content: center;
+    gap: 2%;
+    margin-top: 2%;
 }
 
 .movie-item {
     display: flex;
     flex-direction: column;       /* Coloca los elementos en una columna (imagen, título, botón) */
     align-items: center;          /* Centra horizontalmente los elementos */
-    width: 200px;                 /* Fija el ancho del contenedor */
+    width: 100%;                 /* Fija el ancho del contenedor */
     height: 100%;                /* Fija la altura de las tarjetas */
-    padding: 10px;
+    padding: 1%;
     background-color: #1C5560;
-    border-radius: 8px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 4%;
     box-sizing: border-box;
     justify-content: space-between;
 }
@@ -183,11 +177,11 @@ body {
 
 }
 
-/*title*/
+/*movie - title*/
 .movie-item h2 {
     text-align: center;
-    margin: 10px 0;
-    font-size: 14px;
+    margin: 4% 5%;
+    font-size: 100%;
     height: 40px;
 }
 
@@ -195,17 +189,17 @@ body {
     color: #1C5560;
     background-color: #FBFFCD;
     border: none;
-    padding: 12px;
-    font-size: 16px;
-    border-radius: 5px;
+    padding: 5%;
+    font-size: 100%;
+    border-radius: 8%;
     cursor: pointer;
     width: 100%;
     text-align: center;
     transition: background-color 0.3s ease;
     position: relative;
     margin-top: auto;
-    bottom: 10px;
-    height: 40px;
+    bottom: 3%;
+    height: 10%;
 }
 
 /* Efecto hover (al pasar el mouse por encima) */
@@ -219,7 +213,7 @@ body {
 .arrow-button {
     background-color: transparent;
     border: none;
-    font-size: 50px;
+    font-size: 300%;
     cursor: pointer;
     color: #FBFFCD;
 }
@@ -229,21 +223,3 @@ body {
     cursor: not-allowed;
 }
 
-/* Styles for the pagination buttons */
-.pagination button {
-    padding: 10px 15px;
-    margin: 5px;
-    background-color: #001f36;
-    color: #001F36;
-    border: none;
-    cursor: pointer;
-}
-
-.pagination button:hover {
-    background-color: #FBFFCD;
-}
-
-.pagination button:disabled {
-    background-color: #FBFFCD;
-    cursor: not-allowed;
-}

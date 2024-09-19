@@ -57,7 +57,7 @@ const MoviesList = () => {
                id: 8,
                 title: 'Rápidos y furiosos 9',
                 posterUrl: 'https://static.wixstatic.com/media/d56791_a520ebeb2d3647d1910d54a4a5072cb9~mv2.jpeg/v1/fill/w_687,h_974,al_c,q_85,enc_auto/d56791_a520ebeb2d3647d1910d54a4a5072cb9~mv2.jpeg',
-                isAvailable: false,
+                isAvailable: true,
             }
         ];
 
@@ -107,36 +107,44 @@ const MoviesList = () => {
     };
 
     return (
-        <div className="container">
 
-            <button onClick={handlePrevPage} className="arrow-button">
-                ←
-            </button>
+        <div className="movies-container">
 
-            <div className="movies-grid">
-                {movies.length > 0 ? (
-                    selectedMovies.map(movie => (
-                        <div key={movie.id} className="movie-item">
-                            <img
-                                src={movie.posterUrl}
-                                alt={movie.title}
-                                className="movie-poster"
-                            />
-                            <h2 className="movie-title">{movie.title}</h2>
-                            <button className="buy-button" onClick={() => handleSelectMovie(movie.id)}>
-                                BUY TICKETS
-                            </button>
-                        </div>
-                    ))
-                ) : (
-                    <p>No movies available</p>
-                )}
+            <div className="title-container">
+                <h2>ON SCREEN</h2> {/* Este título estará centrado y encima de las flechas */}
             </div>
 
-            <button onClick={handleNextPage} className="arrow-button">
-                →
-            </button>
+            <div className="movies-pagination">
 
+                <button onClick={handlePrevPage} className="arrow-button">
+                    ←
+                </button>
+
+                <div className="movies-grid">
+                    {movies.length > 0 ? (
+                        selectedMovies.map(movie => (
+                            <div key={movie.id} className="movie-item">
+                                <img
+                                    src={movie.posterUrl}
+                                    alt={movie.title}
+                                    className="movie-poster"
+                                />
+                                <h2 className="movie-title">{movie.title}</h2>
+                                <button className="buy-button" onClick={() => handleSelectMovie(movie.id)}>
+                                    BUY TICKETS
+                                </button>
+                            </div>
+                        ))
+                    ) : (
+                        <p>No movies available</p>
+                    )}
+                </div>
+
+                <button onClick={handleNextPage} className="arrow-button">
+                    →
+                </button>
+
+            </div>
         </div>
     );
 };

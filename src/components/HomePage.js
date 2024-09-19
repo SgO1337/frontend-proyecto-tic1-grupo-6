@@ -48,7 +48,7 @@ const HomePage = () => {
                 </div>
                 {/* Placeholder for filters*/}
 
-                <button className="login-button" onClick={handleLogin}>
+                <button className="hlogin-button" onClick={handleLogin}>
                     Login
                 </button>
             </div>
@@ -57,7 +57,6 @@ const HomePage = () => {
             <div className="content">
                 {view === 'billboard' ? (
                     <div>
-                        <h2>ON SCREEN</h2>
                         <MoviesList/>
                     </div>
                 ) : (
