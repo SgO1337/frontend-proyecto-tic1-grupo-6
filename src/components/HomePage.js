@@ -1,7 +1,7 @@
 // src/components/HomePage.js
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import './styles.css'; // Si quieres añadir estilos específicos
+import './styleRegisterPage.css'; // Si quieres añadir estilos específicos
 import MoviesList from './MoviesList';
 
 const HomePage = () => {
