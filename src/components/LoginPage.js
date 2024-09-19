@@ -73,6 +73,7 @@ const LoginPage = () => {
                             id="email"
                             name="email"
                             onChange={handleChange}
+                            required
                         />
                     </div>
                     <div className="form-group">
@@ -83,6 +84,7 @@ const LoginPage = () => {
                             id="password"
                             name="password"
                             onChange={handleChange}
+                            required
                         />
                         <br/><br/>
                         <Link to="/forgot-password">Forgot password?</Link>

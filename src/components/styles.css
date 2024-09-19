@@ -3,13 +3,15 @@ body {
     display: flex;
     justify-content: center;
     align-items: flex-start;
-    height: 100vh;
+    height: 120vh;
     background: #001f36;
     margin: 0;
 }
 
 .login-container {
-    margin-left: 15%;
+    position: absolute; /* Allows precise positioning */
+    top: 10%; /* Move to the vertical center of the viewport */
+    left: 32%; /* Move to the horizontal center of the viewport */
     width: 600px; /* Increased width */
     margin-top: 200px;
     background: white;
@@ -116,4 +118,32 @@ a[href="/forgot-password"] {
 
 a[href="/forgot-password"]:hover {
     color: #104166;
+}
+
+/* Style the select dropdowns */
+.birthday-selector select {
+    font-size: 18px; /* Increase the font size */
+    padding: 10px;   /* Increase the padding */
+    width: 120px;    /* Adjust the width */
+    margin-right: 10px; /* Space between the selects */
+    border-radius: 5px; /* Add some rounding for aesthetics */
+    border: 1px solid #ccc; /* Light border */
+}
+
+/* Hide the "Day", "Month", and "Year" option once the user opens the dropdown */
+.birthday-selector select:focus option[value=""] {
+    display: none; /* Hide the default option on focus */
+}
+
+/* Optional: Add a hover effect */
+.birthday-selector select:hover {
+    border-color: #888;
+}
+
+/* Adjust the form group to center the dropdowns */
+.birthday-selector {
+    display: flex;
+    justify-content: space-between;
+    max-width: 400px;
+    margin-bottom: 20px;
 }

@@ -4,7 +4,17 @@ import './styles.css';
 import axios from "axios";
 
 const SignUpPage = () => {
-    const [user, setUser] = useState({ name: '', surname: '', email: '', password: '', reEnteredPassword: '' });
+    const [user, setUser] = useState({
+        name: '',
+        surname: '',
+        email: '',
+        password: '',
+        reEnteredPassword: '',
+        identification: '',
+        day: '',
+        month: '',
+        year: '' // Fields for day, month, and year
+    });
     const [error, setError] = useState(''); // To store error messages
     const [currentPage, setCurrentPage] = useState(''); // Track the current page
     const navigate = useNavigate(); // Hook for navigation
@@ -21,34 +31,40 @@ const SignUpPage = () => {
         event.preventDefault();
         console.log('Form submitted');
 
-        // Basic name and surname validation
+        // Validate name, surname, and birthday
         const namePattern = /^[a-zA-Z\s]+$/;
         if (!user.name) {
             setError('Name cannot be empty');
-            return; // Stop form submission
+            return;
         } else if (!namePattern.test(user.name)) {
             setError('Name can only contain letters and spaces');
-            return; // Stop form submission
+            return;
         } else if (user.name.length < 2 || user.name.length > 50) {
             setError('Name should be between 2 and 50 characters');
-            return; // Stop form submission
+            return;
         }
 
         if (!user.surname) {
             setError('Surname cannot be empty');
-            return; // Stop form submission
+            return;
         } else if (!namePattern.test(user.surname)) {
             setError('Surname can only contain letters and spaces');
-            return; // Stop form submission
+            return;
         } else if (user.surname.length < 2 || user.surname.length > 50) {
             setError('Surname should be between 2 and 50 characters');
-            return; // Stop form submission
+            return;
+        }
+
+        // Validate birthday
+        if (!user.day || !user.month || !user.year) {
+            setError('Please select a valid birthday');
+            return;
         }
 
         // Check if password and re-entered password match
         if (user.password !== user.reEnteredPassword) {
             setError('The passwords do not match');
-            return; // Stop form submission
+            return;
         }
 
         // Submit the form if validation passes
@@ -58,6 +74,7 @@ const SignUpPage = () => {
                 surname: user.surname,
                 email: user.email,
                 password: user.password,
+                birthday: `${user.year}-${user.month}-${user.day}` // Send birthday in YYYY-MM-DD format
             });
 
             if (response.data.success) {
@@ -72,6 +89,25 @@ const SignUpPage = () => {
                 setError('Ocurrió un error al registrarse. Por favor, inténtalo de nuevo.');
             }
         }*/
+    };
+
+    // Generate options for day, month, and year dropdowns
+    const renderDayOptions = () => {
+        const daysInMonth = new Date(user.year || 2000, user.month || 1, 0).getDate();
+        return Array.from({ length: daysInMonth }, (_, i) => <option key={i + 1} value={i + 1}>{i + 1}</option>);
+    };
+
+    const renderMonthOptions = () => {
+        const monthNames = [
+            'January', 'February', 'March', 'April', 'May', 'June',
+            'July', 'August', 'September', 'October', 'November', 'December'
+        ];
+        return monthNames.map((month, index) => <option key={index + 1} value={index + 1}>{month}</option>);
+    };
+
+    const renderYearOptions = () => {
+        const currentYear = new Date().getFullYear();
+        return Array.from({ length: 100 }, (_, i) => <option key={i} value={currentYear - i}>{currentYear - i}</option>);
     };
 
     useEffect(() => {
@@ -132,9 +168,41 @@ const SignUpPage = () => {
                             onChange={handleChange}
                             required
                         />
-                        <br/><br/><br/>
                     </div>
                     <div className="form-group">
+                        <label htmlFor="identification">I.D.</label>
+                        <input
+                            placeholder="12345678"
+                            type="text"
+                            id="identification"
+                            name="identification"
+                            value={user.identification}
+                            onChange={handleChange}
+                            required
+                        />
+                    </div>
+
+                    {/* Birthday Selector */}
+                    <div className="form-group">
+                        <label htmlFor="birthday">Birthday</label>
+                        <div className="birthday-selector">
+                            <select name="day" value={user.day} onChange={handleChange} required>
+                                <option value="">Day</option>
+                                {renderDayOptions()}
+                            </select>
+                            <select name="month" value={user.month} onChange={handleChange} required>
+                                <option value="">Month</option>
+                                {renderMonthOptions()}
+                            </select>
+                            <select name="year" value={user.year} onChange={handleChange} required>
+                                <option value="">Year</option>
+                                {renderYearOptions()}
+                            </select>
+                        </div>
+                    </div>
+
+                    <div className="form-group">
+                        <br/>
                         <label htmlFor="password">Password</label>
                         <input
                             placeholder="password"
@@ -145,7 +213,6 @@ const SignUpPage = () => {
                             onChange={handleChange}
                             required
                         />
-                        <br/>
                     </div>
                     <div className="form-group">
                         <label htmlFor="reEnteredPassword">Re-Enter Password</label>
@@ -158,7 +225,6 @@ const SignUpPage = () => {
                             onChange={handleChange}
                             required
                         />
-                        <br/><br/>
                     </div>
                     {error && <div className="error-message">{error}</div>} {/* Show error message */}
                     <button type="submit" className="submit-button">Sign Up</button>
