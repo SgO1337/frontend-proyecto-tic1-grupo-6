@@ -107,9 +107,9 @@ const MoviesList = () => {
     };
 
     return (
-        <div className="container">
+        <div className="movies-container">
 
-            <button onClick={handlePrevPage} className="arrow-button">
+            <button onClick={handlePrevPage} className="left-arrow">
                 ←
             </button>
 
@@ -133,7 +133,7 @@ const MoviesList = () => {
                 )}
             </div>
 
-            <button onClick={handleNextPage} className="arrow-button">
+            <button onClick={handleNextPage} className="right-arrow">
                 →
             </button>
 

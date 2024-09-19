@@ -37,7 +37,7 @@ const HomePage = () => {
 
                 <div className="dropdown">
                     <button className="dropdown-button" onClick={() => setDropdownOpen(!dropdownOpen)}>
-                        {view === 'billboard' ? 'Billboard' : 'Snacks'} {/* Muestra la opción seleccionada */}
+                        {view === 'billboard' ? 'Billboard' : 'Snacks'}
                     </button>
                     {dropdownOpen && (
                         <ul className="dropdown-menu">
@@ -46,9 +46,10 @@ const HomePage = () => {
                         </ul>
                     )}
                 </div>
+
                 {/* Placeholder for filters*/}
 
-                <button className="login-button" onClick={handleLogin}>
+                <button className="hlogin-button" onClick={handleLogin}>
                     Login
                 </button>
             </div>
