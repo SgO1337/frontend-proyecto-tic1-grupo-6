@@ -5,6 +5,7 @@ import UserTable from './components/UserTable';
 import UserForm from './components/UserForm';
 import HomePage from './components/HomePage';
 import LoginPage from './components/LoginPage';
+import SignUpPage from './components/SignUpPage';
 
 const App = () => {
   return (
@@ -13,10 +14,14 @@ const App = () => {
           <Route path="/" element={<HomePage />} /> {/* Página de inicio con la cartelera */}
           <Route path="/app" element={<UserTable />} /> {/* Página principal */}
           <Route path="/login" element={<LoginPage />} /> {/* Página de inicio de sesión*/ }
+          <Route path="/signup" element={<SignUpPage />} /> {/* Página de registro de usuarios*/ }
           <Route path="/create" element={<UserForm />} />
           <Route path="/edit/:id" element={<UserForm />} />
+<<<<<<< HEAD
           <Route path="/signup" element={<UserForm />} />
           <Route path={'/select/${movieId}'} />
+=======
+>>>>>>> loginpage
       </Routes>
     </Router>
   );

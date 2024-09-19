@@ -1,0 +1,149 @@
+/* public/styleRegisterPage.css o src/styleRegisterPage.css */
+body {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    height: 120vh;
+    background: #001f36;
+    margin: 0;
+}
+
+.login-container {
+    position: absolute; /* Allows precise positioning */
+    top: 10%; /* Move to the vertical center of the viewport */
+    left: 32%; /* Move to the horizontal center of the viewport */
+    width: 600px; /* Increased width */
+    margin-top: 200px;
+    background: white;
+    padding: 40px; /* Increased padding */
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border: 1px solid #ccc;
+}
+
+.button-group {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.login-button, .signup-button {
+    background-color: #1c5560;
+    color: white;
+    border: none;
+    padding: 13px 80px; /* Increased padding */
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 24px;
+    /*width: 48%;*/
+}
+
+.login-button:hover, .signup-button:hover, .submit-button:hover {
+    background-color: #001f36;
+}
+
+.login-button.active, .signup-button.active {
+    background-color: #79ae92; /* Example color for active state */
+}
+
+.login-form .form-group {
+    margin-bottom: 20px; /* Increased margin */
+}
+
+.login-form label {
+    display: block;
+    margin-bottom: 10px; /* Increased margin */
+}
+
+.login-form input {
+    width: 100%;
+    padding: 10px; /* Increased padding */
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.submit-button {
+    width: 100%;
+    padding: 15px; /* Increased padding */
+    font-size: 24px;
+    background-color: #1c5560;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 8px;
+}
+
+.links {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.links a {
+    color: #3a6073;
+    text-decoration: none;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.links a:hover {
+    color: #001f36;
+}
+
+.form-row {
+    display: flex;
+    gap: 40px; /* Space between the name and surname inputs */
+}
+
+.form-group {
+    flex: 1; /* Makes each input take equal space */
+}
+
+.error-message {
+    color: red;
+    margin-top: 10px;
+}
+
+/* Remove underline from the Forgot Password link */
+a {
+    text-decoration: none;
+}
+
+/* If you want to target just the Forgot Password link */
+a[href="/forgot-password"] {
+    color: #417680;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+a[href="/forgot-password"]:hover {
+    color: #104166;
+}
+
+/* Style the select dropdowns */
+.birthday-selector select {
+    font-size: 18px; /* Increase the font size */
+    padding: 10px;   /* Increase the padding */
+    width: 120px;    /* Adjust the width */
+    margin-right: 10px; /* Space between the selects */
+    border-radius: 5px; /* Add some rounding for aesthetics */
+    border: 1px solid #ccc; /* Light border */
+}
+
+/* Hide the "Day", "Month", and "Year" option once the user opens the dropdown */
+.birthday-selector select:focus option[value=""] {
+    display: none; /* Hide the default option on focus */
+}
+
+/* Optional: Add a hover effect */
+.birthday-selector select:hover {
+    border-color: #888;
+}
+
+/* Adjust the form group to center the dropdowns */
+.birthday-selector {
+    display: flex;
+    justify-content: space-between;
+    max-width: 400px;
+    margin-bottom: 20px;
+}
