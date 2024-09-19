@@ -2,11 +2,7 @@
 import React, {useEffect} from 'react';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-<<<<<<< HEAD
 import './stylesHomePage.css'; // Si quieres añadir estilos específicos
-=======
-import './styleRegisterPage.css'; // Si quieres añadir estilos específicos
->>>>>>> loginpage
 import MoviesList from './MoviesList';
 import axios from "axios";
 

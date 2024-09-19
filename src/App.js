@@ -16,12 +16,8 @@ const App = () => {
           <Route path="/login" element={<LoginPage />} /> {/* Página de inicio de sesión*/ }
           <Route path="/signup" element={<SignUpPage />} /> {/* Página de registro de usuarios*/ }
           <Route path="/create" element={<UserForm />} />
-          <Route path="/edit/:id" element={<UserForm />} />
-<<<<<<< HEAD
           <Route path="/signup" element={<UserForm />} />
           <Route path={'/select/${movieId}'} />
-=======
->>>>>>> loginpage
       </Routes>
     </Router>
   );
