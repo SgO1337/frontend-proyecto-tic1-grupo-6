@@ -1,13 +1,12 @@
 .login-container {
     position: absolute; /* Allows precise positioning */
     top: 10%; /* Move to the vertical center of the viewport */
-    left: 32%; /* Move to the horizontal center of the viewport */
+    left: 27%; /* Move to the horizontal center of the viewport */
     width: 600px; /* Increased width */
     margin-top: 200px;
     background: white;
     padding: 40px; /* Increased padding */
     border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     border: 1px solid #ccc;
 }
 

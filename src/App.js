@@ -6,6 +6,7 @@ import UserForm from './components/UserForm';
 import HomePage from './components/HomePage';
 import LoginPage from './components/LoginPage';
 import SignUpPage from './components/SignUpPage';
+import MyPurchasesPage from './components/MyPurchasesPage';
 
 const App = () => {
   return (
@@ -18,6 +19,7 @@ const App = () => {
           <Route path="/create" element={<UserForm />} />
           <Route path="/signup" element={<UserForm />} />
           <Route path={'/select/${movieId}'} />
+          <Route path="/mypurchases" element={<MyPurchasesPage />} />
       </Routes>
     </Router>
   );
