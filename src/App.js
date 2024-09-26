@@ -18,8 +18,8 @@ const App = () => {
           <Route path="/create" element={<UserForm />} />
           <Route path="/signup" element={<UserForm />} />
           <Route path="/create" element={<UserForm />} />
-          <Route path="/select/:id" element={<SelectionInfoPage/>} />
-          <Route path="/mypurchases" element={<MyPurchasesPage />} />
+          {/*<Route path="/select/:id" element={<SelectionInfoPage/>} />
+          <Route path="/mypurchases" element={<MyPurchasesPage />} />*/}
       </Routes>
     </Router>
   );
