@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import './styleRegisterPage.css';
+import './styles.css';
 import axios from "axios";
 
 const SignUpPage = () => {
@@ -18,12 +19,23 @@ const SignUpPage = () => {
     const [error, setError] = useState(''); // To store error messages
     const [currentPage, setCurrentPage] = useState(''); // Track the current page
     const navigate = useNavigate(); // Hook for navigation
+    const [view, setView] = useState('billboard'); // Change from bildoard to snack menu
+    const [dropdownOpen, setDropdownOpen] = useState(false);
 
     // Handle the form input changes
     const handleChange = (event) => {
         const { name, value } = event.target;
         setUser((prevUser) => ({ ...prevUser, [name]: value }));
         setError(''); // Clear any previous error when user starts typing
+    };
+
+    const handleLogin = () => {
+        navigate('/login'); // Goes to login page
+    };
+
+    const handleViewChange = (newView) => {
+        setView(newView);
+        setDropdownOpen(false);  // Close dropdown after choosing
     };
 
     // Handle the form submission
@@ -120,8 +132,18 @@ const SignUpPage = () => {
 
     return (
         <>
-            <div className="title">
-                <img src="/TituloTic1Logo2.png" alt="Title Logo"></img>
+            {/* Top Bar */}
+            <div className="navbar">
+                    <h1 className="cine-name">
+                        <span className="Capital">W</span>
+                        <span className="Lower">hat </span>
+                        <span className="Capital">T</span>
+                        <span className="Lower">he </span>
+                        <span className="Capital">F</span>
+                        <span className="Lower">un </span>
+                        <span className="Capital">C</span>
+                        <span className="Lower">inema</span>
+                    </h1>
             </div>
             <div className="login-container">
                 <div className="button-group">

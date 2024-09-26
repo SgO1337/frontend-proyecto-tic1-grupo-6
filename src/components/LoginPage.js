@@ -11,11 +11,22 @@ const LoginPage = () => {
     const [error, setError] = useState(''); // Para almacenar mensajes de error
     const [currentPage, setCurrentPage] = useState(''); // Track the current page
     const navigate = useNavigate(); // Hook para navegación
+    const [view, setView] = useState('billboard'); // Change from bildoard to snack menu
+    const [dropdownOpen, setDropdownOpen] = useState(false);
 
     // To handle the form input changes
     const handleChange = (event) => {
         const { name, value } = event.target;
         setUser((prevUser) => ({ ...prevUser, [name]: value }));
+    };
+
+    const handleLogin = () => {
+        navigate('/login'); // Goes to login page
+    };
+
+    const handleViewChange = (newView) => {
+        setView(newView);
+        setDropdownOpen(false);  // Close dropdown after choosing
     };
 
     // To handle the form submission
@@ -56,8 +67,18 @@ const LoginPage = () => {
 
     return (
         <>
-            <div className="title">
-                <img src="/TituloTic1Logo2.png" alt="Title Logo"></img>
+            {/* Top Bar */}
+            <div className="navbar">
+                <h1 className="cine-name">
+                    <span className="Capital">W</span>
+                    <span className="Lower">hat </span>
+                    <span className="Capital">T</span>
+                    <span className="Lower">he </span>
+                    <span className="Capital">F</span>
+                    <span className="Lower">un </span>
+                    <span className="Capital">C</span>
+                    <span className="Lower">inema</span>
+                </h1>
             </div>
             <div className="login-container">
                 <div className="button-group">
