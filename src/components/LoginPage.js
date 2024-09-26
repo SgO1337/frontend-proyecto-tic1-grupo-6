@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import './styleRegisterPage.css';
@@ -79,6 +78,9 @@ const LoginPage = () => {
                     <span className="Capital">C</span>
                     <span className="Lower">inema</span>
                 </h1>
+                <button className={`home-button ${currentPage === 'login' ? 'active' : ''}`}>Login</button>
+                <Link to="/"></Link>
+
             </div>
             <div className="login-container">
                 <div className="button-group">
