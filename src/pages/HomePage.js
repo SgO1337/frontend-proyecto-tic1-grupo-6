@@ -1,15 +1,22 @@
 // src/components/HomePage.js
-import React, {useEffect} from 'react';
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, {useEffect, useState} from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import '../components/stylesHomePage.css'; // Si quieres añadir estilos específicos
 import MoviesList from '../components/MoviesList';
-import axios from "axios";
+
 
 const HomePage = () => {
     const navigate = useNavigate();
-    const [view, setView] = useState('billboard'); // Change from bildoard to snack menu
+    const location = useLocation(); // Use to get passed state
+    const [view, setView] = useState('billboard'); // Change from billboard to snack menu
     const [dropdownOpen, setDropdownOpen] = useState(false);
+
+    useEffect(() => {
+        // Check if there is a view state passed from navigation
+        if (location.state && location.state.view) {
+            setView(location.state.view); // Set the view from navigation state
+        }
+    }, [location.state]);
 
     const handleLogin = () => {
         navigate('/login'); // Goes to login page
@@ -57,7 +64,7 @@ const HomePage = () => {
             <div className="content">
                 {view === 'billboard' ? (
                     <div>
-                        <MoviesList/>
+                        <MoviesList />
                     </div>
                 ) : (
                     <div>

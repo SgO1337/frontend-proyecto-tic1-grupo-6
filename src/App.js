@@ -6,17 +6,18 @@ import UserForm from './components/UserForm';
 import HomePage from './pages/HomePage';
 import LoginPage from './components/LoginPage';
 import SignUpPage from './components/SignUpPage';
-import SelectionInfoPage from './components/SelectionInfoPage';
-import SelectInfoForm from "./components/SelectInfoForm";
+import SelectionInfoPage from "./components/SelectionInfoPage";
+
 
 const App = () => {
   return (
     <Router>
       <Routes>
-          <Route path="/" element={<HomePage/>} /> {/* billboard */}
-          <Route path="/app" element={<UserTable />} /> {/* users already registered */}
-          <Route path="/login" element={<LoginPage />} /> {/* Login page*/ }
-          <Route path="/signup" element={<SignUpPage />} /> {/* Sign up page*/ }
+          <Route path="/" element={<HomePage />} /> {/* Página de inicio con la cartelera */}
+          <Route path="/app" element={<UserTable />} /> {/* Página principal */}
+          <Route path="/login" element={<LoginPage />} /> {/* Página de inicio de sesión*/ }
+          <Route path="/signup" element={<SignUpPage />} /> {/* Página de registro de usuarios*/ }
+          <Route path="/create" element={<UserForm />} />
           <Route path="/signup" element={<UserForm />} />
           <Route path="/create" element={<UserForm />} />
           <Route path="/select/:id" element={<SelectionInfoPage/>} />

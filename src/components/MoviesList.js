@@ -18,12 +18,12 @@ const MoviesList = () => {
         });
     }, []);
 
-/*
+
     useEffect(() => {
         axios.get('/api/movies/currently-available')
             .then(response => setMovies(response.data))
             .catch(error => console.error('Error fetching movies!', error));
-    }, []);*/
+    }, []);
 
     const moviesPerPage = 6; // How many per page
 
