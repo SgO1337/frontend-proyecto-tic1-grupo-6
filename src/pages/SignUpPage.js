@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import './styleRegisterPage.css';
-import './styles.css';
+import '../components/styleRegisterPage.css';
+import '../components/styles.css';
 import axios from "axios";
 
 const SignUpPage = () => {

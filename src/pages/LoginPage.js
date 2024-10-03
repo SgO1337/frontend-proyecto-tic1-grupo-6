@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import './styleRegisterPage.css';
+import '../components/styleRegisterPage.css';
 import axios from "axios"; // Si quieres añadir estilos específicos
 import { Link } from 'react-router-dom';
 

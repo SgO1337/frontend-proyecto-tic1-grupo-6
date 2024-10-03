@@ -4,8 +4,8 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import UserTable from './components/UserTable';
 import UserForm from './components/UserForm';
 import HomePage from './pages/HomePage';
-import LoginPage from './components/LoginPage';
-import SignUpPage from './components/SignUpPage';
+import LoginPage from './pages/LoginPage';
+import SignUpPage from './pages/SignUpPage';
 
 const App = () => {
   return (

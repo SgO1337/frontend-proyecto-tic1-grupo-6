@@ -1,9 +1,9 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import mockMovies from '../data/mockMovies';
-import SelectionInfoForm from './SelectInfoForm.js';
+import SelectionInfoForm from '../components/SelectInfoForm.js';
 import {useNavigate} from "react-router-dom";
-import './stylesSelectionInfoPage.css';
+import '../components/stylesSelectionInfoPage.css';
 
 const SelectionInfoPage = () => {
     const { id } = useParams();
