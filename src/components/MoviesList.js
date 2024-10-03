@@ -9,30 +9,25 @@ const MoviesList = () => {
     const navigate = useNavigate();
 
     // useEffect to load mock movie data when the component mounts
-    useEffect(() => {
-        // Mock data for movies
 
+     useEffect(() => {
+        // Mock data for movies
 
         setTimeout(() => {
             setMovies(mockMovies);  // Set mock movies data to state
-        }, 500);
-
+        });
     }, []);
-     /*
+
+/*
     useEffect(() => {
-        // Fetch the list of movies currently in theaters from the API
         axios.get('/api/movies/currently-available')
             .then(response => setMovies(response.data))
             .catch(error => console.error('Error fetching movies!', error));
-    }, []);
-
-    */
+    }, []);*/
 
     const moviesPerPage = 6; // How many per page
 
-    const availableMovies = movies.filter(movie => movie.isAvailable); // available movies
-
-    const totalPages = Math.ceil(availableMovies.length / moviesPerPage);
+    const totalPages = Math.ceil(movies.length / moviesPerPage);
 
     const handleNextPage = () => {
         if (currentPage < totalPages - 1) {
@@ -54,10 +49,11 @@ const MoviesList = () => {
 
     // Calculates which picture to show
     const startIndex = currentPage * moviesPerPage;
-    const selectedMovies = availableMovies.slice(startIndex, startIndex + moviesPerPage);
+
+    const selectedMovies = movies.slice(startIndex, startIndex + moviesPerPage);
 
     const handleSelectMovie = (movieId) => {
-        navigate(`/select/${movieId}`);  // Redirects to the selection page
+        navigate(`/select/${movieId}`);
     };
 
     return (
@@ -95,6 +91,7 @@ const MoviesList = () => {
                                             <h6 className="movie-genre">{movie.genre || ""}</h6>
                                             <h7 className="movie-releaseDate">{movie.releaseDate || ""}</h7>
                                             <h8 className="movie-distributer">{movie.distributer || ""}</h8>
+                                            <h8 className="movie-distributer">{movie.rating || ""}</h8>
                                         </div>
                                     )}
                                 </div>

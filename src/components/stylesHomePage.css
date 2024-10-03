@@ -205,7 +205,7 @@ body {
 }
 
 .movie-poster.hovered {
-    opacity: 0.3; /* Oscurece la imagen cuando el mouse está encima */
+    opacity: 0.3;
 }
 
 .movie-info {
