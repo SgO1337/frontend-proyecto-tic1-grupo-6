@@ -3,7 +3,7 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import UserTable from './components/UserTable';
 import UserForm from './components/UserForm';
-import HomePage from './components/HomePage';
+import HomePage from './pages/HomePage';
 import LoginPage from './components/LoginPage';
 import SignUpPage from './components/SignUpPage';
 

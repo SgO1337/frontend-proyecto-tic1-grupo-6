@@ -40,7 +40,8 @@ body {
 
 .cine-name {
     font-size: 24px;
-    margin:20px ;
+    margin:10px ;
+
 }
 
 .Capital {
@@ -62,6 +63,7 @@ body {
     justify-content: right;
     cursor: pointer;
     margin-left: 2%;
+    margin-right: 1%;
     font-size: 100%;
 }
 
@@ -115,7 +117,7 @@ body {
 
 /* Styles for the main content */
 .content {
-    margin-top: 7%;
+    margin-top: 3%;
     font-family: Arial, sans-serif;
     color: #79AE92;
     justify-content: center;
@@ -203,7 +205,7 @@ body {
 }
 
 .movie-poster.hovered {
-    opacity: 0.3; /* Oscurece la imagen cuando el mouse está encima */
+    opacity: 0.3;
 }
 
 .movie-info {

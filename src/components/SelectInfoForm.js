@@ -1,7 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import './stylesSelectionInfoPage.css';
+import {useNavigate, useParams} from "react-router-dom";
+import mockMovies from "../data/mockMovies";
 
 const SelectInfoForm = () => {
+    const { id } = useParams();
+    const navigate = useNavigate();
+    const movie = mockMovies.find(movie => movie.id === parseInt(id));
+
     const [formData, setFormData] = useState({
         date: '',
         time: '',
@@ -9,6 +15,10 @@ const SelectInfoForm = () => {
         language: '',
         subtitles: '',
     });
+
+    const handleSeats = (movieId) => {
+        navigate(`/seats/${movieId}`);
+    };
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -22,7 +32,25 @@ const SelectInfoForm = () => {
 
     return (
         <form className="movie-selection-form" onSubmit={handleSubmit}>
-            <h2>Select Movie Details</h2>
+            <h1>BOOK YOUR TICKETS:</h1>
+
+            {/* Location */}
+            <div className="form-group">
+                <label htmlFor="location">Location:</label>
+                <select
+                    id="location"
+                    name="location"
+                    value={formData.location}
+                    onChange={handleChange}
+                    required
+                >
+                    <option value="">Select location</option>
+                    <option value="New York">New York</option>
+                    <option value="Los Angeles">Los Angeles</option>
+                    <option value="Chicago">Chicago</option>
+                </select>
+            </div>
+
 
             {/* Date */}
             <div className="form-group">
@@ -50,23 +78,6 @@ const SelectInfoForm = () => {
                 />
             </div>
 
-            {/* Location */}
-            <div className="form-group">
-                <label htmlFor="location">Location:</label>
-                <select
-                    id="location"
-                    name="location"
-                    value={formData.location}
-                    onChange={handleChange}
-                    required
-                >
-                    <option value="">Select location</option>
-                    <option value="New York">New York</option>
-                    <option value="Los Angeles">Los Angeles</option>
-                    <option value="Chicago">Chicago</option>
-                </select>
-            </div>
-
             {/* Language */}
             <div className="form-group">
                 <label htmlFor="language">Language:</label>
@@ -92,15 +103,17 @@ const SelectInfoForm = () => {
                     name="subtitles"
                     value={formData.subtitles}
                     onChange={handleChange}
+                    required
                 >
-                    <option value="">No Subtitles</option>
+                    <option value="None">None</option>
                     <option value="English">English Subtitles</option>
                     <option value="Spanish">Spanish Subtitles</option>
                 </select>
             </div>
 
-            {/* Submit button */}
-            <button type="submit" className="submit-button">Submit</button>
+            <button type="submit" onClick={() => handleSeats(movie.id)} className="submit-button">
+                Continue
+            </button>
         </form>
     );
 };
