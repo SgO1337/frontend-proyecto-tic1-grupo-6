@@ -31,7 +31,7 @@ const mockMovies = [
         releaseDate: 'XX/XX/XXXX',
         distributer: 'XXXXX',
         posterUrlHorizontal: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTyu3gBJJj5h3X00iLqdnb9dhj6WDdE-HkBww&s',
-        descrption: '"In a world where ancient maps hold the key to a lost civilization, a daring explorer ' +
+        description: '"In a world where ancient maps hold the key to a lost civilization, a daring explorer ' +
             'and a skeptical scientist must team up to uncover the truth behind a mythical island.' +
             ' As they venture into uncharted waters, they face natural disasters, rival treasure hunters, ' +
             'and their own conflicting motives. But the biggest secret lies within themselves, ' +
