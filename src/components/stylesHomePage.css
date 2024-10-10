@@ -210,22 +210,52 @@ body {
 
 .movie-info {
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    height: 80%;
     background-color: transparent;
     color: #FBFFCD;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
     opacity: 0;
     transition: opacity 0.3s ease;
+    text-align: center;
+    font-style: italic;
+    font-family: "Book Antiqua"
 }
 
+h3 {
+    font-size: 110%;
+    margin: 0;
+    text-align: center;
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+h7 {
+    font-size: 1rem;
+    margin: 5px 0;
+    text-align: center;
+    font-weight: normal;
+    width: 100%;
+}
+
+.movie-duration-rating {
+    display: flex;
+    justify-content: space-between;
+    width: 80%;
+    margin-bottom: 0%;
+}
+
+
+
+
 .movie-poster-container:hover .movie-info {
-    opacity: 1; /* Muestra la información al pasar el mouse */
+    opacity: 1;
 }
 
 .buy-button {

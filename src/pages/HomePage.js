@@ -1,7 +1,7 @@
 // src/components/HomePage.js
 import React, {useEffect, useState} from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import '../components/stylesHomePage.css'; // Si quieres añadir estilos específicos
+import '../components/stylesHomePage.css';
 import MoviesList from '../components/MoviesList';
 
 
@@ -44,7 +44,7 @@ const HomePage = () => {
 
                 <div className="dropdown">
                     <button className="dropdown-button" onClick={() => setDropdownOpen(!dropdownOpen)}>
-                        {view === 'billboard' ? 'Billboard' : 'Snacks'} {/* Muestra la opción seleccionada */}
+                        {view === 'billboard' ? 'Billboard' : 'Snacks'}
                     </button>
                     {dropdownOpen && (
                         <ul className="dropdown-menu">

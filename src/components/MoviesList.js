@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import {useNavigate} from "react-router-dom";
-import mockMovies from '../data/mockMovies.js';
+import '../components/stylesHomePage.css';
 
 const MoviesList = () => {
     const [currentPage, setCurrentPage] = useState(0); // Actual page number
@@ -10,13 +10,14 @@ const MoviesList = () => {
 
     // useEffect to load mock movie data when the component mounts
 
-     useEffect(() => {
+     /*useEffect(() => {
         // Mock data for movies
 
         setTimeout(() => {
             setMovies(mockMovies);  // Set mock movies data to state
         });
     }, []);
+    */
 
 
     useEffect(() => {
@@ -72,31 +73,32 @@ const MoviesList = () => {
                 <div className="movies-grid">
                     {movies.length > 0 ? (
                         selectedMovies.map(movie => (
-                            <div key={movie.id} className="movie-item">
+                            <div key={movie.idMovie} className="movie-item">
                                 <div
                                     className="movie-poster-container"
-                                    onMouseEnter={() => setHoveredMovie(movie.id)}
+                                    onMouseEnter={() => setHoveredMovie(movie.idMovie)}
                                     onMouseLeave={() => setHoveredMovie(null)}
                                 >
                                     <img
-                                        src={movie.posterUrl}
+                                        src={`data:image/png;base64,${movie.verticalPosterBASE64}`}
                                         alt={movie.title}
-                                        className={`movie-poster ${hoveredMovie=== movie.id ? 'hovered' : ''}`} //aplies opacity on hovered movie
+                                        className={`movie-poster ${hoveredMovie === movie.idMovie ? 'hovered' : ''}`}
                                     />
-                                    {hoveredMovie && (
+                                    {hoveredMovie === movie.idMovie && (
                                         <div className="movie-info">
-                                            <h3 className="movie-cast">{movie.cast || ""}</h3>
-                                            <h4 className="movie-director">{movie.director || ""}</h4>
-                                            <h5 className="movie-duration">{movie.duration || ""}</h5>
-                                            <h6 className="movie-genre">{movie.genre || ""}</h6>
-                                            <h7 className="movie-releaseDate">{movie.releaseDate || ""}</h7>
-                                            <h8 className="movie-distributer">{movie.distributer || ""}</h8>
-                                            <h8 className="movie-distributer">{movie.rating || ""}</h8>
+                                            <h3 className="movie-genre">{movie.genre || ""}</h3>
+                                            <h7 className="movie-cast">Cast: {movie.cast || ""}</h7>
+                                            <h7 className="movie-director">Directed by: {movie.director || ""}</h7>
+                                            <div className="movie-duration-rating">
+                                                <h8 className="movie-duration">{movie.duration || ""} min</h8>
+                                                <h8 className="movie-rating">{movie.rating || ""}</h8>
+                                            </div>
+
                                         </div>
                                     )}
                                 </div>
                                 <h2 className="movie-title">{movie.title}</h2>
-                                <button className="buy-button" onClick={() => handleSelectMovie(movie.id)}>
+                                <button className="buy-button" onClick={() => handleSelectMovie(movie.idMovie)}>
                                     BUY TICKETS
                                 </button>
                             </div>

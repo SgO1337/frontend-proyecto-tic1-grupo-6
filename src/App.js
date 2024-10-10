@@ -7,7 +7,7 @@ import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
 import SignUpPage from './pages/SignUpPage';
 import SelectionInfoPage from "./pages/SelectionInfoPage";
-
+import SeatsPage from "./pages/SeatsPage";
 
 const App = () => {
   return (
@@ -21,6 +21,7 @@ const App = () => {
           <Route path="/signup" element={<UserForm />} />
           <Route path="/create" element={<UserForm />} />
           <Route path="/select/:id" element={<SelectionInfoPage/>} />
+          <Route path="/seats/:id/:q" element={<SeatsPage/>} />
       </Routes>
     </Router>
   );

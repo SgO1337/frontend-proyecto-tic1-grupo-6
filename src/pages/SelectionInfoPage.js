@@ -4,6 +4,7 @@ import mockMovies from '../data/mockMovies';
 import SelectionInfoForm from '../components/SelectInfoForm.js';
 import {useNavigate} from "react-router-dom";
 import '../components/stylesSelectionInfoPage.css';
+import MovieInformation from '../components/MovieInformation.js';
 
 const SelectionInfoPage = () => {
     const { id } = useParams();
@@ -13,7 +14,6 @@ const SelectionInfoPage = () => {
     const handleMainPage = () => {
         navigate('/')
     }
-
 
 
     return (
@@ -32,30 +32,14 @@ const SelectionInfoPage = () => {
                 </div>
             </div>
 
-            {/* Movie Details */}
-            <div className="movie-detail">
-                {movie ? (
-                    <div className="movie-info-container">
-                        <img src={movie.posterUrlHorizontal} className="movie-poster-hor" alt="Movie Poster"/>
-                        <div className="movie-attributes">
-                            <h3>{movie.description}</h3>
-                            <h4>Director: {movie.director}</h4>
-                            <h4>Cast: {movie.cast}</h4>
-                            <div className="movie-info-inline">
-                                <h5>Year: {movie.releaseDate}</h5>
-                                <h5>Genre: {movie.genre}</h5>
-                                <h5>Duration: {movie.duration}</h5>
-                            </div>
-                        </div>
-                    </div>
-                ) : (
-                    <p>Movie not found</p>
-                )}
+            <div className="movie-information">
+                <MovieInformation/>
             </div>
 
             <div className="movie-selection-form">
                 <SelectionInfoForm/>
             </div>
+
         </div>
     );
 };

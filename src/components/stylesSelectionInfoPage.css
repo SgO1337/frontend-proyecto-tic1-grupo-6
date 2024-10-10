@@ -12,11 +12,10 @@
     position: relative;
     width: 50%;
     margin: 3% auto;
-    margin-left: 15%;
 }
 
 .movie-poster-hor {
-    width: 130%;
+    width: 100%;
     height: auto;
     display: block;
     border-radius: 4%;
@@ -29,7 +28,7 @@
     position: absolute;
     top: 0;
     left: 0;
-    width: 130%;
+    width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.7);
     color: #FBFFCD;
@@ -37,19 +36,18 @@
     justify-content: center;
     align-items: center;
     text-align: center;
-    padding: 20px;
     flex-direction: column;
     z-index: 1;
     font-style: italic;
     font-family: "Book Antiqua"
-
 }
 
-h3 {
+.movie-info-description {
     font-size: 20px;
     margin: 20px;
     justify-content: center;
     text-align: justify;
+    white-space: break-spaces;
 }
 
 h4 {

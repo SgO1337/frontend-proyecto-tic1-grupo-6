@@ -2,11 +2,40 @@ import React, { useState, useEffect } from 'react';
 import './stylesSelectionInfoPage.css';
 import {useNavigate, useParams} from "react-router-dom";
 import mockMovies from "../data/mockMovies";
+import axios from "axios";
 
 const SelectInfoForm = () => {
     const { id } = useParams();
     const navigate = useNavigate();
-    const movie = mockMovies.find(movie => movie.id === parseInt(id));
+    const [locations,setLocations] = useState([]);
+
+    /*const fetchMovieLocation = async (movieId) => {
+        try {
+            const response = await axios.get();
+            setLocations(response.data);
+        } catch (error) {
+            console.error("Error fetching locations:", error);
+        }
+    };
+
+    const fetchMovieDate = async (movieId,location) => {
+        try {
+            const response = await axios.get();
+            setLocations(response.data);
+        } catch (error) {
+            console.error("Error fetching locations:", error);
+        }
+    };
+
+
+
+    useEffect(() => {
+        if (id) {
+            fetchMovieDetails(id);
+        }
+    },);
+
+    */
 
     const [formData, setFormData] = useState({
         date: '',
@@ -14,10 +43,11 @@ const SelectInfoForm = () => {
         location: '',
         language: '',
         subtitles: '',
+        quantity: '',
     });
 
     const handleSeats = (movieId) => {
-        navigate(`/seats/${movieId}`);
+        navigate(`/seats/${movieId}/${formData.quantity}`);
     };
 
     const handleChange = (e) => {
@@ -111,7 +141,22 @@ const SelectInfoForm = () => {
                 </select>
             </div>
 
-            <button type="submit" onClick={() => handleSeats(movie.id)} className="submit-button">
+            {/* Quantity */}
+            <div className="form-group">
+                <label htmlFor="quantity">Quantity:</label>
+                <input
+                    type="number"
+                    id="quantity"
+                    name="quantity"
+                    value={formData.quantity}
+                    onChange={handleChange}
+                    min="1"
+                    max="4"
+                    required
+                />
+            </div>
+
+            <button type="submit" onClick={() => handleSeats(id)} className="submit-button">
                 Continue
             </button>
         </form>
