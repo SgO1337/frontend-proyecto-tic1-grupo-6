@@ -7,44 +7,71 @@ import axios from "axios";
 const SelectInfoForm = () => {
     const { id } = useParams();
     const navigate = useNavigate();
-    const [locations,setLocations] = useState([]);
 
-    /*const fetchMovieLocation = async (movieId) => {
-        try {
-            const response = await axios.get();
-            setLocations(response.data);
-        } catch (error) {
-            console.error("Error fetching locations:", error);
-        }
-    };
+    const [branches, setBranches] = useState([]);
+    const [dates, setDates] = useState([]);
+    const [times, setTimes] = useState([]);
 
-    const fetchMovieDate = async (movieId,location) => {
-        try {
-            const response = await axios.get();
-            setLocations(response.data);
-        } catch (error) {
-            console.error("Error fetching locations:", error);
-        }
-    };
-
-
-
-    useEffect(() => {
-        if (id) {
-            fetchMovieDetails(id);
-        }
-    },);
-
-    */
+    const [selectedBranchId, setSelectedBranchId] = useState('');
+    const [selectedDate, setSelectedDate] = useState('');
+    const [selectedTime, setSelectedTime] = useState('');
 
     const [formData, setFormData] = useState({
         date: '',
         time: '',
         location: '',
-        language: '',
-        subtitles: '',
         quantity: '',
     });
+
+    const isFormValid = selectedBranchId && selectedDate && selectedTime && formData.quantity;
+
+    useEffect(() => {
+        const fetchBranches = async () => {
+            if (id) {
+                const response = await axios.get(`http://localhost:9090/api/movies/${id}/branches`);
+                setBranches(response.data);
+                setSelectedBranchId(''); // Reset branch selection
+                setDates([]); // Clear dates
+                setTimes([]); // Clear times
+                setSelectedDate(''); // Reset date selection
+                setSelectedTime(''); // Reset time selection
+            } else {
+                setBranches([]);
+                setSelectedBranchId(''); // Reset branch selection if no movie is selected
+            }
+        };
+        fetchBranches();
+    }, [id]);
+
+    useEffect(() => {
+        const fetchDates = async () => {
+            if (selectedBranchId) {
+                const response = await axios.get(`http://localhost:9090/api/movies/${id}/branches/${selectedBranchId}/screening-dates`);
+                setDates(response.data);
+                setSelectedDate(''); // Reset date selection
+                setTimes([]); // Clear times
+                setSelectedTime(''); // Reset time selection
+            } else {
+                setDates([]);
+                setSelectedDate(''); // Reset date selection if no branch is selected
+            }
+        };
+        fetchDates();
+    }, [selectedBranchId]);
+
+    useEffect(() => {
+        const fetchTimes = async () => {
+            if (selectedDate) {
+                const response = await axios.get(`http://localhost:9090/api/movies/${id}/branches/${selectedBranchId}/dates/${selectedDate}/screening-times`);
+                setTimes(response.data);
+                setSelectedTime(''); // Reset time selection
+            } else {
+                setTimes([]);
+                setSelectedTime(''); // Reset time selection if no date is selected
+            }
+        };
+        fetchTimes();
+    }, [selectedDate]);
 
     const handleSeats = (movieId) => {
         navigate(`/seats/${movieId}/${formData.quantity}`);
@@ -66,80 +93,41 @@ const SelectInfoForm = () => {
 
             {/* Location */}
             <div className="form-group">
-                <label htmlFor="location">Location:</label>
-                <select
-                    id="location"
-                    name="location"
-                    value={formData.location}
-                    onChange={handleChange}
-                    required
-                >
-                    <option value="">Select location</option>
-                    <option value="New York">New York</option>
-                    <option value="Los Angeles">Los Angeles</option>
-                    <option value="Chicago">Chicago</option>
+                <label htmlFor="branches">Select Branch:</label>
+                <select id="branches"  value={selectedBranchId} onChange={(e) => setSelectedBranchId(e.target.value)}
+                        disabled={!id}>
+                    <option value="">Select a branch</option>
+                    {branches.map(branch => (
+                        <option key={branch.branchId} value={branch.branchId}>{branch.location}</option>
+                    ))}
                 </select>
             </div>
 
 
             {/* Date */}
             <div className="form-group">
-                <label htmlFor="date">Date:</label>
-                <input
-                    type="date"
-                    id="date"
-                    name="date"
-                    value={formData.date}
-                    onChange={handleChange}
-                    required
-                />
+                <label htmlFor="dates">Select Screening Date:</label>
+                <select id="dates" value={selectedDate} onChange={(e) => setSelectedDate(e.target.value)}
+                        disabled={!selectedBranchId}>
+                    <option value="">Select a date</option>
+                    {dates.map(date => (
+                        <option key={date} value={date}>{date}</option>
+                    ))}
+                </select>
             </div>
 
             {/* Time */}
             <div className="form-group">
-                <label htmlFor="time">Time:</label>
-                <input
-                    type="time"
-                    id="time"
-                    name="time"
-                    value={formData.time}
-                    onChange={handleChange}
-                    required
-                />
-            </div>
-
-            {/* Language */}
-            <div className="form-group">
-                <label htmlFor="language">Language:</label>
-                <select
-                    id="language"
-                    name="language"
-                    value={formData.language}
-                    onChange={handleChange}
-                    required
-                >
-                    <option value="">Select language</option>
-                    <option value="English">English</option>
-                    <option value="Spanish">Spanish</option>
-                    <option value="French">French</option>
+                <label htmlFor="times">Select Screening Time:</label>
+                <select id="times" value={selectedTime} onChange={(e) => setSelectedTime(e.target.value)}
+                        disabled={!selectedDate}>
+                    <option value="">Select a time</option>
+                    {times.map(time => (
+                        <option key={time} value={time}>{time}</option>
+                    ))}
                 </select>
             </div>
 
-            {/* Subtitles */}
-            <div className="form-group">
-                <label htmlFor="subtitles">Subtitles:</label>
-                <select
-                    id="subtitles"
-                    name="subtitles"
-                    value={formData.subtitles}
-                    onChange={handleChange}
-                    required
-                >
-                    <option value="None">None</option>
-                    <option value="English">English Subtitles</option>
-                    <option value="Spanish">Spanish Subtitles</option>
-                </select>
-            </div>
 
             {/* Quantity */}
             <div className="form-group">
@@ -156,7 +144,7 @@ const SelectInfoForm = () => {
                 />
             </div>
 
-            <button type="submit" onClick={() => handleSeats(id)} className="submit-button">
+            <button type="submit" onClick={() => handleSeats(id)} className="submit-button" disabled={!isFormValid}>
                 Continue
             </button>
         </form>

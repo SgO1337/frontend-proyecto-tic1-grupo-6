@@ -103,6 +103,23 @@ h4 {
     font-family: "Book Antiqua"
 }
 
+.form-group select:focus, .form-group input:focus {
+    outline: none;
+    background-color: #FBFFCD;
+    color: #1C5560;
+}
+
+.form-group select:invalid, .form-group input:invalid {
+    outline: none;
+    background-color: #FBFFCD;
+    color: #1C5560;
+}
+
+.form-group select:valid, .form-group input:valid {
+    background-color: #1C5560;
+    color: #FBFFCD;
+}
+
 .submit-button {
     padding: 10px 20px;
     background-color: #144450;
@@ -117,10 +134,7 @@ h4 {
     background-color: #555;
 }
 
-.form-group select:valid {
-    background-color: #1C5560;
-    color: #FBFFCD;
-}
+
 
 h1 {
     text-align: center;
