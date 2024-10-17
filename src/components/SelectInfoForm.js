@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './stylesSelectionInfoPage.css';
 import {useNavigate, useParams} from "react-router-dom";
-import mockMovies from "../data/mockMovies";
 import axios from "axios";
 
 const SelectInfoForm = () => {
@@ -17,10 +16,11 @@ const SelectInfoForm = () => {
     const [selectedTime, setSelectedTime] = useState('');
 
     const [formData, setFormData] = useState({
+        movieId: id,
+        branchId: '',
         date: '',
         time: '',
-        location: '',
-        quantity: '',
+        quantity: 1
     });
 
     const isFormValid = selectedBranchId && selectedDate && selectedTime && formData.quantity;
@@ -30,14 +30,14 @@ const SelectInfoForm = () => {
             if (id) {
                 const response = await axios.get(`http://localhost:9090/api/movies/${id}/branches`);
                 setBranches(response.data);
-                setSelectedBranchId(''); // Reset branch selection
-                setDates([]); // Clear dates
-                setTimes([]); // Clear times
-                setSelectedDate(''); // Reset date selection
-                setSelectedTime(''); // Reset time selection
+                setSelectedBranchId('');
+                setDates([]);
+                setTimes([]);
+                setSelectedDate('');
+                setSelectedTime('');
             } else {
                 setBranches([]);
-                setSelectedBranchId(''); // Reset branch selection if no movie is selected
+                setSelectedBranchId('');
             }
         };
         fetchBranches();
@@ -48,12 +48,12 @@ const SelectInfoForm = () => {
             if (selectedBranchId) {
                 const response = await axios.get(`http://localhost:9090/api/movies/${id}/branches/${selectedBranchId}/screening-dates`);
                 setDates(response.data);
-                setSelectedDate(''); // Reset date selection
-                setTimes([]); // Clear times
-                setSelectedTime(''); // Reset time selection
+                setSelectedDate('');
+                setTimes([]);
+                setSelectedTime('');
             } else {
                 setDates([]);
-                setSelectedDate(''); // Reset date selection if no branch is selected
+                setSelectedDate('');
             }
         };
         fetchDates();
@@ -64,17 +64,17 @@ const SelectInfoForm = () => {
             if (selectedDate) {
                 const response = await axios.get(`http://localhost:9090/api/movies/${id}/branches/${selectedBranchId}/dates/${selectedDate}/screening-times`);
                 setTimes(response.data);
-                setSelectedTime(''); // Reset time selection
+                setSelectedTime('');
             } else {
                 setTimes([]);
-                setSelectedTime(''); // Reset time selection if no date is selected
+                setSelectedTime('');
             }
         };
         fetchTimes();
     }, [selectedDate]);
 
-    const handleSeats = (movieId) => {
-        navigate(`/seats/${movieId}/${formData.quantity}`);
+    const handleSeats = (movieId,screeningId) => {
+        navigate(`/seats/${movieId}/${formData.quantity}/${screeningId}`);
     };
 
     const handleChange = (e) => {
@@ -82,9 +82,34 @@ const SelectInfoForm = () => {
         setFormData({ ...formData, [name]: value });
     };
 
-    const handleSubmit = (e) => {
+
+    const handleBranchChange = (e) => {
+        const branchId = e.target.value;
+        setSelectedBranchId(branchId);
+        setFormData({ ...formData, branchId });
+    };
+
+    const handleDateChange = (e) => {
+        const date = e.target.value;
+        setSelectedDate(date);
+        setFormData({ ...formData, date });
+    };
+
+    const handleTimeChange = (e) => {
+        const time = e.target.value;
+        setSelectedTime(time);
+        setFormData({ ...formData, time });
+    };
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log('Form submitted with data:', formData);
+        try {
+            const response = await axios.post('http://localhost:9090/api/movies/get-screening-from-cascade-dropdown', formData);
+            const { screeningId } = response.data;
+            handleSeats(id, screeningId);
+        } catch (error) {
+            console.error('Error al crear la reserva:', error);
+        }
     };
 
     return (
@@ -94,7 +119,7 @@ const SelectInfoForm = () => {
             {/* Location */}
             <div className="form-group">
                 <label htmlFor="branches">Select Branch:</label>
-                <select id="branches"  value={selectedBranchId} onChange={(e) => setSelectedBranchId(e.target.value)}
+                <select id="branches"  value={selectedBranchId} onChange={handleBranchChange}
                         disabled={!id}>
                     <option value="">Select a branch</option>
                     {branches.map(branch => (
@@ -103,11 +128,10 @@ const SelectInfoForm = () => {
                 </select>
             </div>
 
-
             {/* Date */}
             <div className="form-group">
                 <label htmlFor="dates">Select Screening Date:</label>
-                <select id="dates" value={selectedDate} onChange={(e) => setSelectedDate(e.target.value)}
+                <select id="dates" value={selectedDate} onChange={handleDateChange}
                         disabled={!selectedBranchId}>
                     <option value="">Select a date</option>
                     {dates.map(date => (
@@ -119,7 +143,7 @@ const SelectInfoForm = () => {
             {/* Time */}
             <div className="form-group">
                 <label htmlFor="times">Select Screening Time:</label>
-                <select id="times" value={selectedTime} onChange={(e) => setSelectedTime(e.target.value)}
+                <select id="times" value={selectedTime} onChange={handleTimeChange}
                         disabled={!selectedDate}>
                     <option value="">Select a time</option>
                     {times.map(time => (
@@ -127,7 +151,6 @@ const SelectInfoForm = () => {
                     ))}
                 </select>
             </div>
-
 
             {/* Quantity */}
             <div className="form-group">
@@ -144,7 +167,7 @@ const SelectInfoForm = () => {
                 />
             </div>
 
-            <button type="submit" onClick={() => handleSeats(id)} className="submit-button" disabled={!isFormValid}>
+            <button type="submit" className="submit-button" disabled={!isFormValid}>
                 Continue
             </button>
         </form>

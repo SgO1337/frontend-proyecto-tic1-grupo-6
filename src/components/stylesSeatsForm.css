@@ -21,5 +21,16 @@
 }
 
 .seat.selected {
-    background-color: #79AE92;; /* Color de los asientos seleccionados */
+    background-color: #79AE92;;
+}
+
+
+.seat.occupied {
+    background-color: #1C5560;
+    cursor: not-allowed;
+}
+
+.seat-information {
+    color: #FBFFCD;
+    justify-content: center;
 }
