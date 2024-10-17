@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import '../components/styleRegisterPage.css';
+import './styleRegisterPage.css';
 import axios from "axios"; // Si quieres añadir estilos específicos
 import { Link } from 'react-router-dom';
 import HomePage from "./HomePage";
@@ -25,8 +25,6 @@ const MyPurchasesPage = () => {
 
     return (
         <>
-            {/*Ver como hacer la interfaz para que por un lado aparezcan las entradas de las peliculas que todavia no
-             paso la fecha y por otro de las que ya se realizo la funcion*/}
             <div className="navbar">
                 <h1 className="cine-name">
                     <span className="Capital">W</span>
@@ -41,7 +39,7 @@ const MyPurchasesPage = () => {
 
                 <div className="dropdown">
                     <button className="dropdown-button" onClick={() => setDropdownOpen(!dropdownOpen)}>
-                        {view === 'billboard' ? 'Billboard' : 'Snacks'} {/* Muestra la opción seleccionada */}
+                        {view === 'billboard' ? 'Billboard' : 'Snacks'} {/!* Muestra la opción seleccionada *!/}
                     </button>
                     {dropdownOpen && (
                         <ul className="dropdown-menu">
@@ -52,11 +50,11 @@ const MyPurchasesPage = () => {
                 </div>
 
                 <button className="profile-button" onClick={() => setDropdownOpenProfile(!dropdownOpenProfile)}>
-                    {view === '{/*Nombre y Apellido*/}' ? '{/*Nombre y Apellido*/}' : 'My account' & ""}
+                    {view === '{/!*Nombre y Apellido*!/}' ? '{/!*Nombre y Apellido*!/}' : 'My account' & ""}
                 </button>
                 {dropdownOpenProfile && (
                     <ul className="dropdownprofile-menu">
-                        <li onClick={() => handleViewChange('myaccount')}>{/*Nombre y Apellido*/}</li>
+                        <li onClick={() => handleViewChange('myaccount')}>{/!*Nombre y Apellido*!/}</li>
                         <li OnClick={() => handleViewChange()}></li>
                         <li onClick={() => handleViewChange('logout')}>Log Out</li>
                     </ul>

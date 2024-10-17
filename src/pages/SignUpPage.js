@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import '../components/styleRegisterPage.css';
 import '../components/styles.css';
+import Navbar from '../components/Navbar';
 import axios from "axios";
 
 const SignUpPage = () => {
@@ -14,31 +15,31 @@ const SignUpPage = () => {
         identification: '',
         day: '',
         month: '',
-        year: '' // Fields for day, month, and year
+        year: ''
     });
-    const [error, setError] = useState(''); // To store error messages
-    const [currentPage, setCurrentPage] = useState(''); // Track the current page
+    const [error, setError] = useState(''); // For error messages
+    const [currentPage, setCurrentPage] = useState(''); // Track current page
     const navigate = useNavigate(); // Hook for navigation
-    const [view, setView] = useState('billboard'); // Change from bildoard to snack menu
+    const [view, setView] = useState('billboard'); // View state
     const [dropdownOpen, setDropdownOpen] = useState(false);
 
-    // Handle the form input changes
+    // Handle form input changes
     const handleChange = (event) => {
         const { name, value } = event.target;
         setUser((prevUser) => ({ ...prevUser, [name]: value }));
-        setError(''); // Clear any previous error when user starts typing
+        setError(''); // Clear any previous error when typing starts
     };
 
     const handleLogin = () => {
-        navigate('/login'); // Goes to login page
+        navigate('/login'); // Redirect to login page
     };
 
     const handleViewChange = (newView) => {
         setView(newView);
-        setDropdownOpen(false);  // Close dropdown after choosing
+        setDropdownOpen(false);  // Close dropdown
     };
 
-    // Handle the form submission
+    // Handle form submission
     const handleSubmit = async (event) => {
         event.preventDefault();
         console.log('Form submitted');
@@ -55,7 +56,6 @@ const SignUpPage = () => {
             setError('Name should be between 2 and 50 characters');
             return;
         }
-
         if (!user.surname) {
             setError('Surname cannot be empty');
             return;
@@ -66,42 +66,54 @@ const SignUpPage = () => {
             setError('Surname should be between 2 and 50 characters');
             return;
         }
-
         // Validate birthday
         if (!user.day || !user.month || !user.year) {
             setError('Please select a valid birthday');
             return;
         }
-
         // Check if password and re-entered password match
         if (user.password !== user.reEnteredPassword) {
             setError('The passwords do not match');
             return;
         }
-
-        // Submit the form if validation passes
-        /*try {
-            const response = await axios.post('/api/auth/signup', {
+        // If validation passes, proceed to calculate age and submit
+        try {
+            const day = user.day;
+            const month = user.month - 1; // Months are 0-indexed in JS
+            const year = user.year;
+            // Calculate age from birthday
+            const birthDate = new Date(year, month, day);
+            const today = new Date();
+            let age = today.getFullYear() - birthDate.getFullYear();
+            const monthDifference = today.getMonth() - birthDate.getMonth();
+            if (monthDifference < 0 || (monthDifference === 0 && today.getDate() < birthDate.getDate())) {
+                age--;
+            }
+            // Send registration request
+            const response = await axios.post('/auth/register', {
+                ci: user.identification,
                 name: user.name,
                 surname: user.surname,
                 email: user.email,
                 password: user.password,
-                birthday: `${user.year}-${user.month}-${user.day}` // Send birthday in YYYY-MM-DD format
+                age: age
             });
-
             if (response.data.success) {
-                navigate('/'); // Redirect to the main page on success
+                // Store the token in localStorage
+                localStorage.setItem('authToken', response.data.token);
+                navigate('/'); // Redirect on successful registration
             } else {
                 setError(response.data.message);
             }
         } catch (error) {
-            if (error.response && error.response.status === 409) {
+            if (error.response && error.response.status === 403) {
                 setError('El email ya está registrado.');
             } else {
                 setError('Ocurrió un error al registrarse. Por favor, inténtalo de nuevo.');
             }
-        }*/
+        }
     };
+
 
     // Generate options for day, month, and year dropdowns
     const renderDayOptions = () => {
@@ -128,24 +140,13 @@ const SignUpPage = () => {
         } else if (window.location.href.includes("signup")) {
             setCurrentPage('signup');
         }
-    }, []); // Runs once when the component mounts
+    }, []); // Runs when the component mounts
 
     return (
-        <>
+        <div className="RegPage">
             {/* Top Bar */}
-            <div className="navbar">
-                    <h1 className="cine-name">
-                        <span className="Capital">W</span>
-                        <span className="Lower">hat </span>
-                        <span className="Capital">T</span>
-                        <span className="Lower">he </span>
-                        <span className="Capital">F</span>
-                        <span className="Lower">un </span>
-                        <span className="Capital">C</span>
-                        <span className="Lower">inema</span>
-                    </h1>
-            </div>
-            <div className="login-container">
+            <Navbar isHomePage={false} />
+            <div className="login-container" style={{paddingBottom: '20px', marginBottom: '20px' }}>
                 <div className="button-group">
                     <Link to="/login">
                         <button className={`login-button ${currentPage === 'login' ? 'active' : ''}`}>Login</button>
@@ -248,11 +249,11 @@ const SignUpPage = () => {
                             required
                         />
                     </div>
-                    {error && <div className="error-message">{error}</div>} {/* Show error message */}
-                    <button type="submit" className="submit-button">Sign Up</button>
+                    <div className="error-message">{error && <p>{error}</p>}</div>
+                    <button type="submit" className="submit-button" style={{ color: 'white' }}>Sign Up</button>
                 </form>
             </div>
-        </>
+        </div>
     );
 };
 

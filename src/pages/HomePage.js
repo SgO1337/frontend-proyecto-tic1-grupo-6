@@ -1,63 +1,53 @@
 // src/components/HomePage.js
-import React, {useEffect} from 'react';
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import '../components/stylesHomePage.css'; // Si quieres añadir estilos específicos
+import React, { useEffect, useState } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
+import '../components/stylesHomePage.css';
+import Navbar from '../components/Navbar';
 import MoviesList from '../components/MoviesList';
-import axios from "axios";
 
 const HomePage = () => {
     const navigate = useNavigate();
-    const [view, setView] = useState('billboard'); // Change from bildoard to snack menu
+    const location = useLocation();
+    const [view, setView] = useState('billboard');
     const [dropdownOpen, setDropdownOpen] = useState(false);
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+    useEffect(() => {
+        // Check if there is a view state passed from navigation
+        if (location.state && location.state.view) {
+            setView(location.state.view);
+        }
+
+        // Check if user is logged in (replace with your actual login check logic)
+        const user = localStorage.getItem('user');
+        setIsLoggedIn(!!user);
+    }, [location.state]);
 
     const handleLogin = () => {
-        navigate('/login'); // Goes to login page
+        navigate('/login');
     };
 
     const handleViewChange = (newView) => {
         setView(newView);
-        setDropdownOpen(false);  // Close dropdown after choosing
+        setDropdownOpen(false);
     };
 
     return (
         <div className="home-page">
-            {/* Top Bar */}
-            <div className="navbar">
-                <h1 className="cine-name">
-                    <span className="Capital">W</span>
-                    <span className="Lower">hat </span>
-                    <span className="Capital">T</span>
-                    <span className="Lower">he </span>
-                    <span className="Capital">F</span>
-                    <span className="Lower">un </span>
-                    <span className="Capital">C</span>
-                    <span className="Lower">inema</span>
-                </h1>
-
-                <div className="dropdown">
-                    <button className="dropdown-button" onClick={() => setDropdownOpen(!dropdownOpen)}>
-                        {view === 'billboard' ? 'Billboard' : 'Snacks'} {/* Muestra la opción seleccionada */}
-                    </button>
-                    {dropdownOpen && (
-                        <ul className="dropdown-menu">
-                            <li onClick={() => handleViewChange('billboard')}>Billboard</li>
-                            <li onClick={() => handleViewChange('snacks')}>Snacks</li>
-                        </ul>
-                    )}
-                </div>
-                {/* Placeholder for filters*/}
-
-                <button className="hlogin-button" onClick={handleLogin}>
-                    Login
-                </button>
-            </div>
-
+            <Navbar
+                isHomePage={true}
+                view={view}
+                setDropdownOpen={setDropdownOpen}
+                dropdownOpen={dropdownOpen}
+                handleViewChange={handleViewChange}
+                handleLogin={handleLogin}
+                isLoggedIn={isLoggedIn}
+            />
             {/* Principal content */}
             <div className="content">
                 {view === 'billboard' ? (
                     <div>
-                        <MoviesList/>
+                        <MoviesList />
                     </div>
                 ) : (
                     <div>

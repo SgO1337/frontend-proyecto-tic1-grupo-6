@@ -6,6 +6,8 @@ import UserForm from './components/UserForm';
 import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
 import SignUpPage from './pages/SignUpPage';
+import SelectionInfoPage from "./pages/SelectionInfoPage";
+
 
 const App = () => {
   return (
@@ -18,8 +20,7 @@ const App = () => {
           <Route path="/create" element={<UserForm />} />
           <Route path="/signup" element={<UserForm />} />
           <Route path="/create" element={<UserForm />} />
-          {/*<Route path="/select/:id" element={<SelectionInfoPage/>} />
-          <Route path="/mypurchases" element={<MyPurchasesPage />} />*/}
+          <Route path="/select/:id" element={<SelectionInfoPage/>} />
       </Routes>
     </Router>
   );

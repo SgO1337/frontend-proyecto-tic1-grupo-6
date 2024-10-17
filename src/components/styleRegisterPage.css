@@ -1,7 +1,8 @@
 .login-container {
     position: absolute; /* Allows precise positioning */
-    top: 10%; /* Move to the vertical center of the viewport */
-    left: 27%; /* Move to the horizontal center of the viewport */
+    top: 40%; /* Move to the vertical center of the viewport */
+    left: 50%; /* Move to the horizontal center of the viewport */
+    transform: translate(-50%, -50%);
     width: 600px; /* Increased width */
     margin-top: 200px;
     background: white;
@@ -20,7 +21,7 @@
     background-color: #1c5560;
     color: white;
     border: none;
-    padding: 13px 80px; /* Increased padding */
+    padding: 15px 80px; /* Increased padding */
     border-radius: 5px;
     cursor: pointer;
     font-size: 24px;
@@ -42,6 +43,12 @@
 .login-form label {
     display: block;
     margin-bottom: 10px; /* Increased margin */
+    color: #000000; /* Set label color to white */
+}
+
+.login-form .form-group label {
+    color: #000000; /* Change to your desired color */
+    font-weight: normal; /* Resetting boldness if needed */
 }
 
 .login-form input {
@@ -61,6 +68,11 @@
     border-radius: 5px;
     cursor: pointer;
     margin-top: 8px;
+    margin-bottom: 15px;
+}
+
+.submit-button:hover {
+    background-color: #001f36 !important;
 }
 
 .links {
@@ -136,3 +148,20 @@ a[href="/forgot-password"]:hover {
     max-width: 400px;
     margin-bottom: 20px;
 }
+
+/* Styles for the forgot password button */
+.forgot-password-button {
+    background: none;
+    border: none;
+    color: #3a6073; /* Match your link color */
+    text-decoration: none;
+    cursor: pointer;
+    font-size: inherit; /* Match the font size to parent */
+    padding: 0;
+}
+
+.forgot-password-button:hover {
+    color: #001f36; /* Match your link hover color */
+    text-decoration: underline;
+}
+

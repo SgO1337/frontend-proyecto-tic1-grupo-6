@@ -1,17 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom'; // Use navigate for programmatic navigation
 import '../components/styleRegisterPage.css';
-import axios from "axios"; // Si quieres añadir estilos específicos
-import { Link } from 'react-router-dom';
-
+import axios from "axios";
+import Navbar from '../components/Navbar';
 
 const LoginPage = () => {
     const [user, setUser] = useState({ email: '', password: '' });
-    const [error, setError] = useState(''); // Para almacenar mensajes de error
+    const [error, setError] = useState(''); // To store error messages
     const [currentPage, setCurrentPage] = useState(''); // Track the current page
-    const navigate = useNavigate(); // Hook para navegación
-    const [view, setView] = useState('billboard'); // Change from bildoard to snack menu
-    const [dropdownOpen, setDropdownOpen] = useState(false);
+    const navigate = useNavigate(); // Hook for navigation
 
     // To handle the form input changes
     const handleChange = (event) => {
@@ -19,30 +16,18 @@ const LoginPage = () => {
         setUser((prevUser) => ({ ...prevUser, [name]: value }));
     };
 
-    const handleLogin = () => {
-        navigate('/login'); // Goes to login page
-    };
-
-    const handleViewChange = (newView) => {
-        setView(newView);
-        setDropdownOpen(false);  // Close dropdown after choosing
-    };
-
-    // To handle the form submission
-    const handleSubmit = async (event) => {
-        event.preventDefault();
-        console.log('Form submitted');
-
+    // The function responsible for handling login logic
+    const handleLogin = async () => {
         try {
-            // checks if the email is registered
-            const response = await axios.post('/api/auth/login', user);
-
-            if (response.data.success) {
-                // succesful login, redirect to the main page
-                navigate('/');
+            // Checks if the email is registered
+            const response = await axios.post('/auth/login', user); // Now you can use await
+            if (response.status === 200) {
+                // Successful login, redirect to the main page
+                localStorage.setItem('authToken', response.data.token);
+                navigate('/'); // Navigate after successful login
             } else {
-                // show the error message
-                setError(response.data.message);
+                // Show the error message
+                setError(response.data.message); // Show error message
             }
         } catch (error) {
             // Handle the error
@@ -56,38 +41,32 @@ const LoginPage = () => {
         }
     };
 
+    // The function that handles form submission
+    const handleSubmit = (event) => {
+        event.preventDefault(); // Prevents the default form submission
+        handleLogin(); // Calls handleLogin when the form is submitted
+    };
+
     useEffect(() => {
         if (window.location.href.includes("login")) {
             setCurrentPage('login');
         } else if (window.location.href.includes("signup")) {
             setCurrentPage('signup');
         }
-    }, []); //El array de depenecia vacio significa que esto corre una sola vez cada vez que el componente hace el mount.
+    }, []); // Dependency array ensures this runs once
 
     return (
         <>
-            {/* Top Bar */}
-            <div className="navbar">
-                <h1 className="cine-name">
-                    <span className="Capital">W</span>
-                    <span className="Lower">hat </span>
-                    <span className="Capital">T</span>
-                    <span className="Lower">he </span>
-                    <span className="Capital">F</span>
-                    <span className="Lower">un </span>
-                    <span className="Capital">C</span>
-                    <span className="Lower">inema</span>
-                </h1>
-                <button className={`home-button ${currentPage === 'login' ? 'active' : ''}`}>Login</button>
-                <Link to="/"></Link>
-
-            </div>
+            <Navbar isHomePage={false} />
             <div className="login-container">
                 <div className="button-group">
                     <button className={`login-button ${currentPage === 'login' ? 'active' : ''}`}>Login</button>
-                    <Link to="/signup">
-                        <button className={`signup-button ${currentPage === 'signup' ? 'active' : ''}`}>Sign Up</button>
-                    </Link>
+                    <button
+                        className={`signup-button ${currentPage === 'signup' ? 'active' : ''}`}
+                        onClick={() => navigate('/signup')}
+                    >
+                        Sign Up
+                    </button>
                 </div>
                 <form className="login-form" onSubmit={handleSubmit}>
                     <div className="form-group">
@@ -111,10 +90,16 @@ const LoginPage = () => {
                             onChange={handleChange}
                             required
                         />
-                        <br/><br/>
-                        <Link to="/forgot-password">Forgot password?</Link>
+                        <br /><br />
+                        <button
+                            type="button"
+                            className="forgot-password-button"
+                            onClick={() => navigate('/forgot-password')}
+                        >
+                            Forgot password?
+                        </button>
                     </div>
-                    <button type="submit" className="submit-button">Login</button>
+                    <button type="submit" className="submit-button" style={{ color: 'white' }}>Login</button>
                 </form>
             </div>
         </>
