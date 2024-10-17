@@ -16,30 +16,51 @@ const LoginPage = () => {
         setUser((prevUser) => ({ ...prevUser, [name]: value }));
     };
 
-    // The function responsible for handling login logic
-    const handleLogin = async () => {
-        try {
-            // Checks if the email is registered
-            const response = await axios.post('/auth/login', user); // Now you can use await
-            if (response.status === 200) {
-                // Successful login, redirect to the main page
-                localStorage.setItem('authToken', response.data.token);
-                navigate('/'); // Navigate after successful login
-            } else {
-                // Show the error message
-                setError(response.data.message); // Show error message
+
+    //ESTO ES PARA TESTEAR, BORRAR EN LA VERSION FINAL
+    const handleLogin = async (event) => {
+        event.preventDefault();
+        // Mock successful login response
+        const response = {
+            data: {
+                success: true,
+                token: 'mock-jwt-token'
             }
-        } catch (error) {
-            // Handle the error
-            if (error.response && error.response.status === 404) {
-                setError('El email no está registrado.');
-            } else if (error.response && error.response.status === 401) {
-                setError('El email y la contraseña no coinciden.');
-            } else {
-                setError('Ocurrió un error al iniciar sesión. Por favor, inténtalo de nuevo.');
-            }
+        };
+        if (response.data.success) {
+            localStorage.setItem('authToken', response.data.token);
+            navigate('/');
+        } else {
+            setError('Login failed.');
         }
     };
+
+
+
+    // The function responsible for handling login logic
+    // const handleLogin = async () => {
+    //     try {
+    //         // Checks if the email is registered
+    //         const response = await axios.post('/auth/login', user); // Now you can use await
+    //         if (response.status === 200) {
+    //             // Successful login, redirect to the main page
+    //             localStorage.setItem('authToken', response.data.token);
+    //             navigate('/'); // Navigate after successful login
+    //         } else {
+    //             // Show the error message
+    //             setError(response.data.message); // Show error message
+    //         }
+    //     } catch (error) {
+    //         // Handle the error
+    //         if (error.response && error.response.status === 404) {
+    //             setError('El email no está registrado.');
+    //         } else if (error.response && error.response.status === 401) {
+    //             setError('El email y la contraseña no coinciden.');
+    //         } else {
+    //             setError('Ocurrió un error al iniciar sesión. Por favor, inténtalo de nuevo.');
+    //         }
+    //     }
+    // };
 
     // The function that handles form submission
     const handleSubmit = (event) => {

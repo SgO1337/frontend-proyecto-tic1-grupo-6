@@ -1,17 +1,23 @@
-// Navbar.js
 import React, { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import './stylesNavBar.css';
 
-const Navbar = ({ view, setDropdownOpen, dropdownOpen, handleViewChange, handleLogin }) => {
+const Navbar = ({ view, setDropdownOpen, dropdownOpen, handleViewChange }) => {
     const location = useLocation();
+    const navigate = useNavigate();
     const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [isProfileDropdownOpen, setProfileDropdownOpen] = useState(false);
 
     useEffect(() => {
         const token = localStorage.getItem('authToken');
-        setIsLoggedIn(!!token); // Set isLoggedIn based on the presence of the token
+        setIsLoggedIn(!!token);
     }, []);
 
+    const handleLogout = () => {
+        localStorage.removeItem('authToken');
+        setIsLoggedIn(false);
+        navigate('/login');
+    };
 
     const isHomePage = location.pathname === '/';
     const isLoginPage = location.pathname === '/login';
@@ -47,18 +53,26 @@ const Navbar = ({ view, setDropdownOpen, dropdownOpen, handleViewChange, handleL
             )}
 
             {isLoggedIn ? (
-                <button className="logout-button" onClick={() => {/* handle logout */}}>
-                    Logout
-                </button>
+                <div className="profile-dropdown" onMouseEnter={() => setProfileDropdownOpen(true)} onMouseLeave={() => setProfileDropdownOpen(false)}>
+                    <button className="profile-button" onClick={() => navigate('/myprofile')}>
+                        My Profile
+                    </button>
+                    {isProfileDropdownOpen && (
+                        <ul className="profile-menu">
+                            <li onClick={() => navigate('/mypurchases')}>My Purchases</li>
+                            <li onClick={handleLogout}>Log Out</li>
+                        </ul>
+                    )}
+                </div>
             ) : (
                 !isLoginPage && !isSignUpPage && (
-                    <button className="hlogin-button" onClick={handleLogin}>
+                    <button className="hlogin-button" onClick={() => navigate('/login')}>
                         Login
                     </button>
                 )
             )}
         </div>
     );
-}
+};
 
 export default Navbar;

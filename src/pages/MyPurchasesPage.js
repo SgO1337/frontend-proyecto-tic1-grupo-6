@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import './styleRegisterPage.css';
+import '../components/styleRegisterPage.css';
+import '../components/styles.css';
 import axios from "axios"; // Si quieres añadir estilos específicos
-import { Link } from 'react-router-dom';
-import HomePage from "./HomePage";
 
 const MyPurchasesPage = () => {
     const [error, setError] = useState(''); // Para almacenar mensajes de error

@@ -7,6 +7,7 @@ import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
 import SignUpPage from './pages/SignUpPage';
 import SelectionInfoPage from "./pages/SelectionInfoPage";
+import MyPurchasesPage from "./pages/MyPurchasesPage";
 
 
 const App = () => {
@@ -21,6 +22,7 @@ const App = () => {
           <Route path="/signup" element={<UserForm />} />
           <Route path="/create" element={<UserForm />} />
           <Route path="/select/:id" element={<SelectionInfoPage/>} />
+          <Route path="/mypurchases" element={<MyPurchasesPage />} />
       </Routes>
     </Router>
   );
