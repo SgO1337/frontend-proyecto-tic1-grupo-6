@@ -1,0 +1,85 @@
+/* Navigation bar at the top */
+.navbar {
+    display: flex;
+    background-color: #1C5560;
+    padding: 0 20px;
+    color: #FBFFCD;
+    text-align: center;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    height: 80px; /* Adjust the height to your desired value */
+    z-index: 1000;
+}
+
+.cine-name-button {
+    background: none;
+    border: none;
+    color: #FBFFCD;
+    font-size: 24px;
+    cursor: pointer;
+    text-align: center;
+}
+
+.cine-name-button:hover {
+    text-decoration: underline;
+}
+
+.Capital {
+    color: #FBFFCD;
+}
+
+.Lower {
+    color: #79AE92;
+}
+
+.dropdown-button, .hlogin-button, .logout-button, .profile-button {
+    background-color: #144450;
+    color: #FBFFCD;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+    text-align: center;
+}
+
+.dropdown-menu {
+    top: 40px; /* Adjust position below the button */
+    left: 50%; /* Center horizontally */
+    transform: translateX(-50%)
+}
+
+.profile-dropdown {
+    position: relative;
+}
+
+.profile-menu {
+    display: block;
+    position: absolute;
+    background-color: #1C5560;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    width: 150px;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    top: 35px; /* Adjust position as needed */
+    right: 0;
+}
+
+.profile-menu li {
+    padding: 10px 15px;
+    cursor: pointer;
+    background-color: #FBFFCD;
+    color: black;
+    border-bottom: 1px solid #ddd;
+}
+
+.profile-menu li:hover {
+    background-color: #1C5560;
+    color: #FBFFCD;
+}
+
+.profile-menu li:last-child {
+    border-bottom: none;
+}

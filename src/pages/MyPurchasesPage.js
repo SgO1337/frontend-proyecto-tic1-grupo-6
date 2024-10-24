@@ -1,68 +1,66 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
-import '../components/styleRegisterPage.css';
-import '../components/styles.css';
-import axios from "axios"; // Si quieres añadir estilos específicos
+import { useNavigate } from 'react-router-dom';
+import Navbar from '../components/Navbar';
+import '../styles/stylesMyPurchasesPage.css';
+import '../styles/styles.css';
+import axios from "axios";
+import mockMovies from '../data/mockMovies.js'; // Import mock movies
+import mockPurchases from '../data/mockPurchases';
 
 const MyPurchasesPage = () => {
-    const [error, setError] = useState(''); // Para almacenar mensajes de error
+    const [error, setError] = useState('');
+    const [purchases, setPurchases] = useState([]);
     const navigate = useNavigate();
-    const [view, setView] = useState('billboard'); // Change from bildoard to snack menu
+    const [view, setView] = useState('billboard');
     const [dropdownOpen, setDropdownOpen] = useState(false);
-    const [dropdownOpenProfile , setDropdownOpenProfile] = useState(false);
 
-    const handleViewChange = (newView) => {
-        setView(newView);
-        setDropdownOpen(false);  // Close dropdown after choosing
-        setDropdownOpenProfile(false);
-    };
+    useEffect(() => {
+        const fetchPurchases = async () => {
+            try {
+                // Mock for testing
+                setPurchases(mockPurchases);
+            } catch (error) {
+                setError('Failed to load purchases. Please try again later.');
+            }
+        };
 
-    const handleSnacksClick = () => {
-        navigate("/", { state: { view: 'snacks' } }); // Pass the view state when navigating
-    };
+        fetchPurchases();
+    }, []);
 
+    // Sort purchases by date in descending order (latest first)
+    const sortedPurchases = [...purchases].sort((a, b) => new Date(b.date) - new Date(a.date));
 
     return (
-        <>
-            <div className="navbar">
-                <h1 className="cine-name">
-                    <span className="Capital">W</span>
-                    <span className="Lower">hat </span>
-                    <span className="Capital">T</span>
-                    <span className="Lower">he </span>
-                    <span className="Capital">F</span>
-                    <span className="Lower">un </span>
-                    <span className="Capital">C</span>
-                    <span className="Lower">inema</span>
-                </h1>
-
-                <div className="dropdown">
-                    <button className="dropdown-button" onClick={() => setDropdownOpen(!dropdownOpen)}>
-                        {view === 'billboard' ? 'Billboard' : 'Snacks'} {/!* Muestra la opción seleccionada *!/}
-                    </button>
-                    {dropdownOpen && (
-                        <ul className="dropdown-menu">
-                            <li onClick={() => navigate("/")}>Billboard</li>
-                            <li onClick={() => handleSnacksClick()}>Snacks</li>
-                        </ul>
-                    )}
-                </div>
-
-                <button className="profile-button" onClick={() => setDropdownOpenProfile(!dropdownOpenProfile)}>
-                    {view === '{/!*Nombre y Apellido*!/}' ? '{/!*Nombre y Apellido*!/}' : 'My account' & ""}
-                </button>
-                {dropdownOpenProfile && (
-                    <ul className="dropdownprofile-menu">
-                        <li onClick={() => handleViewChange('myaccount')}>{/!*Nombre y Apellido*!/}</li>
-                        <li OnClick={() => handleViewChange()}></li>
-                        <li onClick={() => handleViewChange('logout')}>Log Out</li>
-                    </ul>
+        <div>
+            <Navbar view={view} setDropdownOpen={setDropdownOpen} dropdownOpen={dropdownOpen} handleViewChange={setView} />
+            <div className="my-purchases-page">
+                <h1>My Purchases</h1>
+                {error && <p className="error-message">{error}</p>}
+                {sortedPurchases.length > 0 ? (
+                    <div className="purchases-list">
+                        {sortedPurchases.map((purchase) => (
+                            <div key={purchase.id} className="purchase-item">
+                                <div className="purchase-description">
+                                    <p className="purchase-name">{purchase.itemName}</p>
+                                    <p className="purchase-date">Date: {new Date(purchase.date).toLocaleDateString()}</p>
+                                    <p className="purchase-price">Price: ${purchase.price.toFixed(2)}</p>
+                                </div>
+                                {purchase.type === 'movie' && (
+                                    <img
+                                        src={mockMovies.find(movie => movie.id === purchase.movieId)?.posterUrl}
+                                        alt={purchase.itemName}
+                                        className="movie-poster"
+                                    />
+                                )}
+                            </div>
+                        ))}
+                    </div>
+                ) : (
+                    <p>No purchases found.</p>
                 )}
-
             </div>
-        </>
-    )
-
-}
+        </div>
+    );
+};
 
 export default MyPurchasesPage;

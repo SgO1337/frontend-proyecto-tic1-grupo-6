@@ -8,6 +8,7 @@ import LoginPage from './pages/LoginPage';
 import SignUpPage from './pages/SignUpPage';
 import SelectionInfoPage from "./pages/SelectionInfoPage";
 import MyPurchasesPage from "./pages/MyPurchasesPage";
+import MyProfilePage from "./pages/MyProfilePage";
 
 
 const App = () => {
@@ -23,6 +24,7 @@ const App = () => {
           <Route path="/create" element={<UserForm />} />
           <Route path="/select/:id" element={<SelectionInfoPage/>} />
           <Route path="/mypurchases" element={<MyPurchasesPage />} />
+          <Route path="/myprofile" element={<MyProfilePage />} />
       </Routes>
     </Router>
   );

@@ -1,72 +1,75 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // Use navigate for programmatic navigation
-import '../components/styleRegisterPage.css';
-import axios from "axios";
+import { useNavigate, Link } from 'react-router-dom';
+import '../styles/stylesRegisterPage.css';
+import '../styles/styles.css';
 import Navbar from '../components/Navbar';
+import axios from 'axios';
 
 const LoginPage = () => {
-    const [user, setUser] = useState({ email: '', password: '' });
-    const [error, setError] = useState(''); // To store error messages
-    const [currentPage, setCurrentPage] = useState(''); // Track the current page
-    const navigate = useNavigate(); // Hook for navigation
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [error, setError] = useState('');
+    const [currentPage, setCurrentPage] = useState('');
+    const navigate = useNavigate(); // For navigation after login
 
-    // To handle the form input changes
-    const handleChange = (event) => {
-        const { name, value } = event.target;
-        setUser((prevUser) => ({ ...prevUser, [name]: value }));
+    // Handle form input changes
+    const handleEmailChange = (event) => {
+        setEmail(event.target.value);
+        setError(''); // Clear previous error when typing starts
+    };
+
+    const handlePasswordChange = (event) => {
+        setPassword(event.target.value);
+        setError(''); // Clear previous error when typing starts
     };
 
 
-    //ESTO ES PARA TESTEAR, BORRAR EN LA VERSION FINAL
-    const handleLogin = async (event) => {
+    const handleSubmit = (event) => {
         event.preventDefault();
-        // Mock successful login response
-        const response = {
-            data: {
-                success: true,
-                token: 'mock-jwt-token'
-            }
-        };
-        if (response.data.success) {
-            localStorage.setItem('authToken', response.data.token);
-            navigate('/');
+        console.log('Login form submitted');
+
+        // Hardcoded credentials for testing
+        const hardcodedEmail = 'testuser@gmail.com';
+        const hardcodedPassword = 'password123';
+
+        if (email === hardcodedEmail && password === hardcodedPassword) {
+            // Simulate successful login response
+            localStorage.setItem('authToken', 'fakeAuthToken');
+            localStorage.setItem('userData', JSON.stringify({ email: hardcodedEmail, name: 'Test User' }));
+            navigate('/'); // Redirect to homepage after successful login
         } else {
-            setError('Login failed.');
+            setError('Invalid credentials. Please try again.');
         }
     };
 
-
-
-    // The function responsible for handling login logic
-    // const handleLogin = async () => {
+    // Handle form submission for login
+    // const handleSubmit = async (event) => {
+    //     event.preventDefault();
+    //     console.log('Login form submitted');
+    //
     //     try {
-    //         // Checks if the email is registered
-    //         const response = await axios.post('/auth/login', user); // Now you can use await
-    //         if (response.status === 200) {
-    //             // Successful login, redirect to the main page
+    //         // Send login request
+    //         const response = await axios.post('/auth/login', {
+    //             email: email,
+    //             password: password
+    //         });
+    //
+    //         if (response.data.success) {
+    //             // Store token and user data in localStorage
     //             localStorage.setItem('authToken', response.data.token);
-    //             navigate('/'); // Navigate after successful login
+    //             localStorage.setItem('userData', JSON.stringify(response.data.user));
+    //             navigate('/'); // Redirect to homepage after successful login
     //         } else {
-    //             // Show the error message
-    //             setError(response.data.message); // Show error message
+    //             setError(response.data.message);
     //         }
     //     } catch (error) {
-    //         // Handle the error
-    //         if (error.response && error.response.status === 404) {
-    //             setError('El email no está registrado.');
-    //         } else if (error.response && error.response.status === 401) {
-    //             setError('El email y la contraseña no coinciden.');
+    //         if (error.response && error.response.status === 401) {
+    //             setError('Invalid credentials. Please try again.');
     //         } else {
-    //             setError('Ocurrió un error al iniciar sesión. Por favor, inténtalo de nuevo.');
+    //             setError('An error occurred during login. Please try again.');
     //         }
     //     }
     // };
-
-    // The function that handles form submission
-    const handleSubmit = (event) => {
-        event.preventDefault(); // Prevents the default form submission
-        handleLogin(); // Calls handleLogin when the form is submitted
-    };
 
     useEffect(() => {
         if (window.location.href.includes("login")) {
@@ -74,20 +77,18 @@ const LoginPage = () => {
         } else if (window.location.href.includes("signup")) {
             setCurrentPage('signup');
         }
-    }, []); // Dependency array ensures this runs once
+    }, []); // Runs when the component mounts
 
     return (
-        <>
-            <Navbar isHomePage={false} />
-            <div className="login-container">
+        <div className="RegPage">
+            {/* Top Bar */}
+            <Navbar />
+            <div className="login-container" style={{ paddingBottom: '20px', marginBottom: '20px' }}>
                 <div className="button-group">
                     <button className={`login-button ${currentPage === 'login' ? 'active' : ''}`}>Login</button>
-                    <button
-                        className={`signup-button ${currentPage === 'signup' ? 'active' : ''}`}
-                        onClick={() => navigate('/signup')}
-                    >
-                        Sign Up
-                    </button>
+                    <Link to="/signup">
+                        <button className={`signup-button ${currentPage === 'signup' ? 'active' : ''}`}>Sign Up</button>
+                    </Link>
                 </div>
                 <form className="login-form" onSubmit={handleSubmit}>
                     <div className="form-group">
@@ -97,7 +98,8 @@ const LoginPage = () => {
                             type="email"
                             id="email"
                             name="email"
-                            onChange={handleChange}
+                            value={email}
+                            onChange={handleEmailChange}
                             required
                         />
                     </div>
@@ -108,22 +110,16 @@ const LoginPage = () => {
                             type="password"
                             id="password"
                             name="password"
-                            onChange={handleChange}
+                            value={password}
+                            onChange={handlePasswordChange}
                             required
                         />
-                        <br /><br />
-                        <button
-                            type="button"
-                            className="forgot-password-button"
-                            onClick={() => navigate('/forgot-password')}
-                        >
-                            Forgot password?
-                        </button>
                     </div>
-                    <button type="submit" className="submit-button" style={{ color: 'white' }}>Login</button>
+                    <div className="error-message">{error && <p>{error}</p>}</div>
+                    <button className="submit-button" type="submit">Login</button>
                 </form>
             </div>
-        </>
+        </div>
     );
 };
 

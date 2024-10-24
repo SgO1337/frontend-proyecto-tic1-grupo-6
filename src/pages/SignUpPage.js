@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import '../components/styleRegisterPage.css';
-import '../components/styles.css';
+import '../styles/stylesRegisterPage.css';
+import '../styles/styles.css';
 import Navbar from '../components/Navbar';
-import axios from "axios";
+import axios from 'axios';
 
 const SignUpPage = () => {
     const [user, setUser] = useState({
@@ -30,110 +30,98 @@ const SignUpPage = () => {
         setError(''); // Clear any previous error when typing starts
     };
 
-    const handleLogin = () => {
-        navigate('/login'); // Redirect to login page
-    };
-
     const handleViewChange = (newView) => {
         setView(newView);
-        setDropdownOpen(false);  // Close dropdown
+        setDropdownOpen(false); // Close dropdown
     };
-
-    //ESTO ES PARA TESTEAR, BORRAR EN LA VERSION FINAL
-    const handleSubmit = async (event) => {
-        event.preventDefault();
-        // Mock successful registration response
-        const response = {
-            data: {
-                success: true,
-                token: 'mock-jwt-token'
-            }
-        };
-        if (response.data.success) {
-            localStorage.setItem('authToken', response.data.token);
-            navigate('/');
-        } else {
-            setError('Registration failed.');
-        }
-    };
-
-
 
     // Handle form submission
-    // const handleSubmit = async (event) => {
-    //     event.preventDefault();
-    //     console.log('Form submitted');
-    //
-    //     // Validate name, surname, and birthday
-    //     const namePattern = /^[a-zA-Z\s]+$/;
-    //     if (!user.name) {
-    //         setError('Name cannot be empty');
-    //         return;
-    //     } else if (!namePattern.test(user.name)) {
-    //         setError('Name can only contain letters and spaces');
-    //         return;
-    //     } else if (user.name.length < 2 || user.name.length > 50) {
-    //         setError('Name should be between 2 and 50 characters');
-    //         return;
-    //     }
-    //     if (!user.surname) {
-    //         setError('Surname cannot be empty');
-    //         return;
-    //     } else if (!namePattern.test(user.surname)) {
-    //         setError('Surname can only contain letters and spaces');
-    //         return;
-    //     } else if (user.surname.length < 2 || user.surname.length > 50) {
-    //         setError('Surname should be between 2 and 50 characters');
-    //         return;
-    //     }
-    //     // Validate birthday
-    //     if (!user.day || !user.month || !user.year) {
-    //         setError('Please select a valid birthday');
-    //         return;
-    //     }
-    //     // Check if password and re-entered password match
-    //     if (user.password !== user.reEnteredPassword) {
-    //         setError('The passwords do not match');
-    //         return;
-    //     }
-    //     // If validation passes, proceed to calculate age and submit
-    //     try {
-    //         const day = user.day;
-    //         const month = user.month - 1; // Months are 0-indexed in JS
-    //         const year = user.year;
-    //         // Calculate age from birthday
-    //         const birthDate = new Date(year, month, day);
-    //         const today = new Date();
-    //         let age = today.getFullYear() - birthDate.getFullYear();
-    //         const monthDifference = today.getMonth() - birthDate.getMonth();
-    //         if (monthDifference < 0 || (monthDifference === 0 && today.getDate() < birthDate.getDate())) {
-    //             age--;
-    //         }
-    //         // Send registration request
-    //         const response = await axios.post('/auth/register', {
-    //             ci: user.identification,
-    //             name: user.name,
-    //             surname: user.surname,
-    //             email: user.email,
-    //             password: user.password,
-    //             age: age
-    //         });
-    //         if (response.data.success) {
-    //             // Store the token in localStorage
-    //             localStorage.setItem('authToken', response.data.token);
-    //             navigate('/'); // Redirect on successful registration
-    //         } else {
-    //             setError(response.data.message);
-    //         }
-    //     } catch (error) {
-    //         if (error.response && error.response.status === 403) {
-    //             setError('El email ya está registrado.');
-    //         } else {
-    //             setError('Ocurrió un error al registrarse. Por favor, inténtalo de nuevo.');
-    //         }
-    //     }
-    // };
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        console.log('Form submitted');
 
+        // Validate name, surname, and birthday
+        const namePattern = /^[a-zA-Z\s]+$/;
+        if (!user.name) {
+            setError('Name cannot be empty');
+            return;
+        } else if (!namePattern.test(user.name)) {
+            setError('Name can only contain letters and spaces');
+            return;
+        } else if (user.name.length < 2 || user.name.length > 50) {
+            setError('Name should be between 2 and 50 characters');
+            return;
+        }
+        if (!user.surname) {
+            setError('Surname cannot be empty');
+            return;
+        } else if (!namePattern.test(user.surname)) {
+            setError('Surname can only contain letters and spaces');
+            return;
+        } else if (user.surname.length < 2 || user.surname.length > 50) {
+            setError('Surname should be between 2 and 50 characters');
+            return;
+        }
+
+        // Validate birthday
+        if (!user.day || !user.month || !user.year) {
+            setError('Please select a valid birthday');
+            return;
+        }
+
+        // Check if password and re-entered password match
+        if (user.password !== user.reEnteredPassword) {
+            setError('The passwords do not match');
+            return;
+        }
+
+        // If validation passes, proceed to calculate age and submit
+        try {
+            const day = user.day;
+            const month = user.month - 1; // Months are 0-indexed in JS
+            const year = user.year;
+
+            // Calculate age from birthday
+            const birthDate = new Date(year, month, day);
+            const today = new Date();
+            let age = today.getFullYear() - birthDate.getFullYear();
+            const monthDifference = today.getMonth() - birthDate.getMonth();
+            if (monthDifference < 0 || (monthDifference === 0 && today.getDate() < birthDate.getDate())) {
+                age--;
+            }
+
+            // Send registration request
+            const response = await axios.post('/auth/register', {
+                ci: user.identification,
+                name: user.name,
+                surname: user.surname,
+                email: user.email,
+                password: user.password,
+                age: age // Include age in the request
+            });
+
+            if (response.data.success) {
+                // Store user data and token in localStorage
+                localStorage.setItem('authToken', response.data.token);
+                localStorage.setItem('userData', JSON.stringify({
+                    name: user.name,
+                    surname: user.surname,
+                    email: user.email,
+                    identification: user.identification,
+                    age: age // Store the calculated age
+                }));
+                navigate('/'); // Redirect on successful registration
+            } else {
+                setError(response.data.message);
+            }
+        } catch (error) {
+            if (error.response && error.response.status === 403) {
+                setError('El email ya está registrado.');
+            } else {
+                setError('Ocurrió un error al registrarse. Por favor, inténtalo de nuevo.');
+            }
+        }
+    };
 
     // Generate options for day, month, and year dropdowns
     const renderDayOptions = () => {
@@ -165,8 +153,8 @@ const SignUpPage = () => {
     return (
         <div className="RegPage">
             {/* Top Bar */}
-            <Navbar isHomePage={false} />
-            <div className="login-container" style={{paddingBottom: '20px', marginBottom: '20px' }}>
+            <Navbar />
+            <div className="login-container" style={{ paddingBottom: '20px', marginBottom: '20px' }}>
                 <div className="button-group">
                     <Link to="/login">
                         <button className={`login-button ${currentPage === 'login' ? 'active' : ''}`}>Login</button>
@@ -245,7 +233,7 @@ const SignUpPage = () => {
                     </div>
 
                     <div className="form-group">
-                        <br/>
+                        <br />
                         <label htmlFor="password">Password</label>
                         <input
                             placeholder="password"
@@ -270,7 +258,7 @@ const SignUpPage = () => {
                         />
                     </div>
                     <div className="error-message">{error && <p>{error}</p>}</div>
-                    <button type="submit" className="submit-button" style={{ color: 'white' }}>Sign Up</button>
+                    <button className="submit-button" type="submit">Sign Up</button>
                 </form>
             </div>
         </div>

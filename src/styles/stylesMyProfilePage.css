@@ -1,0 +1,132 @@
+.my-profile-page {
+    display: flex;
+    flex-direction: column;
+}
+
+.content {
+    display: flex;
+    flex-grow: 1;
+}
+
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 20px;
+}
+
+.rounded-button {
+    background-color: #1C5560;
+    color: #FBFFCD;
+    padding: 10px 20px;
+    border-radius: 25px;
+    margin: 10px 0;
+    cursor: pointer;
+    text-align: center;
+    transition: background-color 0.3s;
+}
+
+.rounded-button:hover {
+    background-color: #154c53;
+}
+
+.main-content {
+    flex-grow: 1;
+    padding: 20px;
+    border-left: 1px solid #ccc;
+}
+
+.profile-info {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.info-block {
+    background: #3a6073;
+    color: #FBFFCD;
+    padding: 30px;
+    border-radius: 15px;
+    width: 400px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    font-size: 1.5em;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.password-input {
+    width: 90%;
+    padding: 10px;
+    background: #FBFFCD;
+    border: none;
+    border-radius: 15px;
+    margin: 10px;
+    font-size: 1em;
+}
+
+.change-password-button {
+    background-color: #001f36;
+    color: #FBFFCD;
+    padding: 10px 20px;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    border: none;
+}
+
+.change-password-button:hover {
+    background-color: #001f36;
+}
+
+.error-message {
+    color: red;
+    margin-top: 10px;
+}
+
+/* Modal and overlay styles */
+.logout-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.8); /* Dark background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.logout-modal {
+    background: #3a6073;
+    padding: 50px;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    width: 400px; /* Bigger modal size */
+    font-size: 1.2em;
+}
+
+.logout-button {
+    background-color: #001f36;
+    color: #FBFFCD;
+    padding: 10px 20px;
+    border-radius: 25px;
+    margin: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    border: none;
+}
+
+.logout-button:hover {
+    background-color: #154c53;
+}
+
+.yes-button {
+    background-color: #001f36;
+}
+
+.no-button {
+    background-color: #001f36;
+}

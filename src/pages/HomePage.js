@@ -1,14 +1,13 @@
-// src/components/HomePage.js
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import '../components/stylesHomePage.css';
+import '../styles/stylesHomePage.css';
 import Navbar from '../components/Navbar';
 import MoviesList from '../components/MoviesList';
 
 const HomePage = () => {
     const navigate = useNavigate();
     const location = useLocation();
-    const [view, setView] = useState('billboard');
+    const [view, setView] = useState('billboard'); // Default view is 'billboard'
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
 
@@ -16,6 +15,8 @@ const HomePage = () => {
         // Check if there is a view state passed from navigation
         if (location.state && location.state.view) {
             setView(location.state.view);
+        } else {
+            setView('billboard'); // Set default view if none is passed
         }
 
         // Check if user is logged in (replace with your actual login check logic)

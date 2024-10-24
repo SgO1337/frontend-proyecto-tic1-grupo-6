@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import mockMovies from '../data/mockMovies';
 import SelectionInfoForm from '../components/SelectInfoForm.js';
 import {useNavigate} from "react-router-dom";
-import '../components/stylesSelectionInfoPage.css';
+import '../styles/stylesSelectionInfoPage.css';
 import Navbar from '../components/Navbar';
 
 
