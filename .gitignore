@@ -8,5 +8,7 @@
 /dataSources.local.xml
 
 node_modules/.cache/
+node_modules/
+
 
 .idea
