@@ -83,7 +83,7 @@ const LoginPage = () => {
         <div className="RegPage">
             {/* Top Bar */}
             <Navbar />
-            <div className="login-container" style={{ paddingBottom: '20px', marginBottom: '20px' }}>
+            <div className="login-container" style={{ paddingBottom: '20px', marginBottom: '20px'}}>
                 <div className="button-group">
                     <button className={`login-button ${currentPage === 'login' ? 'active' : ''}`}>Login</button>
                     <Link to="/signup">
@@ -92,7 +92,7 @@ const LoginPage = () => {
                 </div>
                 <form className="login-form" onSubmit={handleSubmit}>
                     <div className="form-group">
-                        <label htmlFor="email">Email Address</label>
+                        <label htmlFor="email" style= {{color: '#FBFFCD'}}>Email Address</label>
                         <input
                             placeholder="johndoe@gmail.com"
                             type="email"
@@ -104,7 +104,7 @@ const LoginPage = () => {
                         />
                     </div>
                     <div className="form-group">
-                        <label htmlFor="password">Password</label>
+                        <label htmlFor="password" style= {{color: '#FBFFCD'}}>Password</label>
                         <input
                             placeholder="password"
                             type="password"

@@ -164,7 +164,7 @@ const SignUpPage = () => {
                 <form className="login-form" onSubmit={handleSubmit}>
                     <div className="form-row">
                         <div className="form-group">
-                            <label htmlFor="name">Name</label>
+                            <label htmlFor="name" style= {{color: '#FBFFCD'}}>Name</label>
                             <input
                                 placeholder="John"
                                 type="text"
@@ -176,7 +176,7 @@ const SignUpPage = () => {
                             />
                         </div>
                         <div className="form-group">
-                            <label htmlFor="surname">Surname</label>
+                            <label htmlFor="surname" style= {{color: '#FBFFCD'}}>Surname</label>
                             <input
                                 placeholder="Doe"
                                 type="text"
@@ -189,7 +189,7 @@ const SignUpPage = () => {
                         </div>
                     </div>
                     <div className="form-group">
-                        <label htmlFor="email">Email Address</label>
+                        <label htmlFor="email" style= {{color: '#FBFFCD'}}>Email Address</label>
                         <input
                             placeholder="johndoe@gmail.com"
                             type="email"
@@ -201,7 +201,7 @@ const SignUpPage = () => {
                         />
                     </div>
                     <div className="form-group">
-                        <label htmlFor="identification">I.D.</label>
+                        <label htmlFor="identification" style= {{color: '#FBFFCD'}}>I.D.</label>
                         <input
                             placeholder="12345678"
                             type="text"
@@ -215,7 +215,7 @@ const SignUpPage = () => {
 
                     {/* Birthday Selector */}
                     <div className="form-group">
-                        <label htmlFor="birthday">Birthday</label>
+                        <label htmlFor="birthday" style= {{color: '#FBFFCD'}}>Birthday</label>
                         <div className="birthday-selector">
                             <select name="day" value={user.day} onChange={handleChange} required>
                                 <option value="">Day</option>
@@ -233,8 +233,7 @@ const SignUpPage = () => {
                     </div>
 
                     <div className="form-group">
-                        <br />
-                        <label htmlFor="password">Password</label>
+                        <label htmlFor="password" style= {{color: '#FBFFCD'}}>Password</label>
                         <input
                             placeholder="password"
                             type="password"
@@ -246,7 +245,7 @@ const SignUpPage = () => {
                         />
                     </div>
                     <div className="form-group">
-                        <label htmlFor="reEnteredPassword">Re-Enter Password</label>
+                        <label htmlFor="reEnteredPassword" style= {{color: '#FBFFCD'}}>Re-Enter Password</label>
                         <input
                             placeholder="password"
                             type="password"

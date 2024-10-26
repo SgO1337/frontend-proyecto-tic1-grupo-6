@@ -9,7 +9,6 @@
     padding: 40px; /* Increased padding */
     border-radius: 10px;
     border: solid #3a6073;
-;
 }
 
 .button-group {
@@ -122,33 +121,51 @@ a[href="/forgot-password"]:hover {
     color: #104166;
 }
 
-/* Style the select dropdowns */
-.birthday-selector select {
-    font-size: 18px; /* Increase the font size */
-    padding: 10px;   /* Increase the padding */
-    width: 120px;    /* Adjust the width */
-    margin-right: 10px; /* Space between the selects */
-    border-radius: 5px; /* Add some rounding for aesthetics */
-    border: 1px solid #ccc; /* Light border */
-}
-
-/* Hide the "Day", "Month", and "Year" option once the user opens the dropdown */
-.birthday-selector select:focus option[value=""] {
-    display: none; /* Hide the default option on focus */
-}
-
-/* Optional: Add a hover effect */
-.birthday-selector select:hover {
-    border-color: #888;
-}
-
-/* Adjust the form group to center the dropdowns */
 .birthday-selector {
     display: flex;
     justify-content: space-between;
-    max-width: 400px;
+    gap: 50px;
+    height: 47.5px;
+    width: 100%; /* Make the selector occupy the full width */
     margin-bottom: 20px;
 }
+
+.birthday-selector select {
+    flex: 1; /* Make all the select elements occupy equal space */
+    margin-right: 10px; /* Space between the selects */
+    padding: 10px; /* Increased padding for better appearance */
+    border-radius: 5px; /* Optional: Rounded corners */
+    border: 1px solid #ccc;
+    font-size: 18px;
+}
+
+/* Remove the right margin for the last select (year) */
+.birthday-selector select:last-child {
+    margin-right: 0;
+}
+.birthday-selector {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px; /* Reduce the gap to make spacing more balanced */
+    height: auto; /* Remove the fixed height to allow for text fit */
+    width: 100%; /* Ensure it takes the full width of the container */
+    margin-bottom: 20px;
+}
+
+.birthday-selector select {
+    flex: 1; /* Make all the select elements occupy equal space */
+    margin-right: 10px; /* Space between the selects */
+    padding: 10px; /* Increased padding for better appearance */
+    border-radius: 5px; /* Optional: Rounded corners */
+    border: 1px solid #ccc;
+    font-size: 18px;
+}
+
+/* Remove the right margin for the last select (year) */
+.birthday-selector select:last-child {
+    margin-right: 0;
+}
+
 
 /* Styles for the forgot password button */
 .forgot-password-button {
