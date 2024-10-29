@@ -11,8 +11,8 @@ const UserForm = () => {
     if (id) {
       // Fetch the user to edit
       axios.get(`/api/users/view/${id}`)
-        .then(response => setUser(response.data))
-        .catch(error => console.error('Error fetching user!', error));
+          .then(response => setUser(response.data))
+          .catch(error => console.error('Error fetching user!', error));
     }
   }, [id]);
 
@@ -22,37 +22,37 @@ const UserForm = () => {
     if (id) {
       // Update existing user
       axios.put(`/api/users/update/${id}`, user)
-        .then(() => window.location.href = '/')
-        .catch(error => console.error('Error updating user!', error));
+          .then(() => window.location.href = '/')
+          .catch(error => console.error('Error updating user!', error));
     } else {
       // Create new user
       axios.post('/api/users/create', user)
-        .then(() => window.location.href = '/')
-        .catch(error => console.error('Error creating user!', error));
+          .then(() => window.location.href = '/')
+          .catch(error => console.error('Error creating user!', error));
     }
   };
 
   return (
-    <div>
-      <h1>{id ? 'Edit User' : 'Create New User'}</h1>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="email"
-          placeholder="Email"
-          value={user.email}
-          onChange={(e) => setUser({ ...user, email: e.target.value })}
-          required
-        />
-        <input
-          type="password"
-          placeholder="password"
-          value={user.password}
-          onChange={(e) => setUser({ ...user, password: e.target.value })}
-          required
-        />
-        <button type="submit">{id ? 'Update User' : 'Create User'}</button>
-      </form>
-    </div>
+      <div>
+        <h1>{id ? 'Edit User' : 'Create New User'}</h1>
+        <form onSubmit={handleSubmit}>
+          <input
+              type="email"
+              placeholder="Email"
+              value={user.email}
+              onChange={(e) => setUser({ ...user, email: e.target.value })}
+              required
+          />
+          <input
+              type="password"
+              placeholder="password"
+              value={user.password}
+              onChange={(e) => setUser({ ...user, password: e.target.value })}
+              required
+          />
+          <button type="submit">{id ? 'Update User' : 'Create User'}</button>
+        </form>
+      </div>
   );
 };
 

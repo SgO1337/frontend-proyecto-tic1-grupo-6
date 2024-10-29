@@ -1,15 +1,6 @@
 /* public/stylesHomePage.css o src/stylesHomePage.css */
 /* Styles for the main page */
 
-
-body {
-    background: linear-gradient(to bottom, #001f36, #000000);
-    margin: 0;
-    padding: 0;
-    font-family: Arial, sans-serif;
-    min-height: 100vh;
-}
-
 .home-page {
     padding: 0px;
     font-family: Arial, sans-serif;

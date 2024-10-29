@@ -1,4 +1,3 @@
-
 const mockMovies = [
     {
         id: 1,

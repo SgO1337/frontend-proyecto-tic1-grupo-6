@@ -1,0 +1,53 @@
+.seat-grid {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.seat {
+    width: 40px;
+    height: 40px;
+    background-color: #FBFFCD;
+    margin: 0.2%;
+    border-radius: 10%;
+}
+
+.seat.selected {
+    background-color: #79AE92;; /* Color de los asientos seleccionados */
+}
+
+.seat-information {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    color: #FBFFCD;
+}
+
+
+.submit-reservation {
+    width: 20%;
+    align-items: center;
+    font-size: 130%;
+    background-color: #1c5560;
+    color: #FBFFCD;
+    border: none;
+    border-radius: 5%;
+    margin: 0 auto;
+    display: block;
+    padding: 1%;
+
+}
+
+.submit-reservation:hover {
+    background-color: #144450;
+    color: #FBFFCD;
+}

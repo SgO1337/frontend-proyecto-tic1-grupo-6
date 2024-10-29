@@ -7,7 +7,7 @@ const Navbar = ({ view, setDropdownOpen, dropdownOpen, handleViewChange }) => {
     const navigate = useNavigate();
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [isProfileDropdownOpen, setProfileDropdownOpen] = useState(false);
-    const [showLogoutModal, setShowLogoutModal] = useState(false); // State for logout confirmation modal
+    const [showLogoutModal, setShowLogoutModal] = useState(false);
     const dropdownRef = useRef(null);
 
     useEffect(() => {
@@ -31,23 +31,23 @@ const Navbar = ({ view, setDropdownOpen, dropdownOpen, handleViewChange }) => {
         return () => {
             document.removeEventListener('mousedown', handleClickOutside);
         };
-    }, [dropdownOpen, setDropdownOpen]);
+    }, [dropdownOpen]);
 
     const handleLogout = () => {
-        setShowLogoutModal(true); // Show confirmation modal
+        setShowLogoutModal(true);
     };
 
     const confirmLogout = () => {
         localStorage.removeItem('authToken');
         setIsLoggedIn(false);
-        navigate('/'); // Navigate to the login page or handle actual logout
+        setShowLogoutModal(false); // Hide the modal after confirming logout
+        navigate('/'); // Redirect to login page after logout
     };
 
     const cancelLogout = () => {
-        setShowLogoutModal(false); // Close the modal
+        setShowLogoutModal(false);
     };
 
-    const isHomePage = location.pathname === '/';
     const isLoginPage = location.pathname === '/login';
     const isSignUpPage = location.pathname === '/signup';
 
@@ -76,9 +76,8 @@ const Navbar = ({ view, setDropdownOpen, dropdownOpen, handleViewChange }) => {
             {!isLoginPage && !isSignUpPage && (
                 <div className="dropdown" ref={dropdownRef}>
                     <button className="dropdown-button" onClick={() => setDropdownOpen(!dropdownOpen)}>
-                        {view === 'billboard' ? 'Billboard' : view === 'snacks' ? 'Snacks' : 'Billboard'} {/* Default to Billboard */}
+                        {view === 'billboard' ? 'Billboard' : 'Snacks'}
                     </button>
-
                     {dropdownOpen && (
                         <ul className="dropdown-menu">
                             <li onClick={() => handleDropdownItemClick('billboard')}>Billboard</li>
@@ -96,7 +95,7 @@ const Navbar = ({ view, setDropdownOpen, dropdownOpen, handleViewChange }) => {
                     {isProfileDropdownOpen && (
                         <ul className="profile-menu">
                             <li onClick={() => navigate('/mypurchases')}>My Purchases</li>
-                            <li onClick={handleLogout}>Log Out</li> {/* Trigger logout modal */}
+                            <li onClick={handleLogout}>Log Out</li>
                         </ul>
                     )}
                 </div>
@@ -111,7 +110,7 @@ const Navbar = ({ view, setDropdownOpen, dropdownOpen, handleViewChange }) => {
             {showLogoutModal && (
                 <div className="logout-modal-overlay">
                     <div className="logout-modal">
-                        <p style={{color: '#FBFFCD'}}>Are you sure you want to Log Out?</p>
+                        <p style={{ color: '#FBFFCD' }}>Are you sure you want to Log Out?</p>
                         <button className="logout-button yes-button" onClick={confirmLogout}>Yes</button>
                         <button className="logout-button no-button" onClick={cancelLogout}>No</button>
                     </div>
