@@ -14,6 +14,7 @@ const SelectInfoForm = () => {
     const [rooms, setRooms] = useState([]);
     const [quantity, setQuantity] = useState(1);
     const [isFormValid, setIsFormValid] = useState(false);
+    const [error, setError] = useState('');
 
 
     const [screeningId, setScreeningId] = useState('')
@@ -28,21 +29,30 @@ const SelectInfoForm = () => {
 
 
 
+
     useEffect(() => {
         const fetchBranches = async () => {
-            if (id) {
-                const response = await axios.get(`http://localhost:9090/api/movies/${id}/branches`);
-                setBranches(response.data);
-                setFormData(prevFormData => ({
-                    ...prevFormData,
-                    branchId: '',
-                    date: '',
-                    time: '',
-                    roomId: '',
-                    setIsFormValid: false
-                }));
-                setDates([]);
-                setTimes([]);
+            try {
+                if (id) {
+                    const response = await axios.get(`http://localhost:9090/api/movies/${id}/branches`);
+                    setBranches(response.data);
+                    setFormData(prevFormData => ({
+                        ...prevFormData,
+                        branchId: '',
+                        date: '',
+                        time: '',
+                        roomId: '',
+                    }));
+                    setDates([]);
+                    setTimes([]);
+                    setError(''); // Resetea el error si la solicitud es exitosa
+                }
+            } catch (error) {
+                if (error.response && error.response.status === 404) {
+                    setError('No se encontraron sucursales para esta película.');
+                } else {
+                    setError('Ocurrió un error al cargar las sucursales. Inténtalo nuevamente.');
+                }
             }
         };
         fetchBranches();
@@ -119,8 +129,14 @@ const SelectInfoForm = () => {
         <form className="movie-selection-form" onSubmit={handleSubmit}>
             <h1>BOOK YOUR TICKETS:</h1>
 
-            {/* Location */}
+
+
             <div className="form-group">
+
+                {id && branches.length == 0 && (
+                    <p className="no-functions-message">There are no screening availables yet.</p>
+                )}
+                
                 <label htmlFor="branches">Select Branch:</label>
                 <select
                     id="branches"
@@ -134,13 +150,16 @@ const SelectInfoForm = () => {
                             time: '',
                         }));
                     }}
-                    disabled={!id}
+                    disabled={!id || branches.length === 0}
                 >
                     <option value="">Select a branch</option>
                     {branches.map(branch => (
                         <option key={branch.branchId} value={branch.branchId}>{branch.location}</option>
                     ))}
                 </select>
+
+
+
             </div>
 
             {/* Date */}
