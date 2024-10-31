@@ -30,7 +30,7 @@ const SeatsForm = () => {
     useEffect(() => {
         const fetchOccupiedSeats = async () => {
             try {
-                const response = await axios.get(`http://localhost:9090/api/screenings/${screeningId}/occupied-seats`);
+                const response = await axios.get(`http://localhost:9090/api/seats/booked-seats/${screeningId}`);
                 setOccupiedSeats(response.data);
             } catch (error) {
                 console.error("Error al obtener los asientos ocupados:", error);
@@ -85,7 +85,7 @@ const SeatsForm = () => {
     const makeReservation = async () => {
         try {
             const response = await axios.post(`http://localhost:9090/api/booking-screening/create`, formData);
-            navigate();
+            navigate('/mypurchases');
         } catch (error) {
             console.error("Error making reservation:", error);
             alert("Failed to make reservation. Please try again.");

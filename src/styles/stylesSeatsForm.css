@@ -24,6 +24,10 @@
     background-color: #79AE92;; /* Color de los asientos seleccionados */
 }
 
+.seat.occupied {
+    background-color: darkred; /* Color de los asientos ocupados */
+}
+
 .seat-information {
     display: flex;
     justify-content: center;

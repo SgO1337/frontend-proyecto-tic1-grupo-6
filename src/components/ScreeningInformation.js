@@ -4,16 +4,15 @@ import axios from "axios";
 import '../styles/stylesSeatsForm.css';
 const ScreeningInformation = () => {
 
-    const screeningId = useParams()
+    const {screeningId} = useParams();
     const [data, setData] = useState([]);
 
-    const ScreeningInfo = ({ screeningId }) => {
+
         useEffect(() => {
             const fetchData = async () => {
                 try {
                     const response = await axios.get(`http://localhost:9090/api/screenings/view/${screeningId}`);
                     setData(response.data);
-
                 } catch (error) {
                     console.error('Error al obtener los datos:', error);
                 }
@@ -21,7 +20,8 @@ const ScreeningInformation = () => {
 
             fetchData();
         }, [screeningId]);
-    }
+
+
 
 
     const movieTitle = data.movie?.title || "Loading...";
