@@ -23,7 +23,7 @@ const App = () => {
                 <Route path="/select/:id" element={<SelectionInfoPage />} /> {/* Página de selección de película */}
                 <Route path="/mypurchases" element={<MyPurchasesPage />} /> {/* Página de compras */}
                 <Route path="/myprofile" element={<MyProfilePage />} /> {/* Página de perfil de usuario */}
-                <Route path="/seats/:id/:q" element={<SeatsPage/>} />
+                <Route path="/seats/:id/:screeningId/:q" element={<SeatsPage/>} />
             </Routes>
         </Router>
     );

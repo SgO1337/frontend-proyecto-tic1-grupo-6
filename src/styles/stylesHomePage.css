@@ -200,24 +200,48 @@
 }
 
 .movie-info {
+    border-radius: 4%;
     position: absolute;
-    top: 0;
-    left: 0;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     width: 100%;
     height: 100%;
-    background-color: transparent;
     color: #FBFFCD;
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
-    opacity: 0;
-    transition: opacity 0.3s ease;
+    text-align: center;
+    padding: 20px;
+    flex-direction: column;
+    font-style: italic;
+}
+
+.movie-genre {
+    margin-bottom: 10px;
+}
+
+.movie-cast,
+.movie-director {
+    margin: 5px 0;
+}
+
+.movie-duration-rating {
+    display: flex;
+    justify-content: space-between;
+    width: 80%;
+    margin-top: 15px;
+}
+
+.movie-duration,
+.movie-rating {
+    font-size: 1em;
 }
 
 .movie-poster-container:hover .movie-info {
-    opacity: 1; /* Muestra la información al pasar el mouse */
+    opacity: 1;
 }
+
 
 .buy-button {
     color: #1C5560;
@@ -236,9 +260,9 @@
     height: 10%;
 }
 
-/* Efecto hover (al pasar el mouse por encima) */
+
 .buy-button:hover {
-    background-color: #144450;   /* Color de fondo al pasar el mouse */
+    background-color: #144450;
     color: #FBFFCD;
 }
 
