@@ -54,3 +54,30 @@
     padding-top: 20px;
 }
 
+/* New styles for the buttons */
+.my-purchases-page .menu {
+    display: flex;
+    justify-content: center; /* Center the buttons */
+    gap: 20px; /* Space between buttons */
+    margin: 20px 0; /* Space above and below the button menu */
+}
+
+.my-purchases-page .menu button {
+    padding: 10px 20px; /* Padding for button */
+    font-size: 16px; /* Font size */
+    background-color: #007bff; /* Button background color */
+    color: white; /* Text color */
+    border: none; /* Remove border */
+    border-radius: 5px; /* Rounded corners */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: background-color 0.3s; /* Transition for hover effect */
+}
+
+.my-purchases-page .menu button:hover {
+    background-color: #0056b3; /* Darker shade on hover */
+}
+
+.my-purchases-page .menu button.active {
+    background-color: #0056b3; /* Active button color */
+    font-weight: bold; /* Bold text for active button */
+}

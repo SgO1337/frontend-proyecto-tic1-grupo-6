@@ -63,7 +63,7 @@ const Snacks = () => {
                 // Reset quantities after order
                 setQuantities({});
                 // Navigate back to home page
-                navigate('/'); // Change this path if your home route is different
+                navigate('/mypurchases'); // Change this path if your home route is different
             })
             .catch(error => console.error("Error placing order:", error));
     };
