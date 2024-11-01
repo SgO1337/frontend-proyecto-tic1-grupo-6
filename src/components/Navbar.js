@@ -20,12 +20,9 @@ const Navbar = ({ view, setDropdownOpen, dropdownOpen }) => {
             const id = localStorage.getItem('userId');
             if (id) {
                 setUserId(id); // Set userId
-                console.log("User ID:", id); // Log the user ID immediately
                 axios.get(`http://localhost:9090/api/users/view/${id}`)
                     .then(response => {
                         setUserName(response.data.name);
-                        // Log the user ID here to ensure it's being fetched
-                        console.log("User details fetched for ID:", id);
                     })
                     .catch(error => {
                         console.error("Error fetching user details:", error);

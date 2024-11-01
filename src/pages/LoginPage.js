@@ -39,6 +39,7 @@ const LoginPage = () => {
                 // Store user ID in local storage
                 // Assuming the user ID is sent as 'userId'
                 localStorage.setItem('userId', response.data.userId); // Correct this line if needed
+                localStorage.setItem('authToken', response.data.authToken); // Correct this line if needed
 
                 
                 navigate('/'); // Redirect to homepage after successful login
