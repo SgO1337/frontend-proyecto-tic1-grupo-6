@@ -1,5 +1,5 @@
-import React, {useEffect, useState} from 'react';
-import {useNavigate, Link} from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
 import '../styles/stylesRegisterPage.css';
 import '../styles/styles.css';
 import Navbar from '../components/Navbar';
@@ -23,53 +23,35 @@ const LoginPage = () => {
         setError(''); // Clear previous error when typing starts
     };
 
-
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
         console.log('Login form submitted');
+        
+        try {
+            const response = await axios.post('/auth/login', {
+                email: email,
+                password: password, // Send the hashed password
+            }, { withCredentials: true }); // Include credentials for cookie handling
+    
+            if (response.status === 200) {
+                console.log(response.data.message); // Handle success message
+                
+                // Store user ID in local storage
+                // Assuming the user ID is sent as 'userId'
+                localStorage.setItem('userId', response.data.userId); // Correct this line if needed
 
-        // Hardcoded credentials for testing
-        const hardcodedEmail = 'testuser@gmail.com';
-        const hardcodedPassword = 'password123';
-
-        if (email === hardcodedEmail && password === hardcodedPassword) {
-            // Simulate successful login response
-            localStorage.setItem('authToken', 'fakeAuthToken');
-            localStorage.setItem('userData', JSON.stringify({email: hardcodedEmail, name: 'Test User'}));
-            navigate('/'); // Redirect to homepage after successful login
-        } else {
-            setError('Invalid credentials. Please try again.');
+                
+                navigate('/'); // Redirect to homepage after successful login
+            }
+        } catch (error) {
+            if (error.response) {
+                setError(error.response.data.message); // Show error message from server
+            } else {
+                console.error("Login error:", error); // Log the unexpected error for debugging
+                setError('An error occurred during login. Please try again.');
+            }
         }
-    };
-
-    // Handle form submission for login
-    // const handleSubmit = async (event) => {
-    //     event.preventDefault();
-    //     console.log('Login form submitted');
-    //
-    //     try {
-    //         // Send login request
-    //         const response = await axios.post('/auth/login', {
-    //             email: email,
-    //             password: password
-    //         });
-    //
-    //         if (response.data.success) {
-    //             // Store token and user data in localStorage
-    //             localStorage.setItem('authToken', response.data.token);
-    //             localStorage.setItem('userData', JSON.stringify(response.data.user));
-    //             navigate('/'); // Redirect to homepage after successful login
-    //         } else {
-    //             setError(response.data.message);
-    //         }
-    //     } catch (error) {
-    //         if (error.response && error.response.status === 401) {
-    //             setError('Invalid credentials. Please try again.');
-    //         } else {
-    //             setError('An error occurred during login. Please try again.');
-    //         }
-    //     }
-    // };
+    };       
 
     useEffect(() => {
         if (window.location.href.includes("login")) {
@@ -88,7 +70,7 @@ const LoginPage = () => {
                     <div className="button-group">
                         <button className={`login-button ${currentPage === 'login' ? 'active' : ''}`}>Login</button>
                         <Link to="/signup">
-                            <button className={`signup-button ${currentPage === 'signup' ? 'active' : ''}`}>Sign Up
+                            <button className={`signup-button ${currentPage === 'signup' ? 'active' : ''}`} type="button">Sign Up
                             </button>
                         </Link>
                     </div>

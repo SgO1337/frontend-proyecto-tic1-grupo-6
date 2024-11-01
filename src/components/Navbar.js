@@ -1,11 +1,14 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import '../styles/stylesNavBar.css';
 
-const Navbar = ({ view, setDropdownOpen, dropdownOpen, handleViewChange }) => {
+const Navbar = ({ view, setDropdownOpen, dropdownOpen }) => {
     const location = useLocation();
     const navigate = useNavigate();
     const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [userName, setUserName] = useState('');
+    const [userId, setUserId] = useState(''); // Store userId
     const [isProfileDropdownOpen, setProfileDropdownOpen] = useState(false);
     const [showLogoutModal, setShowLogoutModal] = useState(false);
     const dropdownRef = useRef(null);
@@ -13,6 +16,22 @@ const Navbar = ({ view, setDropdownOpen, dropdownOpen, handleViewChange }) => {
     useEffect(() => {
         const token = localStorage.getItem('authToken');
         setIsLoggedIn(!!token);
+        if (token) {
+            const id = localStorage.getItem('userId');
+            if (id) {
+                setUserId(id); // Set userId
+                console.log("User ID:", id); // Log the user ID immediately
+                axios.get(`http://localhost:9090/api/users/view/${id}`)
+                    .then(response => {
+                        setUserName(response.data.name);
+                        // Log the user ID here to ensure it's being fetched
+                        console.log("User details fetched for ID:", id);
+                    })
+                    .catch(error => {
+                        console.error("Error fetching user details:", error);
+                    });
+            }
+        }
     }, []);
 
     useEffect(() => {
@@ -39,9 +58,12 @@ const Navbar = ({ view, setDropdownOpen, dropdownOpen, handleViewChange }) => {
 
     const confirmLogout = () => {
         localStorage.removeItem('authToken');
+        localStorage.removeItem('userId');
         setIsLoggedIn(false);
-        setShowLogoutModal(false); // Hide the modal after confirming logout
-        navigate('/'); // Redirect to login page after logout
+        setShowLogoutModal(false);
+        setUserName('');
+        setUserId(''); // Clear userId on logout
+        navigate('/'); // Redirect to home page after logout
     };
 
     const cancelLogout = () => {
@@ -89,6 +111,7 @@ const Navbar = ({ view, setDropdownOpen, dropdownOpen, handleViewChange }) => {
 
             {isLoggedIn ? (
                 <div className="profile-dropdown" onMouseEnter={() => setProfileDropdownOpen(true)} onMouseLeave={() => setProfileDropdownOpen(false)}>
+                    <span className="welcome-message">Welcome, {userName}!</span>
                     <button className="profile-button" onClick={() => navigate('/myprofile')}>
                         My Profile
                     </button>

@@ -1,9 +1,10 @@
-import React, {useEffect, useState} from 'react';
-import {useNavigate, Link} from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
 import '../styles/stylesRegisterPage.css';
 import '../styles/styles.css';
 import Navbar from '../components/Navbar';
 import axios from 'axios';
+import bcrypt from 'bcryptjs'; // Import bcryptjs
 
 const SignUpPage = () => {
     const [user, setUser] = useState({
@@ -25,14 +26,9 @@ const SignUpPage = () => {
 
     // Handle form input changes
     const handleChange = (event) => {
-        const {name, value} = event.target;
-        setUser((prevUser) => ({...prevUser, [name]: value}));
+        const { name, value } = event.target;
+        setUser((prevUser) => ({ ...prevUser, [name]: value }));
         setError(''); // Clear any previous error when typing starts
-    };
-
-    const handleViewChange = (newView) => {
-        setView(newView);
-        setDropdownOpen(false); // Close dropdown
     };
 
     // Handle form submission
@@ -90,20 +86,24 @@ const SignUpPage = () => {
                 age--;
             }
 
+            // Hash the password before sending
+            const hashedPassword = await bcrypt.hash(user.password, 10); // Hash the password
+            console.log(hashedPassword);
+
             // Send registration request
             const response = await axios.post('/auth/register', {
                 ci: user.identification,
                 name: user.name,
                 surname: user.surname,
                 email: user.email,
-                password: user.password,
+                password: hashedPassword, // Use hashed password
                 age: age // Include age in the request
             });
 
             if (response.data.success) {
-                // Store user data and token in localStorage
-                localStorage.setItem('authToken', response.data.token);
-                localStorage.setItem('userData', JSON.stringify({
+                // Store user data and token in sessionStorage
+                sessionStorage.setItem('authToken', response.data.token);
+                sessionStorage.setItem('userData', JSON.stringify({
                     name: user.name,
                     surname: user.surname,
                     email: user.email,
@@ -126,7 +126,7 @@ const SignUpPage = () => {
     // Generate options for day, month, and year dropdowns
     const renderDayOptions = () => {
         const daysInMonth = new Date(user.year || 2000, user.month || 1, 0).getDate();
-        return Array.from({length: daysInMonth}, (_, i) => <option key={i + 1} value={i + 1}>{i + 1}</option>);
+        return Array.from({ length: daysInMonth }, (_, i) => <option key={i + 1} value={i + 1}>{i + 1}</option>);
     };
 
     const renderMonthOptions = () => {
@@ -139,7 +139,7 @@ const SignUpPage = () => {
 
     const renderYearOptions = () => {
         const currentYear = new Date().getFullYear();
-        return Array.from({length: 100}, (_, i) => <option key={i} value={currentYear - i}>{currentYear - i}</option>);
+        return Array.from({ length: 100 }, (_, i) => <option key={i} value={currentYear - i}>{currentYear - i}</option>);
     };
 
     useEffect(() => {
@@ -150,11 +150,10 @@ const SignUpPage = () => {
         }
     }, []); // Runs when the component mounts
 
-    // return <></>
     return (
         <div className="RegPage">
             {/* Top Bar */}
-            <Navbar/>
+            <Navbar />
             <div className="login-form-wrapper">
                 <div className="login-container">
                     <div className="button-group">
@@ -166,7 +165,7 @@ const SignUpPage = () => {
                     <form className="login-form" onSubmit={handleSubmit}>
                         <div className="form-row">
                             <div className="form-group">
-                                <label htmlFor="name" style={{color: '#FBFFCD'}}>Name</label>
+                                <label htmlFor="name" style={{ color: '#FBFFCD' }}>Name</label>
                                 <input
                                     placeholder="John"
                                     type="text"
@@ -178,7 +177,7 @@ const SignUpPage = () => {
                                 />
                             </div>
                             <div className="form-group">
-                                <label htmlFor="surname" style={{color: '#FBFFCD'}}>Surname</label>
+                                <label htmlFor="surname" style={{ color: '#FBFFCD' }}>Surname</label>
                                 <input
                                     placeholder="Doe"
                                     type="text"
@@ -191,7 +190,7 @@ const SignUpPage = () => {
                             </div>
                         </div>
                         <div className="form-group">
-                            <label htmlFor="email" style={{color: '#FBFFCD'}}>Email Address</label>
+                            <label htmlFor="email" style={{ color: '#FBFFCD' }}>Email Address</label>
                             <input
                                 placeholder="johndoe@gmail.com"
                                 type="email"
@@ -203,7 +202,7 @@ const SignUpPage = () => {
                             />
                         </div>
                         <div className="form-group">
-                            <label htmlFor="identification" style={{color: '#FBFFCD'}}>I.D.</label>
+                            <label htmlFor="identification" style={{ color: '#FBFFCD' }}>I.D.</label>
                             <input
                                 placeholder="12345678"
                                 type="text"
@@ -217,7 +216,7 @@ const SignUpPage = () => {
 
                         {/* Birthday Selector */}
                         <div className="form-group">
-                            <label htmlFor="birthday" style={{color: '#FBFFCD'}}>Birthday</label>
+                            <label htmlFor="birthday" style={{ color: '#FBFFCD' }}>Birthday</label>
                             <div className="birthday-selector">
                                 <select name="day" value={user.day} onChange={handleChange} required>
                                     <option value="">Day</option>
@@ -235,9 +234,9 @@ const SignUpPage = () => {
                         </div>
 
                         <div className="form-group">
-                            <label htmlFor="password" style={{color: '#FBFFCD'}}>Password</label>
+                            <label htmlFor="password" style={{ color: '#FBFFCD' }}>Password</label>
                             <input
-                                placeholder="password"
+                                placeholder="••••••••"
                                 type="password"
                                 id="password"
                                 name="password"
@@ -246,10 +245,11 @@ const SignUpPage = () => {
                                 required
                             />
                         </div>
+
                         <div className="form-group">
-                            <label htmlFor="reEnteredPassword" style={{color: '#FBFFCD'}}>Re-Enter Password</label>
+                            <label htmlFor="reEnteredPassword" style={{ color: '#FBFFCD' }}>Re-enter Password</label>
                             <input
-                                placeholder="password"
+                                placeholder="••••••••"
                                 type="password"
                                 id="reEnteredPassword"
                                 name="reEnteredPassword"
@@ -258,7 +258,8 @@ const SignUpPage = () => {
                                 required
                             />
                         </div>
-                        <div className="error-message">{error && <p>{error}</p>}</div>
+
+                        {error && <p className="error-message">{error}</p>}
                         <button className="submit-button" type="submit">Sign Up</button>
                     </form>
                 </div>

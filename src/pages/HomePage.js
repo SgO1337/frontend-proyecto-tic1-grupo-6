@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import '../styles/stylesHomePage.css';
+import axios from 'axios';
 import Navbar from '../components/Navbar';
 import MoviesList from '../components/MoviesList';
-
 import Snacks from '../components/Snacks';
 
 const HomePage = () => {
@@ -11,7 +11,6 @@ const HomePage = () => {
     const location = useLocation();
     const [view, setView] = useState('billboard'); // Default view is 'billboard'
     const [dropdownOpen, setDropdownOpen] = useState(false);
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
 
     useEffect(() => {
         // Check if there is a view state passed from navigation
@@ -20,10 +19,6 @@ const HomePage = () => {
         } else {
             setView('billboard'); // Set default view if none is passed
         }
-
-        // Check if user is logged in (replace with your actual login check logic)
-        const user = localStorage.getItem('user');
-        setIsLoggedIn(!!user);
     }, [location.state]);
 
     const handleLogin = () => {
@@ -43,15 +38,11 @@ const HomePage = () => {
                 setDropdownOpen={setDropdownOpen}
                 dropdownOpen={dropdownOpen}
                 handleViewChange={handleViewChange}
-                handleLogin={handleLogin}
-                isLoggedIn={isLoggedIn}
             />
             {/* Principal content */}
             <div className="content">
                 {view === 'billboard' ? (
-                    <div>
-                        <MoviesList />
-                    </div>
+                    <MoviesList />
                 ) : (
                     <Snacks />
                 )}
