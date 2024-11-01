@@ -4,6 +4,8 @@ import '../styles/stylesHomePage.css';
 import Navbar from '../components/Navbar';
 import MoviesList from '../components/MoviesList';
 
+import Snacks from '../components/Snacks';
+
 const HomePage = () => {
     const navigate = useNavigate();
     const location = useLocation();
@@ -51,10 +53,7 @@ const HomePage = () => {
                         <MoviesList />
                     </div>
                 ) : (
-                    <div>
-                        <h2>Snacks</h2>
-                        <p>MENU</p>
-                    </div>
+                    <Snacks />
                 )}
             </div>
         </div>
