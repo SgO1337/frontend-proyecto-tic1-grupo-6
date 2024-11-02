@@ -63,6 +63,8 @@ coverage/
 .env.test.local
 .env.production.local
 
+.eslintcache
+
 # Miscellaneous
 *.bak
 *.swp
