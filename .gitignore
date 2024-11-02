@@ -1,16 +1,69 @@
 # Default ignored files
 /shelf/
-/.idea/workspace.xml
+.idea/workspace.xml
+
 # Editor-based HTTP Client requests
 /httpRequests/
+
 # Datasource local storage ignored files
 /dataSources/
-/dataSources.local.xml
+.dataSources.local.xml
 
+# Node.js dependencies
+/node_modules/
 /node_modules/*
-/node_modules
 /node_modules/.cache
 
+# npm package lock file
 package-lock.json
 
-.idea p
+# IntelliJ IDEA project files
+.idea/
+
+# Eclipse project files
+.classpath
+.project
+.settings/
+
+# Compiled class files
+*.class
+
+# Log files
+*.log
+
+# Temporary files
+*.tmp
+*.temp
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# IDE-specific files
+.vscode/
+*.sublime-workspace
+*.sublime-project
+
+# Maven build files
+target/
+*.jar
+*.war
+
+# Gradle build files
+build/
+*.gradle
+
+# Coverage reports
+coverage/
+
+# Environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Miscellaneous
+*.bak
+*.swp
+*~
