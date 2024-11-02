@@ -12,10 +12,6 @@ const MyProfilePage = () => {
     const [view, setView] = useState('profile');
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const [showLogoutModal, setShowLogoutModal] = useState(false);
-    const [oldPassword, setOldPassword] = useState('');
-    const [newPassword, setNewPassword] = useState('');
-    const [confirmPassword, setConfirmPassword] = useState('');
-    const [errorMessage, setErrorMessage] = useState('');
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -30,32 +26,6 @@ const MyProfilePage = () => {
                 });
         }
     }, [userId]); // Fetch data when userId changes
-
-    const handleOldPasswordSubmit = () => {
-        if (!oldPassword) {
-            setErrorMessage('First enter old Password.');
-            return;
-        }
-        if (oldPassword !== user.password) {
-            setErrorMessage('Password is incorrect. Please double-check your password.');
-            return;
-        }
-        setErrorMessage('');
-        setView('newPassword');
-    };
-
-    const handleNewPasswordSubmit = () => {
-        if (!newPassword || !confirmPassword) {
-            setErrorMessage('Please fill in both fields.');
-            return;
-        }
-        if (newPassword !== confirmPassword) {
-            setErrorMessage('New passwords do not match.');
-            return;
-        }
-        alert('Password changed successfully!');
-        setView('profile');
-    };
 
     const handleLogout = () => {
         setShowLogoutModal(true);
@@ -90,52 +60,6 @@ const MyProfilePage = () => {
                         </div>
                     </div>
                 );
-            case 'password':
-                return (
-                    <div className="password-info">
-                        <div className="info-block">
-                            <p className="info-item">Enter Old Password:</p>
-                            <input
-                                type="password"
-                                placeholder="password"
-                                value={oldPassword}
-                                onChange={(e) => setOldPassword(e.target.value)}
-                                className="password-input"
-                            />
-                            {errorMessage && <p className="error-message">{errorMessage}</p>}
-                            <button className="change-password-button" onClick={handleOldPasswordSubmit}>
-                                Change Password
-                            </button>
-                        </div>
-                    </div>
-                );
-            case 'newPassword':
-                return (
-                    <div className="password-info">
-                        <div className="info-block">
-                            <p className="info-item">Enter New Password:</p>
-                            <input
-                                type="password"
-                                placeholder="New Password"
-                                value={newPassword}
-                                onChange={(e) => setNewPassword(e.target.value)}
-                                className="password-input"
-                            />
-                            <p className="info-item">Re-enter New Password:</p>
-                            <input
-                                type="password"
-                                placeholder="Re-enter Password"
-                                value={confirmPassword}
-                                onChange={(e) => setConfirmPassword(e.target.value)}
-                                className="password-input"
-                            />
-                            {errorMessage && <p className="error-message">{errorMessage}</p>}
-                            <button className="change-password-button" onClick={handleNewPasswordSubmit}>
-                                Change Password
-                            </button>
-                        </div>
-                    </div>
-                );
             default:
                 return <div>Your Profile Information</div>;
         }
@@ -147,7 +71,7 @@ const MyProfilePage = () => {
             <div className="content">
                 <div className="sidebar">
                     <div className="rounded-button" onClick={() => setView('profile')}>Profile</div>
-                    <div className="rounded-button" onClick={() => setView('password')}>Change Password</div>
+                    {/* Removed the Change Password button */}
                     <div className="rounded-button" onClick={handleLogout}>Log Out</div>
                 </div>
                 <div className="main-content">

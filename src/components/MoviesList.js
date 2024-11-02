@@ -1,24 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import '../styles/stylesHomePage.css';
 
 const MoviesList = () => {
     const [currentPage, setCurrentPage] = useState(0); // Actual page number
     const [movies, setMovies] = useState([]);
     const navigate = useNavigate();
-
-    // useEffect to load mock movie data when the component mounts
-
-    /*useEffect(() => {
-       // Mock data for movies
-
-       setTimeout(() => {
-           setMovies(mockMovies);  // Set mock movies data to state
-       });
-   }, []);
-   */
-
 
     useEffect(() => {
         axios.get('/api/movies/currently-available')
@@ -27,7 +15,6 @@ const MoviesList = () => {
     }, []);
 
     const moviesPerPage = 6; // How many per page
-
     const totalPages = Math.ceil(movies.length / moviesPerPage);
 
     const handleNextPage = () => {
@@ -47,10 +34,7 @@ const MoviesList = () => {
     };
 
     const [hoveredMovie, setHoveredMovie] = useState(null);
-
-    // Calculates which picture to show
     const startIndex = currentPage * moviesPerPage;
-
     const selectedMovies = movies.slice(startIndex, startIndex + moviesPerPage);
 
     const handleSelectMovie = (movieId) => {
@@ -59,13 +43,11 @@ const MoviesList = () => {
 
     return (
         <div className="movies-container">
-
             <div className="title-container">
                 <h2>ON SCREEN</h2>
             </div>
 
             <div className="movies-pagination">
-
                 <button onClick={handlePrevPage} className="arrow-button">
                     ←
                 </button>
@@ -78,6 +60,7 @@ const MoviesList = () => {
                                     className="movie-poster-container"
                                     onMouseEnter={() => setHoveredMovie(movie.idMovie)}
                                     onMouseLeave={() => setHoveredMovie(null)}
+                                    onClick={() => handleSelectMovie(movie.idMovie)} // Make the image clickable
                                 >
                                     <img
                                         src={`data:image/png;base64,${movie.verticalPosterBASE64}`}
@@ -93,11 +76,11 @@ const MoviesList = () => {
                                                 <h8 className="movie-duration">{movie.duration || ""} min</h8>
                                                 <h8 className="movie-rating">{movie.rating || ""}</h8>
                                             </div>
-
                                         </div>
                                     )}
                                 </div>
                                 <h2 className="movie-title">{movie.title}</h2>
+                                {/* Optionally keep this button for additional functionality */}
                                 <button className="buy-button" onClick={() => handleSelectMovie(movie.idMovie)}>
                                     BUY TICKETS
                                 </button>
@@ -111,7 +94,6 @@ const MoviesList = () => {
                 <button onClick={handleNextPage} className="arrow-button">
                     →
                 </button>
-
             </div>
         </div>
     );

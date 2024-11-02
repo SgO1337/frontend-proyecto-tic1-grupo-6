@@ -23,25 +23,31 @@ const Orders = () => {
                 // Map the orders data to match the display structure
                 const mappedOrders = await Promise.all(fetchedOrders.map(async (order) => {
                     const foodItems = await Promise.all(order.orderFood.map(async (item) => {
-                        try {
-                            const foodResponse = await axios.get(`http://localhost:9090/api/food/view/${item.id}`);
-                            return {
-                                id: foodResponse.data.idFood,
-                                name: foodResponse.data.name,
-                                image: `data:image/jpeg;base64,${foodResponse.data.imageBASE64}`, // Fixed this line
-                                quantity: item.quantity
-                            };
-                        } catch (foodErr) {
-                            console.error(`Error fetching food details for ID ${item.id}:`, foodErr);
-                            return null; // Return null if there's an error fetching food details
-                        }
+                        const food = item.food; // Access the food object directly
+                        return {
+                            id: food.idFood,
+                            name: food.name,
+                            type: food.type,
+                            price: food.price,
+                            image: `data:image/jpeg;base64,${food.imageBASE64}`,
+                            quantity: item.quantity
+                        };
                     }));
-                    
+
                     return {
                         id: order.idOrder,
-                        date: order.date,
+                        user: {
+                            idUser: order.user.idUser,
+                            name: order.user.name,
+                            surname: order.user.surname,
+                            email: order.user.email,
+                            age: order.user.age,
+                            role: order.user.role,
+                            ci: order.user.ci,
+                        },
                         cancelled: order.cancelled,
                         delivered: order.delivered,
+                        date: order.date,
                         foodItems: foodItems.filter(item => item !== null) // Filter out null items
                     };
                 }));
@@ -66,20 +72,20 @@ const Orders = () => {
                         <div key={order.id} className="purchase-item">
                             <div className="purchase-description">
                                 <p style={{ color: '#79AE92' }} className="purchase-name">Order ID: {order.id}</p>
-                                <p style={{ color: '#79AE92' }} className="purchase-date">Date: {new Date(order.date).toLocaleDateString()}</p>
+                                <p style={{ color: '#79AE92' }} className="purchase-date">Date: {new Date(order.date).toLocaleString()}</p>
                                 <p style={{ color: '#79AE92' }} className="purchase-status">Cancelled: {order.cancelled ? 'Yes' : 'No'}</p>
                                 <p style={{ color: '#79AE92' }} className="purchase-status">Delivered: {order.delivered ? 'Yes' : 'No'}</p>
                                 <h4 style={{ color: '#79AE92' }}>Items:</h4>
                                 {order.foodItems.length > 0 ? (
                                     <ul>
                                         {order.foodItems.map(item => (
-                                            <li key={item.id} className="food-item">
-                                                <span>{item.name} (Quantity: {item.quantity})</span>
+                                            <li style={{ color: '#79AE92' }}key={item.id} className="food-item">
+                                                <span style={{ color: '#79AE92' }}>{item.name} (Type: {item.type}, Quantity: {item.quantity})</span>
                                             </li>
                                         ))}
                                     </ul>
                                 ) : (
-                                    <p>No food items found for this order.</p>
+                                    <p style={{ color: '#79AE92' }}>No food items found for this order.</p>
                                 )}
                             </div>
                         </div>
