@@ -9,8 +9,19 @@ const Snacks = () => {
     const [selectedCategory, setSelectedCategory] = useState('');
     const [categories, setCategories] = useState([]);
     const [quantities, setQuantities] = useState({}); // Store quantities for each food item
+    const [userId, setUserId] = useState(null); // State to hold user ID
 
     useEffect(() => {
+        // Retrieve user ID from local storage
+        const storedUserId = localStorage.getItem('userId');
+        if (storedUserId) {
+            setUserId(storedUserId);
+        } else {
+            console.error('User ID not found in local storage.');
+            // Optionally navigate to login page or show an error
+            navigate('/login');
+        }
+
         // Fetch data from API
         axios.get('http://localhost:9090/api/food')
             .then(response => {
@@ -27,7 +38,7 @@ const Snacks = () => {
                 setQuantities(initialQuantities);
             })
             .catch(error => console.error("Error fetching food data:", error));
-    }, []);
+    }, [navigate]); // Include navigate in the dependencies
 
     const handleQuantityChange = (idFood, delta) => {
         setQuantities(prevQuantities => ({
@@ -46,7 +57,9 @@ const Snacks = () => {
             }));
 
         const orderData = {
-            userId: 4,
+            user: {
+                idUser : userId
+            },
             cancelled: false,
             delivered: false,
             date,
@@ -62,7 +75,7 @@ const Snacks = () => {
                 console.log("Order placed successfully:", response.data);
                 // Reset quantities after order
                 setQuantities({});
-                // Navigate back to home page
+                // Navigate back to My Purchases page
                 navigate('/mypurchases'); // Change this path if your home route is different
             })
             .catch(error => console.error("Error placing order:", error));

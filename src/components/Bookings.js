@@ -1,14 +1,18 @@
 // Bookings.js
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { useUser } from '../context/UserContext';
 
 const Bookings = ({ error }) => {
+    const { userId } = useUser(); // Access userId from the context
     const [purchases, setPurchases] = useState([]);
 
     useEffect(() => {
         const fetchPurchases = async () => {
+            if (!userId) return; // Ensure userId is available before fetching
+
             try {
-                const response = await axios.get('http://localhost:9090/api/booking-screening/get-by-user-id/2');
+                const response = await axios.get(`http://localhost:9090/api/booking-screening/get-by-user-id/${userId}`);
                 const bookings = response.data;
 
                 // Map the bookings data to match the display structure
@@ -30,7 +34,7 @@ const Bookings = ({ error }) => {
         };
 
         fetchPurchases();
-    }, []);
+    }, [userId]); // Run effect when userId changes
 
     // Sort purchases by date in descending order (latest first)
     const sortedPurchases = [...purchases].sort((a, b) => new Date(b.date) - new Date(a.date));
@@ -58,7 +62,7 @@ const Bookings = ({ error }) => {
                     ))}
                 </div>
             ) : (
-                <p>No bookings found.</p>
+                <p style={{ color: '#79AE92' }}>No bookings found.</p>
             )}
         </div>
     );
