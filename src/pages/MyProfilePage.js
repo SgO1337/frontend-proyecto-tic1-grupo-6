@@ -1,28 +1,35 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import Navbar from '../components/Navbar';
+import { useUser } from '../context/UserContext';
 import '../styles/stylesMyProfilePage.css';
 import '../styles/styles.css';
 
 const MyProfilePage = () => {
-    const [view, setView] = useState('profile'); // Default view
+    const { userId, setUserId } = useUser();
+    const [user, setUser] = useState(null); // State to hold user data
+    const [view, setView] = useState('profile');
     const [dropdownOpen, setDropdownOpen] = useState(false);
-    const [showLogoutModal, setShowLogoutModal] = useState(false); // State for logout confirmation modal
-    const navigate = useNavigate();
-
-    const user = {
-        id: '123456',
-        name: 'John',
-        surname: 'Doe',
-        birthday: '01/15/1990',
-        email: 'johndoe@example.com',
-        password: 'oldPassword123',
-    };
-
+    const [showLogoutModal, setShowLogoutModal] = useState(false);
     const [oldPassword, setOldPassword] = useState('');
     const [newPassword, setNewPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if (userId) {
+            // Fetch user details from the API
+            axios.get(`http://localhost:9090/api/users/view/${userId}`)
+                .then(response => {
+                    setUser(response.data); // Set user data from response
+                })
+                .catch(error => {
+                    console.error('Error fetching user data:', error);
+                });
+        }
+    }, [userId]); // Fetch data when userId changes
 
     const handleOldPasswordSubmit = () => {
         if (!oldPassword) {
@@ -51,29 +58,35 @@ const MyProfilePage = () => {
     };
 
     const handleLogout = () => {
-        setShowLogoutModal(true); // Show confirmation modal
+        setShowLogoutModal(true);
     };
 
     const confirmLogout = () => {
         setShowLogoutModal(false);
         localStorage.removeItem('authToken');
-        navigate('/'); // Navigate to the login page or handle actual logout
+        setUserId(null);
+        navigate('/');
     };
 
     const cancelLogout = () => {
-        setShowLogoutModal(false); // Close the modal
+        setShowLogoutModal(false);
     };
 
     const renderContent = () => {
+        if (!user) {
+            return <div>Loading...</div>; // Show loading state while fetching
+        }
+
         switch (view) {
             case 'profile':
                 return (
                     <div className="profile-info">
                         <div className="info-block">
                             <p className="info-item">Name: {user.name} {user.surname}</p>
-                            <p className="info-item">ID: {user.id}</p>
-                            <p className="info-item">Birthday: {user.birthday}</p>
+                            <p className="info-item">ID: {user.idUser}</p>
                             <p className="info-item">Email: {user.email}</p>
+                            <p className="info-item">Age: {user.age}</p>
+                            <p className="info-item">CI: {user.ci}</p>
                         </div>
                     </div>
                 );
@@ -153,6 +166,6 @@ const MyProfilePage = () => {
             )}
         </div>
     );
-}
+};
 
 export default MyProfilePage;
