@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import '../styles/stylesMyPurchasesPage.css';
 import '../styles/styles.css';
-import axios from 'axios';
 import Bookings from '../components/Bookings'; // Import the Bookings component
 import Orders from '../components/Orders'; // Import the Orders component
 

@@ -20,16 +20,12 @@ const MoviesList = () => {
     const handleNextPage = () => {
         if (currentPage < totalPages - 1) {
             setCurrentPage(currentPage + 1);
-        } else {
-            setCurrentPage(0);
         }
     };
 
     const handlePrevPage = () => {
         if (currentPage > 0) {
             setCurrentPage(currentPage - 1);
-        } else {
-            setCurrentPage(totalPages - 1);
         }
     };
 
@@ -48,9 +44,11 @@ const MoviesList = () => {
             </div>
 
             <div className="movies-pagination">
-                <button onClick={handlePrevPage} className="arrow-button">
-                    ←
-                </button>
+                {currentPage > 0 && (
+                    <button onClick={handlePrevPage} className="arrow-button">
+                        ←
+                    </button>
+                )}
 
                 <div className="movies-grid">
                     {movies.length > 0 ? (
@@ -80,7 +78,6 @@ const MoviesList = () => {
                                     )}
                                 </div>
                                 <h2 className="movie-title">{movie.title}</h2>
-                                {/* Optionally keep this button for additional functionality */}
                                 <button className="buy-button" onClick={() => handleSelectMovie(movie.idMovie)}>
                                     BUY TICKETS
                                 </button>
@@ -91,9 +88,11 @@ const MoviesList = () => {
                     )}
                 </div>
 
-                <button onClick={handleNextPage} className="arrow-button">
-                    →
-                </button>
+                {currentPage < totalPages - 1 && (
+                    <button onClick={handleNextPage} className="arrow-button">
+                        →
+                    </button>
+                )}
             </div>
         </div>
     );

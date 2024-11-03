@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Navbar from '../components/Navbar';
 import { useUser } from '../context/UserContext';
-import '../styles/stylesMyProfilePage.css';
+import '../styles/stylesMyProfilePage.css'; 
 import '../styles/styles.css';
 
 const MyProfilePage = () => {
