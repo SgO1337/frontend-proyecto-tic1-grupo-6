@@ -28,10 +28,10 @@ const LoginPage = () => {
         console.log('Login form submitted');
         
         try {
-            const response = await axios.post('/auth/login', {
+            const response = await axios.post('http://localhost:9090/auth/login', {
                 email: email,
                 password: password, // Send the hashed password
-            }, { withCredentials: true }); // Include credentials for cookie handling
+            }, { withCredentials: false }); // Include credentials for cookie handling
     
             if (response.status === 200) {
                 console.log(response.data.message); // Handle success message

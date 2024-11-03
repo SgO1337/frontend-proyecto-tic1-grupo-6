@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import '../styles/stylesHomePage.css';
-import axios from 'axios';
 import Navbar from '../components/Navbar';
 import MoviesList from '../components/MoviesList';
 import Snacks from '../components/Snacks';

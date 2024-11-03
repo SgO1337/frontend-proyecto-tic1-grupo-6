@@ -1,6 +1,5 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import mockMovies from '../data/mockMovies';
 import SelectionInfoForm from '../components/SelectInfoForm.js';
 import {useNavigate} from "react-router-dom";
 import '../styles/stylesSelectionInfoPage.css';
@@ -10,7 +9,6 @@ import Navbar from '../components/Navbar.js';
 const SelectionInfoPage = () => {
     const { id } = useParams();
     const navigate = useNavigate();
-    const movie = mockMovies.find(movie => movie.id === parseInt(id));
 
     const handleMainPage = () => {
         navigate('/')

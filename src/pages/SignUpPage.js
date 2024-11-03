@@ -91,7 +91,7 @@ const SignUpPage = () => {
             console.log(hashedPassword);
 
             // Send registration request
-            const response = await axios.post('/auth/register', {
+            const response = await axios.post('http://localhost:9090/auth/register', {
                 ci: user.identification,
                 name: user.name,
                 surname: user.surname,

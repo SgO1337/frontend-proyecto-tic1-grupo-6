@@ -9,7 +9,7 @@ const MoviesList = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        axios.get('/api/movies/currently-available')
+        axios.get('http://localhost:9090/api/movies/currently-available')
             .then(response => setMovies(response.data))
             .catch(error => console.error('Error fetching movies!', error));
     }, []);
