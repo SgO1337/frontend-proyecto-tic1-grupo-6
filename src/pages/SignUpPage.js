@@ -100,7 +100,7 @@ const SignUpPage = () => {
                 age: age // Include age in the request
             });
 
-            if (response.data.success) {
+            if (response.status === 201) {
                 // Store user data and token in sessionStorage
                 sessionStorage.setItem('authToken', response.data.token);
                 sessionStorage.setItem('userData', JSON.stringify({
@@ -110,7 +110,8 @@ const SignUpPage = () => {
                     identification: user.identification,
                     age: age // Store the calculated age
                 }));
-                navigate('/'); // Redirect on successful registration
+                console.log("Registration successful, navigating to login."); // Debug line
+                navigate('/login');
             } else {
                 setError(response.data.message);
             }
@@ -245,7 +246,6 @@ const SignUpPage = () => {
                                 required
                             />
                         </div>
-
                         <div className="form-group">
                             <label htmlFor="reEnteredPassword" style={{ color: '#FBFFCD' }}>Re-enter Password</label>
                             <input
@@ -258,9 +258,8 @@ const SignUpPage = () => {
                                 required
                             />
                         </div>
-
-                        {error && <p className="error-message">{error}</p>}
-                        <button className="submit-button" type="submit">Sign Up</button>
+                        {error && <div className="error-message">{error}</div>}
+                        <button type="submit" className="submit-button">Sign Up</button>
                     </form>
                 </div>
             </div>
