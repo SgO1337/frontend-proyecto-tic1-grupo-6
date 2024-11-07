@@ -7,12 +7,27 @@ const MoviesList = () => {
     const [currentPage, setCurrentPage] = useState(0); // Actual page number
     const [movies, setMovies] = useState([]);
     const navigate = useNavigate();
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
-        axios.get('http://localhost:9090/api/movies/currently-available')
-            .then(response => setMovies(response.data))
-            .catch(error => console.error('Error fetching movies!', error));
+        const fetchMoviesAvailable = async () => {
+            try {
+                const response = await axios.get('http://localhost:9090/api/movies/currently-available');
+                if (Array.isArray(response.data)) {
+                    setMovies(response.data);
+                } else {
+                    console.error("Unexpected response format:", response.data);
+                }
+                setIsLoading(false);
+            } catch (error) {
+                console.error('Error fetching movies!', error);
+                setIsLoading(false);
+            }
+        };
+
+        fetchMoviesAvailable();
     }, []);
+
 
     const moviesPerPage = 6; // How many per page
     const totalPages = Math.ceil(movies.length / moviesPerPage);
@@ -44,54 +59,58 @@ const MoviesList = () => {
             </div>
 
             <div className="movies-pagination">
-                {currentPage > 0 && (
-                    <button onClick={handlePrevPage} className="arrow-button">
-                        ←
-                    </button>
-                )}
+                {isLoading ? (
+                    <p>Loading...</p> // Display loading message
+                ) : movies.length > 0 ? (
+                    <>
+                        {currentPage > 0 && (
+                            <button onClick={handlePrevPage} className="arrow-button">
+                                ←
+                            </button>
+                        )}
 
-                <div className="movies-grid">
-                    {movies.length > 0 ? (
-                        selectedMovies.map(movie => (
-                            <div key={movie.idMovie} className="movie-item">
-                                <div
-                                    className="movie-poster-container"
-                                    onMouseEnter={() => setHoveredMovie(movie.idMovie)}
-                                    onMouseLeave={() => setHoveredMovie(null)}
-                                    onClick={() => handleSelectMovie(movie.idMovie)} // Make the image clickable
-                                >
-                                    <img
-                                        src={`data:image/png;base64,${movie.verticalPosterBASE64}`}
-                                        alt={movie.title}
-                                        className={`movie-poster ${hoveredMovie === movie.idMovie ? 'hovered' : ''}`}
-                                    />
-                                    {hoveredMovie === movie.idMovie && (
-                                        <div className="movie-info">
-                                            <h3 className="movie-genre">{movie.genre || ""}</h3>
-                                            <h7 className="movie-cast">Cast: {movie.cast || ""}</h7>
-                                            <h7 className="movie-director">Directed by: {movie.director || ""}</h7>
-                                            <div className="movie-duration-rating">
-                                                <h8 className="movie-duration">{movie.duration || ""} min</h8>
-                                                <h8 className="movie-rating">{movie.rating || ""}</h8>
+                        <div className="movies-grid">
+                            {selectedMovies.map(movie => (
+                                <div key={movie.idMovie} className="movie-item">
+                                    <div
+                                        className="movie-poster-container"
+                                        onMouseEnter={() => setHoveredMovie(movie.idMovie)}
+                                        onMouseLeave={() => setHoveredMovie(null)}
+                                        onClick={() => handleSelectMovie(movie.idMovie)}
+                                    >
+                                        <img
+                                            src={`data:image/png;base64,${movie.verticalPosterBASE64}`}
+                                            alt={movie.title}
+                                            className={`movie-poster ${hoveredMovie === movie.idMovie ? 'hovered' : ''}`}
+                                        />
+                                        {hoveredMovie === movie.idMovie && (
+                                            <div className="movie-info">
+                                                <h3 className="movie-genre">{movie.genre || ""}</h3>
+                                                <h7 className="movie-cast">Cast: {movie.cast || ""}</h7>
+                                                <h7 className="movie-director">Directed by: {movie.director || ""}</h7>
+                                                <div className="movie-duration-rating">
+                                                    <h8 className="movie-duration">{movie.duration || ""} min</h8>
+                                                    <h8 className="movie-rating">{movie.rating || ""}</h8>
+                                                </div>
                                             </div>
-                                        </div>
-                                    )}
+                                        )}
+                                    </div>
+                                    <h2 className="movie-title">{movie.title}</h2>
+                                    <button className="buy-button" onClick={() => handleSelectMovie(movie.idMovie)}>
+                                        BUY TICKETS
+                                    </button>
                                 </div>
-                                <h2 className="movie-title">{movie.title}</h2>
-                                <button className="buy-button" onClick={() => handleSelectMovie(movie.idMovie)}>
-                                    BUY TICKETS
-                                </button>
-                            </div>
-                        ))
-                    ) : (
-                        <p>No movies available</p>
-                    )}
-                </div>
+                            ))}
+                        </div>
 
-                {currentPage < totalPages - 1 && (
-                    <button onClick={handleNextPage} className="arrow-button">
-                        →
-                    </button>
+                        {currentPage < totalPages - 1 && (
+                            <button onClick={handleNextPage} className="arrow-button">
+                                →
+                            </button>
+                        )}
+                    </>
+                ) : (
+                    <p>No movies found.</p>
                 )}
             </div>
         </div>

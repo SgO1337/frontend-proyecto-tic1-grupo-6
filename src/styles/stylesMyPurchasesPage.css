@@ -37,6 +37,7 @@
     color: #FBFFCD;
 }
 
+.my-purchases-page .purchase-seats,
 .my-purchases-page .purchase-date,
 .my-purchases-page .purchase-price {
     font-size: 16px;
@@ -65,8 +66,8 @@
 .my-purchases-page .menu button {
     padding: 10px 20px; /* Padding for button */
     font-size: 16px; /* Font size */
-    background-color: #007bff; /* Button background color */
-    color: white; /* Text color */
+    background-color: #79AE92; /* Button background color */
+    color: #FBFFCD; /* Text color */
     border: none; /* Remove border */
     border-radius: 5px; /* Rounded corners */
     cursor: pointer; /* Pointer cursor on hover */
@@ -74,10 +75,27 @@
 }
 
 .my-purchases-page .menu button:hover {
-    background-color: #0056b3; /* Darker shade on hover */
+    background-color: #1C5560; /* Darker shade on hover */
 }
 
 .my-purchases-page .menu button.active {
-    background-color: #0056b3; /* Active button color */
+    background-color: #3a6073; /* Active button color */
     font-weight: bold; /* Bold text for active button */
+}
+
+.cancel-button {
+    background-color: #144450;
+    color: #FBFFCD;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    font-size: 100%;
+    text-align: center;
+    border-radius:5%;
+}
+
+
+.cancel-button:hover {
+    background-color: #FBFFCD;
+    color: #144450;
 }

@@ -2,17 +2,18 @@ import React, { useState, useEffect } from 'react';
 import '../styles/stylesSelectionInfoPage.css';
 import {useNavigate, useParams} from "react-router-dom";
 import axios from "axios";
-
+import {useUser} from "../context/UserContext";
 
 const SelectInfoForm = () => {
     const { id } = useParams();
     const navigate = useNavigate();
+    const { userId } = useUser();
 
     const [branches, setBranches] = useState([]);
     const [dates, setDates] = useState([]);
     const [times, setTimes] = useState([]);
     const [rooms, setRooms] = useState([]);
-    const [quantity, setQuantity] = useState(1);
+    const [quantity, setQuantity] = useState(0);
     const [isFormValid, setIsFormValid] = useState(false);
     const [error, setError] = useState('');
 
@@ -129,13 +130,16 @@ const SelectInfoForm = () => {
         <form className="movie-selection-form" onSubmit={handleSubmit}>
             <h1>BOOK YOUR TICKETS:</h1>
 
-
+            {!userId && (
+                <p className="login-required-message">Please log in to reserve a ticket.</p>
+            )}
 
             <div className="form-group">
 
                 {id && branches.length == 0 && (
                     <p className="no-functions-message">There are no screening availables yet.</p>
                 )}
+
                 
                 <label htmlFor="branches">Select Branch:</label>
                 <select
@@ -150,7 +154,7 @@ const SelectInfoForm = () => {
                             time: '',
                         }));
                     }}
-                    disabled={!id || branches.length === 0}
+                    disabled={!userId || !id || branches.length === 0}
                 >
                     <option value="">Select a branch</option>
                     {branches.map(branch => (
@@ -233,10 +237,11 @@ const SelectInfoForm = () => {
                     min="1"
                     max="4"
                     required
+                    disabled={!isFormValid || !userId}
                 />
             </div>
 
-            <button type="submit" onClick={() => handleSeats(id)} className="submit-button" disabled={!isFormValid} >
+            <button type="submit" onClick={() => handleSeats(id)} className="submit-button" disabled={!isFormValid || !userId} >
                 Continue
             </button>
         </form>

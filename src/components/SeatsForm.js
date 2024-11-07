@@ -41,8 +41,8 @@ const SeatsForm = () => {
         fetchOccupiedSeats();
     }, [screeningId]);
 
-    const seats = (row > 0 && column > 0) ? Array.from({ length: row }, (_, rowIndex) =>
-        Array.from({ length: column }, (_, colIndex) => {
+    const seats = (row > 0 && column > 0) ? Array.from({ length: column }, (_, rowIndex) =>
+        Array.from({ length: row }, (_, colIndex) => {
             const seatId = `${rowIndex}-${colIndex}`;
             const isSelected = selectedSeats.includes(seatId);
             const isOccupied = occupiedSeats.some(seat => seat.seatRow === rowIndex && seat.seatCol === colIndex);

@@ -23,6 +23,14 @@
 
 }
 
+.login-required-message{
+    text-align: center;
+    margin: 22px;
+    color: #FBFFCD;
+    font-family: "Book Antiqua";
+    margin-top: 2%;
+}
+
 .movie-attributes {
     border-radius: 4%;
     position: absolute;
@@ -150,4 +158,13 @@ h1 {
     color: #FBFFCD;
     font-family: "Book Antiqua";
     margin-top: 2%;
+}
+
+.movie-selection-form select:disabled,
+.movie-selection-form input:disabled {
+    background-color: #E0E3B8; /* Color de fondo personalizado */
+    color: black; /* Color de texto personalizado */
+    border-color: black; /* Color del borde */
+    cursor: not-allowed; /* Cambia el cursor para mostrar que está deshabilitado */
+    opacity: 1; /* Evita que el navegador aplique opacidad automática */
 }

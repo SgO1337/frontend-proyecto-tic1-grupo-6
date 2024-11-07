@@ -53,7 +53,6 @@ const MyProfilePage = () => {
                     <div className="profile-info">
                         <div className="info-block">
                             <p className="info-item">Name: {user.name} {user.surname}</p>
-                            <p className="info-item">ID: {user.idUser}</p>
                             <p className="info-item">Email: {user.email}</p>
                             <p className="info-item">Age: {user.age}</p>
                             <p className="info-item">CI: {user.ci}</p>

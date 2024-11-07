@@ -43,6 +43,7 @@ const LoginPage = () => {
 
                 
                 navigate('/'); // Redirect to homepage after successful login
+                window.location.reload()
             }
         } catch (error) {
             if (error.response) {
