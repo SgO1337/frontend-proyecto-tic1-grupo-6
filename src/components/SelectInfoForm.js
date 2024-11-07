@@ -16,6 +16,7 @@ const SelectInfoForm = () => {
     const [quantity, setQuantity] = useState(0);
     const [isFormValid, setIsFormValid] = useState(false);
     const [error, setError] = useState('');
+    const [isLoading,setLoading] = useState(true);
 
 
     const [screeningId, setScreeningId] = useState('')
@@ -47,12 +48,15 @@ const SelectInfoForm = () => {
                     setDates([]);
                     setTimes([]);
                     setError(''); // Resetea el error si la solicitud es exitosa
+                    setLoading(false);
                 }
             } catch (error) {
                 if (error.response && error.response.status === 404) {
                     setError('No se encontraron sucursales para esta película.');
+                    setLoading(false);
                 } else {
                     setError('Ocurrió un error al cargar las sucursales. Inténtalo nuevamente.');
+                    setLoading(false);
                 }
             }
         };
@@ -134,13 +138,15 @@ const SelectInfoForm = () => {
                 <p className="login-required-message">Please log in to reserve a ticket.</p>
             )}
 
-            <div className="form-group">
+            {isLoading && (
+                <p className="no-functions-message">Loading...</p>
+            )}
 
-                {id && branches.length == 0 && (
-                    <p className="no-functions-message">There are no screening availables yet.</p>
+            <div className="form-group">
+                {id && branches.length === 0 && !isLoading &&(
+                    <p className="no-functions-message">There are no screenings available yet.</p>
                 )}
 
-                
                 <label htmlFor="branches">Select Branch:</label>
                 <select
                     id="branches"
@@ -161,10 +167,10 @@ const SelectInfoForm = () => {
                         <option key={branch.branchId} value={branch.branchId}>{branch.location}</option>
                     ))}
                 </select>
-
-
-
             </div>
+
+
+
 
             {/* Date */}
             <div className="form-group">
@@ -180,7 +186,7 @@ const SelectInfoForm = () => {
                             time: '',
                         }));
                     }}
-                    disabled={!formData.branchId}
+                    disabled={!formData.branchId || isLoading} // Disables if still loading
                 >
                     <option value="">Select a date</option>
                     {dates.map(date => (
@@ -197,7 +203,7 @@ const SelectInfoForm = () => {
                     name="time"
                     value={formData.time}
                     onChange={(e) => setFormData(prevFormData => ({...prevFormData, time: e.target.value}))}
-                    disabled={!formData.date}
+                    disabled={!formData.date || isLoading}
                 >
                     <option value="">Select a time</option>
                     {times.map(time => (
@@ -207,7 +213,6 @@ const SelectInfoForm = () => {
             </div>
 
             {/* Room */}
-
             <div className="form-group">
                 <label htmlFor="rooms">Select Room:</label>
                 <select
@@ -215,7 +220,7 @@ const SelectInfoForm = () => {
                     name="room"
                     value={formData.roomId}
                     onChange={(e) => setFormData(prevFormData => ({...prevFormData, roomId: e.target.value}))}
-                    disabled={!formData.time}
+                    disabled={!formData.time || isLoading}
                 >
                     <option value="">Select a room</option>
                     {rooms.map(room => (
@@ -223,7 +228,6 @@ const SelectInfoForm = () => {
                     ))}
                 </select>
             </div>
-
 
             {/* Quantity */}
             <div className="form-group">
@@ -237,15 +241,17 @@ const SelectInfoForm = () => {
                     min="1"
                     max="4"
                     required
-                    disabled={!isFormValid || !userId}
+                    disabled={!isFormValid || !userId || isLoading}
                 />
             </div>
 
-            <button type="submit" onClick={() => handleSeats(id)} className="submit-button" disabled={!isFormValid || !userId} >
+            <button type="submit" onClick={() => handleSeats(id)} className="submit-button" disabled={!isFormValid || !userId || isLoading || quantity==0} >
                 Continue
             </button>
         </form>
     );
+
+
 };
 
 export default SelectInfoForm;

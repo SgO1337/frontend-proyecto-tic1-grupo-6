@@ -6,6 +6,7 @@ const Orders = () => {
     const { userId } = useUser(); // Get userId from UserContext
     const [orders, setOrders] = useState([]);
     const [error, setError] = useState('');
+    const [isLoading, setLoading] = useState(true);
 
     useEffect(() => {
         const fetchOrders = async () => {
@@ -19,6 +20,7 @@ const Orders = () => {
                 const fetchedOrders = response.data;
 
                 console.log("Fetched orders:", fetchedOrders);
+                setLoading(false);
 
                 // Map the orders data to match the display structure
                 const mappedOrders = await Promise.all(fetchedOrders.map(async (order) => {
@@ -57,6 +59,7 @@ const Orders = () => {
                 console.error("Error fetching orders:", err.response ? err.response.data : err.message);
                 setError('Failed to load orders. Please try again later.');
                 setOrders([]);
+                setLoading(false);
             }
         };
 
@@ -66,6 +69,7 @@ const Orders = () => {
     return (
         <div>
             {error && <p className="error-message">{error}</p>}
+            {isLoading && <p style={{ color: '#79AE92' }}>Loading...</p>}
             {orders.length > 0 ? (
                 <div className="orders-list">
                     {orders.map(order => (
@@ -91,7 +95,7 @@ const Orders = () => {
                         </div>
                     ))}
                 </div>
-            ) : (
+            ) : !isLoading &&(
                 <p style={{ color: '#79AE92' }}>No orders found.</p>
             )}
         </div>

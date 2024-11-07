@@ -6,6 +6,7 @@ import { useUser } from '../context/UserContext';
 const Bookings = ({ error }) => {
     const { userId } = useUser(); // Access userId from the context
     const [purchases, setPurchases] = useState([]);
+    const [isLoading,setLoading] = useState(true);
 
     useEffect(() => {
         const fetchPurchases = async () => {
@@ -27,9 +28,11 @@ const Bookings = ({ error }) => {
                 }));
 
                 setPurchases(mappedPurchases);
+                setLoading(false);
             } catch (error) {
                 console.error("Error fetching bookings:", error);
                 setPurchases([]); // Clear purchases on error
+                setLoading(false);
             }
         };
 
@@ -52,7 +55,10 @@ const Bookings = ({ error }) => {
     return (
         <div>
             {error && <p className="error-message">{error}</p>}
-            {sortedPurchases.length > 0 ? (
+
+            {isLoading ? (
+                <p  style={{ color: '#79AE92' }}>Loading...</p>
+            ) : sortedPurchases.length > 0 ? (
                 <div className="purchases-list">
                     {sortedPurchases.map((purchase) => (
                         <div key={purchase.id} className="purchase-item">
@@ -61,7 +67,7 @@ const Bookings = ({ error }) => {
                                 <p className="purchase-date">Date: {new Date(purchase.date).toLocaleDateString()}</p>
                                 <p className="purchase-seats">Seats: {purchase.seats}</p>
                             </div>
-                            <button onClick={() => cancelBooking(purchase.id)} className={"cancel-button"}>Cancel</button>
+                            <button onClick={() => cancelBooking(purchase.id)} className="cancel-button">Cancel</button>
                             {purchase.type === 'movie' && (
                                 <img
                                     src={purchase.moviePoster}
@@ -77,6 +83,7 @@ const Bookings = ({ error }) => {
             )}
         </div>
     );
+
 };
 
 export default Bookings;

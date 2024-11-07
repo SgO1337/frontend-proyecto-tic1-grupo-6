@@ -11,6 +11,7 @@ const Snacks = () => {
     const [quantities, setQuantities] = useState({}); // Store quantities for each food item
     const [userId, setUserId] = useState(null); // State to hold user ID
 
+
     useEffect(() => {
         // Retrieve user ID from local storage
         const storedUserId = localStorage.getItem('userId');
@@ -182,8 +183,8 @@ const quantityContainerStyle = {
 const orderButtonStyle = {
     marginTop: '20px',
     padding: '10px 20px',
-    backgroundColor: '#4CAF50',
-    color: 'white',
+    backgroundColor: '#1C5560',
+    color: '#FBFFCD',
     border: 'none',
     borderRadius: '4px',
     cursor: 'pointer',
@@ -200,7 +201,7 @@ const zeroQuantityStyle = {
     margin: '0 8px',
     fontSize: '16px',
     fontWeight: 'bold',
-    color: 'red', // Change color for quantity 0
+    color: '#FBFFCD',
 };
 
 export default Snacks;

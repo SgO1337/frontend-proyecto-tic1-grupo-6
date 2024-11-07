@@ -108,7 +108,7 @@ const Navbar = ({ view, setDropdownOpen, dropdownOpen }) => {
 
             {isLoggedIn ? (
                 <div className="profile-dropdown" onMouseEnter={() => setProfileDropdownOpen(true)} onMouseLeave={() => setProfileDropdownOpen(false)}>
-                    <span className="welcome-message">Welcome, {userName}!</span>
+                    <span className="welcome-message">Welcome, {userName}! </span>
                     <button className="profile-button" onClick={() => navigate('/myprofile')}>
                         My Profile
                     </button>

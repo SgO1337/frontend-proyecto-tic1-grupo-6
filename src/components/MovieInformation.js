@@ -43,7 +43,7 @@ const MovieInformation = () => {
                     </div>
                 </div>
             ) : (
-                <p>Movie not found</p>
+                <p>Loading...</p>
             )}
         </div>
     )
