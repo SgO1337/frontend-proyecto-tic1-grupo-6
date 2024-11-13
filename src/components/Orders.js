@@ -16,7 +16,7 @@ const Orders = () => {
             }
 
             try {
-                const response = await axios.get(`http://localhost:9090/api/orders/get-by-user-id/${userId}`);
+                const response = await axios.get(`https://backend-proyecto-tic1-grupo-6.onrender.com/api/orders/get-by-user-id/${userId}`);
                 const fetchedOrders = response.data;
 
                 console.log("Fetched orders:", fetchedOrders);

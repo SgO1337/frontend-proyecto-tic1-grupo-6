@@ -17,7 +17,7 @@ const MyProfilePage = () => {
     useEffect(() => {
         if (userId) {
             // Fetch user details from the API
-            axios.get(`http://localhost:9090/api/users/view/${userId}`)
+            axios.get(`https://backend-proyecto-tic1-grupo-6.onrender.com/api/users/view/${userId}`)
                 .then(response => {
                     setUser(response.data); // Set user data from response
                 })

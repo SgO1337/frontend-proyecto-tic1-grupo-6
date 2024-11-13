@@ -39,5 +39,5 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://localhost:9090"
+  "proxy": "https://backend-proyecto-tic1-grupo-6.onrender.com"
 }
