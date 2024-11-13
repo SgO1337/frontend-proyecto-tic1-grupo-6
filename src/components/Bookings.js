@@ -13,7 +13,7 @@ const Bookings = ({ error }) => {
             if (!userId) return; // Ensure userId is available before fetching
 
             try {
-                const response = await axios.get(`https://backend-proyecto-tic1-grupo-6.onrender.com/get-by-user-id/${userId}`);
+                const response = await axios.get(`https://backend-proyecto-tic1-grupo-6.onrender.com/api/booking-screening/get-by-user-id/${userId}`);
                 const bookings = response.data;
 
                 // Map the bookings data to match the display structure
@@ -44,7 +44,7 @@ const Bookings = ({ error }) => {
 
     const cancelBooking = async (Bookingid) => {
         try {
-            const response = await axios.delete(`https://backend-proyecto-tic1-grupo-6.onrender.com/delete/${Bookingid}`);
+            const response = await axios.delete(`https://backend-proyecto-tic1-grupo-6.onrender.com/api/booking-screening/delete/${Bookingid}`);
             window.location.reload()
             console.log('Booking cancelled:', response.data);
         } catch (error) {
