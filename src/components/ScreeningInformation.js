@@ -11,7 +11,7 @@ const ScreeningInformation = () => {
         useEffect(() => {
             const fetchData = async () => {
                 try {
-                    const response = await axios.get(`http://localhost:9090/api/screenings/view/${screeningId}`);
+                    const response = await axios.get(`https://backend-proyecto-tic1-grupo-6.onrender.com/api/screenings/view/${screeningId}`);
                     setData(response.data);
                 } catch (error) {
                     console.error('Error al obtener los datos:', error);

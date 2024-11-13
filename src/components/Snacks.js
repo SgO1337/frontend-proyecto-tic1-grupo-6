@@ -24,7 +24,7 @@ const Snacks = () => {
         }
 
         // Fetch data from API
-        axios.get('http://localhost:9090/api/food')
+        axios.get('https://backend-proyecto-tic1-grupo-6.onrender.com/api/food')
             .then(response => {
                 setFoods(response.data);
                 // Extract unique categories
@@ -71,7 +71,7 @@ const Snacks = () => {
         console.log("Order Request Data:", JSON.stringify(orderData, null, 2));
 
         // Make POST request
-        axios.post('http://localhost:9090/api/orders/create', orderData)
+        axios.post('https://backend-proyecto-tic1-grupo-6.onrender.com/api/orders/create', orderData)
             .then(response => {
                 console.log("Order placed successfully:", response.data);
                 // Reset quantities after order

@@ -31,7 +31,7 @@ const SeatsForm = () => {
     useEffect(() => {
         const fetchOccupiedSeats = async () => {
             try {
-                const response = await axios.get(`http://localhost:9090/api/seats/booked-seats/${screeningId}`);
+                const response = await axios.get(`https://backend-proyecto-tic1-grupo-6.onrender.com/api/seats/booked-seats/${screeningId}`);
                 setOccupiedSeats(response.data);
             } catch (error) {
                 console.error("Error al obtener los asientos ocupados:", error);
@@ -79,7 +79,7 @@ const SeatsForm = () => {
 
     const makeReservation = async () => {
         try {
-            const response = await axios.post(`http://localhost:9090/api/booking-screening/create`, formData);
+            const response = await axios.post(`https://backend-proyecto-tic1-grupo-6.onrender.com/api/booking-screening/create`, formData);
             navigate('/mypurchases');
         } catch (error) {
             console.error("Error making reservation:", error);

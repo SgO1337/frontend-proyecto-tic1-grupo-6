@@ -20,7 +20,7 @@ const Navbar = ({ view, setDropdownOpen, dropdownOpen }) => {
             const id = localStorage.getItem('userId');
             if (id) {
                 setUserId(id); // Set userId
-                axios.get(`http://localhost:9090/api/users/view/${id}`)
+                axios.get(`https://backend-proyecto-tic1-grupo-6.onrender.com/api/users/view/${id}`)
                     .then(response => {
                         setUserName(response.data.name);
                     })

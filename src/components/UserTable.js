@@ -7,13 +7,13 @@ const UserTable = () => {
 
   useEffect(() => {
     // Fetch all users from the backend
-    axios.get('http://localhost:9090/api/users')
+    axios.get('https://backend-proyecto-tic1-grupo-6.onrender.com/api/users')
         .then(response => setUsers(response.data))
         .catch(error => console.error('There was an error fetching the users!', error));
   }, []);
 
   const handleDelete = (id) => {
-    axios.delete(`http://localhost:9090/api/users/delete/${id}`)
+    axios.delete(`https://backend-proyecto-tic1-grupo-6.onrender.com/api/users/delete/${id}`)
         .then(() => {
           setUsers(users.filter(user => user.id !== id)); // Remove deleted user from the list
         })

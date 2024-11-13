@@ -12,7 +12,7 @@ const MoviesList = () => {
     useEffect(() => {
         const fetchMoviesAvailable = async () => {
             try {
-                const response = await axios.get('http://localhost:9090/api/movies/currently-available');
+                const response = await axios.get('https://backend-proyecto-tic1-grupo-6.onrender.com/api/movies/currently-available');
                 if (Array.isArray(response.data)) {
                     setMovies(response.data);
                 } else {

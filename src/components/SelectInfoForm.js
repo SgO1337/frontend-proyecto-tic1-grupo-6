@@ -36,7 +36,7 @@ const SelectInfoForm = () => {
         const fetchBranches = async () => {
             try {
                 if (id) {
-                    const response = await axios.get(`http://localhost:9090/api/movies/${id}/branches`);
+                    const response = await axios.get(`https://backend-proyecto-tic1-grupo-6.onrender.com/api/movies/${id}/branches`);
                     setBranches(response.data);
                     setFormData(prevFormData => ({
                         ...prevFormData,
@@ -66,7 +66,7 @@ const SelectInfoForm = () => {
     useEffect(() => {
         const fetchDates = async () => {
             if (formData.branchId) {
-                const response = await axios.get(`http://localhost:9090/api/movies/${id}/branches/${formData.branchId}/screening-dates`);
+                const response = await axios.get(`https://backend-proyecto-tic1-grupo-6.onrender.com/api/movies/${id}/branches/${formData.branchId}/screening-dates`);
                 setDates(response.data);
                 setFormData(prevFormData => ({
                     ...prevFormData,
@@ -84,7 +84,7 @@ const SelectInfoForm = () => {
     useEffect(() => {
         const fetchTimes = async () => {
             if (formData.date) {
-                const response = await axios.get(`http://localhost:9090/api/movies/${id}/branches/${formData.branchId}/dates/${formData.date}/screening-times`);
+                const response = await axios.get(`https://backend-proyecto-tic1-grupo-6.onrender.com/api/movies/${id}/branches/${formData.branchId}/dates/${formData.date}/screening-times`);
                 setTimes(response.data);
                 setFormData(prevFormData => ({ ...prevFormData, time: '' , roomId: '', setIsFormValid: false}));
             }
@@ -95,7 +95,7 @@ const SelectInfoForm = () => {
     useEffect(() => {
         const fetchRooms = async () => {
             if (formData.time) {
-                const response = await axios.get(`http://localhost:9090/api/movies/${id}/branches/${formData.branchId}/dates/${formData.date}/screening-times/${formData.time}/get-available-rooms`);
+                const response = await axios.get(`https://backend-proyecto-tic1-grupo-6.onrender.com/api/movies/${id}/branches/${formData.branchId}/dates/${formData.date}/screening-times/${formData.time}/get-available-rooms`);
                 setRooms(response.data);
                 setFormData(prevFormData => ({ ...prevFormData, roomId: '' , setIsFormValid: false}));
             }
@@ -107,7 +107,7 @@ const SelectInfoForm = () => {
         const fetchScreeningId = async () => {
             if (formData.roomId) {
                 try {
-                    const response = await axios.post('http://localhost:9090/api/movies/get-screening-from-cascade-dropdown', formData);
+                    const response = await axios.post('https://backend-proyecto-tic1-grupo-6.onrender.com/api/movies/get-screening-from-cascade-dropdown', formData);
                     setScreeningId(response.data.screeningId);
                     setIsFormValid(true);
                 } catch (error) {

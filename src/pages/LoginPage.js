@@ -28,7 +28,7 @@ const LoginPage = () => {
         console.log('Login form submitted');
         
         try {
-            const response = await axios.post('http://localhost:9090/auth/login', {
+            const response = await axios.post('https://backend-proyecto-tic1-grupo-6.onrender.com/auth/login', {
                 email: email,
                 password: password, // Send the hashed password
             }, { withCredentials: false }); // Include credentials for cookie handling
